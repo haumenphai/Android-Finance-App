@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bg_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:translationZ="100dp">
+
+    <ImageView
+        android:id="@+id/img_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:background="@color/black" />
+
+    <RelativeLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/bg_dialog">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:text="@string/add_money_in_out"
+            android:textColor="@color/color_black_2"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/line_1"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_below="@id/tv_title"
+            android:background="@color/color_black_2" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_above="@id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/line_1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/layout_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <EditText
+                        android:id="@+id/edit_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_edit1"
+                        android:hint="@string/name"
+                        android:inputType="textNoSuggestions"
+                        android:textSize="15sp" />
+
+                    <EditText
+                        android:id="@+id/edit_amonut"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/edit_name"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_edit1"
+                        android:hint="@string/amount1"
+                        android:inputType="numberDecimal"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_money_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/edit_amonut"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/money_type1"
+                        android:textColor="@color/color_black_2"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="25dp"
+                        android:layout_below="@id/edit_amonut"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/tv_money_type"
+                        android:background="@color/green_500" />
+
+                    <RadioGroup
+                        android:id="@+id/radio_gr_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_money_type">
+
+                        <RadioButton
+                            android:id="@+id/radio_type_money_in"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="Money In" />
+
+                        <RadioButton
+                            android:id="@+id/radio_type_money_out"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Money Out" />
+                    </RadioGroup>
+
+                    <TextView
+                        android:id="@+id/tv_type_lable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_below="@id/radio_gr_type"
+                        android:gravity="center"
+                        android:text="@string/type1"
+                        android:textColor="@color/color_black_2"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/edit_type_value"
+                        android:layout_width="250dp"
+                        android:layout_height="35dp"
+                        android:layout_below="@id/radio_gr_type"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/tv_type_lable"
+                        android:alpha="0.8"
+                        android:background="@drawable/bg_border"
+                        android:ellipsize="end"
+                        android:gravity="left|center"
+                        android:inputType="textNoSuggestions|text"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="40dp"
+                        android:text="[Test] buy something gg thoi afk"
+                        android:textColor="@color/color_black_2"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/radio_gr_type"
+                        android:layout_marginLeft="-35dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@id/edit_type_value"
+                        android:src="@drawable/ic_arrow_dow" />
+                </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_below="@id/layout_1"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/color_black_2" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/layout_1"
+                    android:layout_marginTop="5dp"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_time_lable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:gravity="center"
+                        android:text="@string/time1"
+                        android:textColor="@color/color_black_2"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_time_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/tv_time_lable"
+                        android:gravity="center"
+                        android:text="2022-12-20 20:20:20"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btn_choose_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/tv_time_value"
+                        android:background="@drawable/bg_button_1"
+                        android:text="Choose" />
+
+                    <EditText
+                        android:id="@+id/edit_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_time_value"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_edit1"
+                        android:gravity="left"
+                        android:hint="@string/description1"
+                        android:inputType="textNoSuggestions|textMultiLine"
+                        android:maxHeight="100dp"
+                        android:textSize="15sp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/bg_button_1"
+            android:text="@string/save" />
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@id/btn_save"
+            android:background="@drawable/bg_button_1"
+            android:text="@string/cancel" />
+    </RelativeLayout>
+
+</RelativeLayout>

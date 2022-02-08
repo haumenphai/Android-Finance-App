@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Finance App</string>
+    <string name="nav_home">Home</string>
+    <string name="setting">Setting</string>
+    <string name="amount_available">Amount Available:</string>
+    <string name="amount">Amonut</string>
+    <string name="add_money_in_out">Add Money In Out</string>
+    <string name="name">Name:</string>
+    <string name="amount1">Amount:</string>
+    <string name="description1">Description: </string>
+    <string name="money_type1">Money Type:</string>
+    <string name="type1">Type:</string>
+    <string name="time1">Time:</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="you_havennot_selected_one_yet">You haven\'t selected one yet!</string>
+    <string name="undo">Undo</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure_to_delete">Are you sure to delete</string>
+    <string name="records">records</string>
+    <string name="deleted">Deleted!</string>
 </resources>
