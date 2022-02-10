@@ -9,10 +9,9 @@
     android:gravity="center">
 
     <RelativeLayout
-        android:layout_marginTop="-5dp"
         android:id="@+id/action_select_all"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_weight="1"
         android:background="@drawable/rippler_white_blue">
 
@@ -22,7 +21,6 @@
             android:layout_height="30dp"
             android:src="@drawable/ic_all_done"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_centerHorizontal="true"
             app:tint="?attr/colorControlNormal" />
 
@@ -68,6 +66,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/action_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

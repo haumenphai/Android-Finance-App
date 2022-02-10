@@ -15,6 +15,7 @@ import promax.dohaumen.financeapp.adapters.MoneyInOutAdapter
 import promax.dohaumen.financeapp.databinding.FragmentHomeBinding
 import promax.dohaumen.financeapp.db.MoneyInOutDB
 import promax.dohaumen.financeapp.dialogs.DialogAddMoneyIO
+import promax.dohaumen.financeapp.dialogs.DialogViewMoneyIO
 
 class HomeFragment: Fragment() {
     private lateinit var b: FragmentHomeBinding
@@ -39,7 +40,7 @@ class HomeFragment: Fragment() {
 
     private fun setClickItemMoneyIO() {
         moneyInOutAdapter.onClickItem = { moneyIO ->
-            // todo: show item
+            DialogViewMoneyIO.show(b.root, moneyIO)
         }
         moneyInOutAdapter.onLongClickItem = { moneyIO1 ->
             // show layout action, hide navbottom, hide floating button add money io
@@ -93,10 +94,6 @@ class HomeFragment: Fragment() {
                     .setNegativeButton(getString(R.string.cancel)) { _1, _2 -> }.show()
             }
         }
-        b.layoutActionMoneyIo.actionEdit.setOnClickListener {
-            // todo: edit
-        }
-
     }
 
     private fun setClickAddMoneyIO() {

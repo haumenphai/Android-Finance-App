@@ -1,9 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDBFBF"
-    >
+    android:background="#F6F0D9">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_currecy"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:text="@string/currecy1"
+                android:textColor="@color/color_black_2"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_add_currecy"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@id/tv_currecy"
+                android:background="@drawable/bg_button_1"
+                android:text="@string/add_currency" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_currecy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_currecy"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_currecy" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_below="@id/recycler_view_currecy"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="25dp"
+                android:background="@color/color_black_2" />
+
+            <TextView
+                android:id="@+id/tv_money_type"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@id/line1"
+                android:padding="10dp"
+                android:text="@string/money_type1"
+                android:textColor="@color/color_black_2"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_add_money_type"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/line1"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@id/tv_money_type"
+                android:background="@drawable/bg_button_1"
+                android:text="@string/add_money_type" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_money_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_money_type"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_money_type" />
+
+
+        </RelativeLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

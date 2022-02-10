@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:translationZ="100dp">
+
+    <ImageView
+        android:id="@+id/img_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:background="@color/black" />
+
+    <RelativeLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_dialog">
+
+        <ImageView
+            android:id="@+id/img_edit"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:padding="6dp"
+            android:src="@drawable/ic_edit" />
+
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_edit">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Buy car"
+                    android:textColor="@color/color_black_2"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_amonut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_name"
+                    android:layout_marginLeft="5dp"
+                    android:text="-100.000 đ"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_below="@id/tv_amonut"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/color_black_2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_currency_lable"
+                    android:layout_below="@id/line1"
+                    android:text="@string/currecy1"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_black_2"
+                    android:layout_marginLeft="10dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_currecy_value"
+                    android:layout_toRightOf="@id/tv_currency_lable"
+                    android:layout_marginLeft="2dp"
+                    android:text="Cash"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_below="@id/line1"
+                    />
+
+
+                <TextView
+                    android:id="@+id/tv_type_lable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_currency_lable"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/type1"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_black_2" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_type_lable"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_money_type_in_dialog_create_money_io" />
+
+                <TextView
+                    android:id="@+id/tv_datetime_lable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recycler_view"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/date"
+                    android:textColor="@color/color_black_2"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_datetime_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recycler_view"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/tv_datetime_lable"
+                    android:text="2022-12-2 20:21"
+                    android:textColor="@color/color_black_2" />
+
+                <TextView
+                    android:id="@+id/tv_desc_lable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_datetime_lable"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/description1"
+                    android:textColor="@color/color_black_2"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_desc_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_desc_lable"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:maxHeight="200dp"
+                    tools:text="Chi tieu nay la rat can thiet\nNhung toi se khong mua no nua" />
+
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

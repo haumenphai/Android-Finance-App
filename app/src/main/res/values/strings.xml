@@ -19,4 +19,15 @@
     <string name="are_you_sure_to_delete">Are you sure to delete</string>
     <string name="records">records</string>
     <string name="deleted">Deleted!</string>
+    <string name="caclculate_into_the_total_amonut">Calculate into the total amount</string>
+    <string name="add_type">Add Type</string>
+    <string name="sales_money">Sales money</string>
+    <string name="invest">invest</string>
+    <string name="bank">Bank</string>
+    <string name="cash">Cash</string>
+    <string name="date">Date: </string>
+    <string name="currecy1">Currecy: </string>
+    <string name="add">Add</string>
+    <string name="add_money_type">Add money type</string>
+    <string name="add_currency">Add currency</string>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bg_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -79,6 +80,7 @@
 
                     <TextView
                         android:id="@+id/tv_money_type"
+                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_below="@id/edit_amonut"
@@ -89,13 +91,58 @@
                         android:textStyle="bold" />
 
                     <View
-                        android:layout_width="50dp"
+                        android:id="@+id/img_money_type"
+                        android:layout_width="40dp"
                         android:layout_height="25dp"
                         android:layout_below="@id/edit_amonut"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@id/tv_money_type"
                         android:background="@color/green_500" />
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tv_currecy_lable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_toRightOf="@id/img_money_type"
+                        android:layout_below="@id/edit_amonut"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/currecy1"
+                        android:textColor="@color/color_black_2"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="10dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bg_border"
+                        android:text="Cash ggggugg yyyy"
+                        android:gravity="center|left"
+                        android:paddingRight="20dp"
+                        android:paddingLeft="3dp"
+                        android:textColor="@color/color_black_2"
+                        android:layout_toRightOf="@id/tv_currecy_lable"
+                        android:layout_below="@id/edit_amonut"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/tv_currecy_value"
+                        android:maxLines="1"
+
+                        />
+                    <ImageView
+                        android:id="@+id/img_pick_currecy_value"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_arrow_dow"
+                        android:layout_toRightOf="@id/tv_currecy_value"
+                        android:layout_below="@id/edit_amonut"
+                        android:layout_marginLeft="-20dp"
+                        android:layout_marginTop="5dp"
+                        />
+
+
+
 
                     <RadioGroup
                         android:id="@+id/radio_gr_type"
@@ -128,34 +175,23 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/edit_type_value"
-                        android:layout_width="250dp"
-                        android:layout_height="35dp"
-                        android:layout_below="@id/radio_gr_type"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/tv_type_lable"
-                        android:alpha="0.8"
-                        android:background="@drawable/bg_border"
-                        android:ellipsize="end"
-                        android:gravity="left|center"
-                        android:inputType="textNoSuggestions|text"
-                        android:maxLines="1"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="40dp"
-                        android:text="[Test] buy something gg thoi afk"
-                        android:textColor="@color/color_black_2"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="30dp"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/recycler_view"
+                        android:layout_below="@id/tv_type_lable"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_money_type_in_dialog_create_money_io"
+                        />
+                    <Button
+                        android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_below="@id/radio_gr_type"
-                        android:layout_marginLeft="-35dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@id/edit_type_value"
-                        android:src="@drawable/ic_arrow_dow" />
+                        android:id="@+id/btn_add_type"
+                        android:text="@string/add_type"
+                        android:layout_below="@id/recycler_view"
+                        android:background="@drawable/bg_button_1" />
+
+
                 </RelativeLayout>
 
 
@@ -193,7 +229,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/tv_time_lable"
                         android:gravity="center"
-                        android:text="2022-12-20 20:20:20"
+                        android:text="2022-12-20 20:20"
                         android:textSize="16sp" />
 
                     <Button
@@ -217,6 +253,24 @@
                         android:inputType="textNoSuggestions|textMultiLine"
                         android:maxHeight="100dp"
                         android:textSize="15sp" />
+                    <CheckBox
+                        android:id="@+id/checkbox_compute_into_the_total_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/caclculate_into_the_total_amonut"
+                        android:layout_below="@id/edit_desc"
+                        android:layout_marginLeft="-7dp"
+                        android:checked="true"
+                        />
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_info2"
+                        android:layout_toRightOf="@id/checkbox_compute_into_the_total_money"
+                        android:layout_below="@id/edit_desc"
+                        android:layout_marginLeft="5dp"
+                        android:padding="5dp"
+                        />
                 </RelativeLayout>
 
             </RelativeLayout>

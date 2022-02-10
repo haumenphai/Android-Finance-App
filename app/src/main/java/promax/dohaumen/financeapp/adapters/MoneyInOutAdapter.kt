@@ -65,14 +65,14 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MoneyInoutHolder, position: Int) {
-        val currentMoneyInOut = list[position]
+        val currentMoneyIO = list[position]
 
         when {
-            currentMoneyInOut.isChecked -> {
+            currentMoneyIO.isChecked -> {
                 holder.b.bgItem.setBackgroundColor(ContextCompat.getColor(context, R.color.yellow_500))
                 holder.b.imgIschecked.visibility = View.VISIBLE
             }
-            currentMoneyInOut.type == MoneyInOutType.IN -> {
+            currentMoneyIO.type == MoneyInOutType.IN -> {
                 holder.b.bgItem.setBackgroundResource(R.drawable.ripple_item_money_in)
                 holder.b.imgIschecked.visibility = View.INVISIBLE
             }
@@ -83,9 +83,13 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
         }
 
         holder.b.tvSequence.text = "${position+1}"
-        holder.b.tvName.text = currentMoneyInOut.name
-        holder.b.tvAmount.text = "${context.getString(R.string.amount)}: ${currentMoneyInOut.amount.roundToInt()}"
-        holder.b.tvTime.text = currentMoneyInOut.datetime
+        holder.b.tvName.text = currentMoneyIO.name
+        if (currentMoneyIO.type == MoneyInOutType.IN) {
+            holder.b.tvAmount.text = "${context.getString(R.string.amount)}: +${currentMoneyIO.amount.roundToInt()}"
+        } else {
+            holder.b.tvAmount.text = "${context.getString(R.string.amount)}: -${currentMoneyIO.amount.roundToInt()}"
+        }
+        holder.b.tvTime.text = currentMoneyIO.datetime
     }
 
     override fun getItemCount(): Int = list.size
