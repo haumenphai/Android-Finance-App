@@ -1,6 +1,7 @@
 package promax.dohaumen.financeapp.models
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -107,8 +108,8 @@ class MoneyTypeAdapter: RecyclerView.Adapter<MoneyTypeAdapter.MoneyTypeHolder>()
     private var list: MutableList<MoneyType> = mutableListOf()
     private lateinit var context: Context
 
-    lateinit var onClickItem: (moneyType: MoneyType) -> Unit
-    lateinit var onLongClickItem: (moneyType: MoneyType) -> Unit
+    var onClickItem: (moneyType: MoneyType) -> Unit = {}
+    var onLongClickItem: (moneyType: MoneyType) -> Unit = {}
 
     var modeInDialog = false
     var hideIconDelete = false
@@ -119,24 +120,6 @@ class MoneyTypeAdapter: RecyclerView.Adapter<MoneyTypeAdapter.MoneyTypeHolder>()
     }
 
     fun getList() = list
-
-    fun setCheckAll() {
-        list.forEach { it.isChecked = true }
-        notifyDataSetChanged()
-    }
-
-    fun unCheckAll() {
-        list.forEach { it.isChecked = false }
-        notifyDataSetChanged()
-    }
-
-    fun getListChecked() = list.filter { it.isChecked }
-
-    fun setSwapCheckItem(moneyType: MoneyType) {
-        moneyType.isChecked = !moneyType.isChecked
-        notifyItemChanged(list.indexOf(moneyType))
-    }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoneyTypeHolder {
         this.context = parent.context
@@ -166,10 +149,22 @@ class MoneyTypeAdapter: RecyclerView.Adapter<MoneyTypeAdapter.MoneyTypeHolder>()
 
             b.tvSequence.text = "#${position+1}"
             b.tvName.text = moneyType.name
-            if (moneyType.isChecked) {
-                b.bgItem.setBackgroundColor(ContextCompat.getColor(context, R.color.red_500))
+
+            if (moneyType.type == MoneyInOutType.IN) {
+                b.bgItem.setBackgroundResource(R.drawable.ripple_item_money_in)
             } else {
-                b.bgItem.setBackgroundResource(R.drawable.rippler_yellow)
+                b.bgItem.setBackgroundResource(R.drawable.ripple_item_money_out)
+            }
+
+            b.imgDelete.setOnClickListener {
+                AlertDialog.Builder(context)
+                    .setTitle(R.string.delete)
+                    .setMessage("${context.getString(R.string.delete)} ${moneyType.name}?")
+                    .setPositiveButton(R.string.delete) { i1,i2 ->
+                        MoneyTypeDB.get.dao().delete(moneyType)
+                    }
+                    .setNegativeButton(R.string.cancel) {i1,i2 -> }
+                    .show()
             }
         }
 
@@ -189,8 +184,8 @@ class MoneyTypeAdapter: RecyclerView.Adapter<MoneyTypeAdapter.MoneyTypeHolder>()
                     notifyItemChanged(layoutPosition)
                 }
             } else {
-                b = ItemCurrecyBinding.bind(itemView)
-                val b1 = (b as ItemCurrecyBinding)
+                b = ItemMoneyTypeBinding.bind(itemView)
+                val b1 = (b as ItemMoneyTypeBinding)
 
                 b1.bgItem.setOnClickListener {
                     onClickItem(list[layoutPosition])

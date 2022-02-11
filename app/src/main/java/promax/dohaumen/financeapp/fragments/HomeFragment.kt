@@ -34,7 +34,7 @@ class HomeFragment: Fragment() {
 
         setClickItemMoneyIO()
         setClickActionMoneyIO()
-        setClickAddMoneyIO()
+        setClickBtnAddMoneyIO()
         return b.root
     }
 
@@ -96,7 +96,7 @@ class HomeFragment: Fragment() {
         }
     }
 
-    private fun setClickAddMoneyIO() {
+    private fun setClickBtnAddMoneyIO() {
         b.btnAddMoneyIo.setOnClickListener {
             DialogAddMoneyIO.setBgAlpha(0.6f).show(mainActivity.b.bgMainActivity)
         }

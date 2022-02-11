@@ -67,4 +67,3 @@ class MoneyInOut {
 
     enum class MoneyInOutType { IN, OUT }
 }
-

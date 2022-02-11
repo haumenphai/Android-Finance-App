@@ -1,6 +1,7 @@
 package promax.dohaumen.financeapp.models
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -46,13 +47,13 @@ class Currency {
 
 
 @Database(entities = [Currency::class], version = 1)
-abstract class CurrecyDB : RoomDatabase() {
+abstract class CurrencyDB : RoomDatabase() {
     abstract fun dao(): CurrencyDao
 
     companion object {
-        val get: CurrecyDB by lazy {
+        val get: CurrencyDB by lazy {
             synchronized(this) {
-                Room.databaseBuilder(MyApp.context, CurrecyDB::class.java, "currency_db")
+                Room.databaseBuilder(MyApp.context, CurrencyDB::class.java, "currency_db")
                     .allowMainThreadQueries()
                     .addCallback(roomCallback)
                     .fallbackToDestructiveMigration()
@@ -102,8 +103,8 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
     private var list: List<Currency> = mutableListOf()
     private lateinit var context: Context
 
-    lateinit var onClickItem: (currency: Currency) -> Unit
-    lateinit var onLongClickItem: (currency: Currency) -> Unit
+    var onClickItem: (currency: Currency) -> Unit = {}
+    var onLongClickItem: (currency: Currency) -> Unit = {}
 
     fun setList(list: List<Currency>) {
         this.list = list
@@ -111,23 +112,6 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
     }
 
     fun getList() = list
-
-    fun setCheckAll() {
-        list.forEach { it.isChecked = true }
-        notifyDataSetChanged()
-    }
-
-    fun unCheckAll() {
-        list.forEach { it.isChecked = false }
-        notifyDataSetChanged()
-    }
-
-    fun getListChecked() = list.filter { it.isChecked }
-
-    fun setSwapCheckItem(currency: Currency) {
-        currency.isChecked = !currency.isChecked
-        notifyItemChanged(list.indexOf(currency))
-    }
 
     inner class CurrencyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val b = ItemCurrecyBinding.bind(itemView)
@@ -159,10 +143,15 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
             holder.b.imgThumbnail.setImageResource(currency.imgRes)
         }
 
-        if (currency.isChecked) {
-            holder.b.bgItem.setBackgroundColor(ContextCompat.getColor(context, R.color.red_500))
-        } else {
-            holder.b.bgItem.setBackgroundResource(R.drawable.rippler_yellow)
+        holder.b.imgDelete.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setTitle(R.string.delete)
+                .setMessage("${context.getString(R.string.delete)} ${currency.name}?")
+                .setPositiveButton(R.string.delete) { i1,i2 ->
+                    CurrencyDB.get.dao().delete(currency)
+                }
+                .setNegativeButton(R.string.cancel) {i1,i2 -> }
+                .show()
         }
 
     }

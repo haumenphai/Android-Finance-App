@@ -30,4 +30,19 @@
     <string name="add">Add</string>
     <string name="add_money_type">Add money type</string>
     <string name="add_currency">Add currency</string>
+    <string name="message_name_is_empty">Please enter a name!</string>
+    <string name="edit">Edit</string>
+    <string name="money_in">Money In</string>
+    <string name="money_out">Money Out</string>
+    <string name="add_money_type_lable">Add Money Type</string>
+    <string name="total_money">Total Money:</string>
+    <string name="total_money_in_banks1">Total money in banks:</string>
+    <string name="total_cash1">Total cash:</string>
+    <string name="set_total_money_in_banks">1. Set total money in banks</string>
+    <string name="set_total_cash">2. Set total cash</string>
+    <string name="history1">5. History</string>
+    <string name="money_unit1">Money unit:</string>
+    <string name="money_format1">Money format:</string>
+    <string name="_3_set_money_unit">3. Set money unit</string>
+    <string name="_4_set_money_format">4. Set money format</string>
 </resources>

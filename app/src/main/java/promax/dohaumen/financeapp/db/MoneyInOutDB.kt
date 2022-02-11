@@ -33,7 +33,7 @@ abstract class MoneyInOutDB : RoomDatabase() {
             }
         }
 
-        val roomCallback = object : RoomDatabase.Callback() {
+        private val roomCallback = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 insertDemoData()

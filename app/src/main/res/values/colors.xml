@@ -12,8 +12,12 @@
     <color name="color_edit">#CAB298</color>
     <color name="color_edit_2">#EFDAC4</color>
     <color name="red_500">#EFA3A8</color>
+    <color name="red_700">#FFD5D8</color>
     <color name="green_500">#99FBB1</color>
+    <color name="green_700">#C2FFD1</color>
     <color name="yellow_500">#FBEB99</color>
+
+
 
     <color name="color_black_2">#292929</color>
     <color name="test">#515151</color>
