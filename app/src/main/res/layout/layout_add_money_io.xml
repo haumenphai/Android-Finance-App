@@ -42,9 +42,9 @@
 
         <ScrollView
             android:id="@+id/scrollView"
-            android:layout_above="@id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@id/btn_save"
             android:layout_below="@id/line_1">
 
             <RelativeLayout
@@ -80,11 +80,11 @@
 
                     <TextView
                         android:id="@+id/tv_money_type"
-                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_below="@id/edit_amonut"
                         android:layout_marginTop="5dp"
+                        android:gravity="center"
                         android:text="@string/money_type1"
                         android:textColor="@color/color_black_2"
                         android:textSize="16sp"
@@ -101,47 +101,46 @@
                         android:background="@color/green_500" />
 
                     <TextView
-                        android:gravity="center"
                         android:id="@+id/tv_currecy_lable"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_toRightOf="@id/img_money_type"
                         android:layout_below="@id/edit_amonut"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/img_money_type"
+                        android:gravity="center"
                         android:text="@string/currecy1"
                         android:textColor="@color/color_black_2"
                         android:textSize="16sp"
-                        android:layout_marginLeft="10dp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:background="@drawable/bg_border"
-                        android:text="Cash ggggugg yyyy"
-                        android:gravity="center|left"
-                        android:paddingRight="20dp"
-                        android:paddingLeft="3dp"
-                        android:textColor="@color/color_black_2"
-                        android:layout_toRightOf="@id/tv_currecy_lable"
-                        android:layout_below="@id/edit_amonut"
-                        android:layout_marginTop="5dp"
                         android:id="@+id/tv_currecy_value"
+                        android:layout_width="400dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@id/edit_amonut"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@id/tv_currecy_lable"
+                        android:background="@drawable/bg_border"
+                        android:gravity="center|left"
                         android:maxLines="1"
+                        android:paddingLeft="3dp"
+                        android:paddingRight="20dp"
+                        android:text="Cash"
+                        android:textColor="@color/color_black_2"
 
                         />
+
                     <ImageView
                         android:id="@+id/img_pick_currecy_value"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_arrow_dow"
-                        android:layout_toRightOf="@id/tv_currecy_value"
                         android:layout_below="@id/edit_amonut"
                         android:layout_marginLeft="-20dp"
                         android:layout_marginTop="5dp"
-                        />
-
-
+                        android:layout_toRightOf="@id/tv_currecy_value"
+                        android:src="@drawable/ic_arrow_dow" />
 
 
                     <RadioGroup
@@ -176,20 +175,21 @@
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/recycler_view"
                         android:layout_below="@id/tv_type_lable"
                         tools:itemCount="2"
-                        tools:listitem="@layout/item_money_type_in_dialog_create_money_io"
-                        />
+                        tools:listitem="@layout/item_money_type_in_dialog_create_money_io" />
+
                     <Button
+                        android:id="@+id/btn_add_type"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:id="@+id/btn_add_type"
-                        android:text="@string/add_type"
                         android:layout_below="@id/recycler_view"
-                        android:background="@drawable/bg_button_1" />
+                        android:background="@drawable/bg_button_1"
+                        android:text="@string/add_type"
+                        android:textAllCaps="false" />
 
 
                 </RelativeLayout>
@@ -239,7 +239,8 @@
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/tv_time_value"
                         android:background="@drawable/bg_button_1"
-                        android:text="Choose" />
+                        android:text="Choose"
+                        android:textAllCaps="false" />
 
                     <EditText
                         android:id="@+id/edit_desc"
@@ -253,24 +254,24 @@
                         android:inputType="textNoSuggestions|textMultiLine"
                         android:maxHeight="100dp"
                         android:textSize="15sp" />
+
                     <CheckBox
                         android:id="@+id/checkbox_compute_into_the_total_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/caclculate_into_the_total_amonut"
                         android:layout_below="@id/edit_desc"
                         android:layout_marginLeft="-7dp"
                         android:checked="true"
-                        />
+                        android:text="@string/caclculate_into_the_total_amonut" />
+
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@drawable/ic_info2"
-                        android:layout_toRightOf="@id/checkbox_compute_into_the_total_money"
                         android:layout_below="@id/edit_desc"
                         android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/checkbox_compute_into_the_total_money"
                         android:padding="5dp"
-                        />
+                        android:src="@drawable/ic_info2" />
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -284,7 +285,9 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="5dp"
             android:background="@drawable/bg_button_1"
-            android:text="@string/save" />
+            android:text="@string/save"
+            android:textAllCaps="false" />
+
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="100dp"
@@ -293,7 +296,8 @@
             android:layout_marginBottom="5dp"
             android:layout_toLeftOf="@id/btn_save"
             android:background="@drawable/bg_button_1"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:textAllCaps="false" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -24,11 +24,7 @@ import promax.dohaumen.financeapp.models.MoneyInOut.MoneyInOutType
 
 @Entity
 // example: Subsistence (sinh hoạt phí), invest (đầu tư), sales money
-class MoneyType {
-
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-    var name: String = ""
+class MoneyType: BaseModel {
     var type: MoneyInOutType = MoneyInOutType.IN
 
     @Ignore
@@ -139,11 +135,6 @@ class MoneyTypeAdapter: RecyclerView.Adapter<MoneyTypeAdapter.MoneyTypeHolder>()
         if (modeInDialog) {
             val b = holder.b as ItemMoneyTypeInDialogCreateMoneyIoBinding
             b.tvName.text = moneyType.name
-
-            if (hideIconDelete) {
-                b.imgDelete.visibility = View.GONE
-            }
-
         } else {
             val b = holder.b as ItemMoneyTypeBinding
 
@@ -154,6 +145,10 @@ class MoneyTypeAdapter: RecyclerView.Adapter<MoneyTypeAdapter.MoneyTypeHolder>()
                 b.bgItem.setBackgroundResource(R.drawable.ripple_item_money_in)
             } else {
                 b.bgItem.setBackgroundResource(R.drawable.ripple_item_money_out)
+            }
+
+            if (hideIconDelete) {
+                b.imgDelete.visibility = View.GONE
             }
 
             b.imgDelete.setOnClickListener {

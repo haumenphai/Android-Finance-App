@@ -7,11 +7,8 @@ import com.google.gson.Gson
 
 
 @Entity
-class MoneyInOut {
+class MoneyInOut: BaseModel {
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-    var name: String = ""
     var type: MoneyInOutType = MoneyInOutType.IN
     var amount: Double = 0.0
     var currency: String = "cash" // cash, bank

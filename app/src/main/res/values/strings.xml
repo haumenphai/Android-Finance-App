@@ -45,4 +45,12 @@
     <string name="money_format1">Money format:</string>
     <string name="_3_set_money_unit">3. Set money unit</string>
     <string name="_4_set_money_format">4. Set money format</string>
+    <string name="set_total_money_in_banks_title">Set total money in banks</string>
+    <string name="set_total_cash_title">Set total cash</string>
+    <string name="set_money_unit_title">Set money unit</string>
+    <string name="set_money_format">Set money format</string>
+    <string name="total_money_in_bank_history1">Total money in bank history:</string>
+    <string name="total_carsh1">Total carsh:</string>
+    <string name="pick_currency">Pick Currency</string>
+    <string name="pick_type">Pick Type</string>
 </resources>

@@ -1,7 +1,9 @@
 package promax.dohaumen.financeapp.fragments
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +12,16 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import promax.dohaumen.financeapp.MainActivity
 import promax.dohaumen.financeapp.R
-import promax.dohaumen.financeapp.databinding.DialogAddCurrencyBinding
 import promax.dohaumen.financeapp.databinding.DialogMoneyTypeAddAndEditBinding
 import promax.dohaumen.financeapp.databinding.FragmentSettingBinding
+import promax.dohaumen.financeapp.datas.AppData
+import promax.dohaumen.financeapp.dialogs.DialogInputOneValue
+import promax.dohaumen.financeapp.dialogs.DialogShowMoneyHistory
+import promax.dohaumen.financeapp.helper.formatNumber
+import promax.dohaumen.financeapp.helper.*
 import promax.dohaumen.financeapp.models.*
 
+@SuppressLint("SetTextI18n")
 class SettingFragment: Fragment() {
     private lateinit var b: FragmentSettingBinding
     private val mainActivity: MainActivity by lazy { activity as MainActivity }
@@ -31,45 +38,110 @@ class SettingFragment: Fragment() {
         return b.root
     }
 
-    private fun setupViewTotalMoney() {
-        b.btnSetTotalMoneyInBanks.setOnClickListener {
+    private fun loadDataMoneyToTextView() {
+        b.tvTotalMoneyValue.text = AppData.getTotalMoneyFormated()
+        b.tvTotalMoneyInBanksValue.text = AppData.getTotalMoneyInBanksFormated()
+        b.tvTotalCashValue.text = AppData.getTotalCashFormated()
+        b.tvMoneyUnitValue.text = AppData.getMoneyUnit()
+        b.tvMoneyFormatValue.text = AppData.getMoneyFormat()
+    }
 
+    private fun setupViewTotalMoney() {
+        loadDataMoneyToTextView()
+
+        b.btnSetTotalMoneyInBanks.setOnClickListener {
+            DialogInputOneValue(mainActivity)
+                .setTitle(getStr(R.string.set_total_money_in_banks_title))
+                .setTextBtnSave(getStr(R.string.save))
+                .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER)
+                .setMaxLengthEditName(18)
+                .onchangeEditName { text, dialog ->
+                    dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat()!!)}  ${AppData.getMoneyUnit()}")
+                }
+                .setBtnSaveClick { text, dialog ->
+                    if (text.trim() != "") {
+                        AppData.setTotalMoneyInBanks(text.toLong())
+                        AppData.setTotalMoney(AppData.getTotalMoneyInBanks() + AppData.getTotalCash())
+                        TotalMoneyInBanksHistoryDB.get.dao().insert(TotalMoneyInBanksHistory(AppData.getTotalMoneyInBanksFormated()))
+                        dialog.dialog.cancel()
+                    }
+                    loadDataMoneyToTextView()
+                }.show()
         }
         b.btnSetTotalCash.setOnClickListener {
-
+            DialogInputOneValue(mainActivity)
+                .setTitle(getStr(R.string.set_total_cash_title))
+                .setTextBtnSave(getStr(R.string.save))
+                .setMaxLengthEditName(18)
+                .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER)
+                .onchangeEditName { text, dialog ->
+                    dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat()!!)}  ${AppData.getMoneyUnit()}")
+                }
+                .setBtnSaveClick { text, dialog ->
+                    if (text.trim() != "") {
+                        AppData.setTotalCash(text.toLong())
+                        AppData.setTotalMoney(AppData.getTotalMoneyInBanks() + AppData.getTotalCash())
+                        TotalCashHistoryDB.get.dao().insert(TotalCashHistory(AppData.getTotalCashFormated()))
+                        dialog.dialog.cancel()
+                    }
+                    loadDataMoneyToTextView()
+                }.show()
         }
         b.btnSetMoneyUnit.setOnClickListener {
-
+            DialogInputOneValue(mainActivity)
+                .setTitle(getStr(R.string.set_money_unit_title))
+                .setTextBtnSave(getStr(R.string.save))
+                .setMaxLengthEditName(10)
+                .setInputTypeEditName(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
+                .setTextEditName(AppData.getMoneyUnit()!!)
+                .setSelectionEditName(0, AppData.getMoneyUnit()!!.length)
+                .setBtnSaveClick { text, dialog ->
+                    if (text.trim() != "") {
+                        AppData.setMoneyUnit(text)
+                        dialog.dialog.cancel()
+                    }
+                    loadDataMoneyToTextView()
+                }
+                .show()
         }
         b.btnSetMoneyFormat.setOnClickListener {
-
+            DialogInputOneValue(mainActivity)
+                .setTitle(getStr(R.string.set_money_format))
+                .setTextBtnSave(getStr(R.string.save))
+                .setMaxLengthEditName(10)
+                .setInputTypeEditName(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
+                .setTextEditName(AppData.getMoneyFormat()!!)
+                .setSelectionEditName(0, AppData.getMoneyFormat()!!.length)
+                .setBtnSaveClick { text, dialog ->
+                    if (text != "") {
+                        AppData.setMoneyFormat(text)
+                        dialog.dialog.cancel()
+                    }
+                    loadDataMoneyToTextView()
+                }
+                .show()
         }
         b.btnViewHistory.setOnClickListener {
-
+            DialogShowMoneyHistory().show(b.root)
         }
     }
 
     private fun setupViewCurrency() {
-        val view = LayoutInflater.from(context).inflate(R.layout.dialog_add_currency, null)
-        val b1 = DialogAddCurrencyBinding.bind(view)
-        val dialog = Dialog(mainActivity)
-        dialog.setContentView(view)
+        val dialog = DialogInputOneValue(mainActivity)
 
         b.btnAddCurrecy.setOnClickListener {
-            b1.editName.setText("")
-            b1.tvTitle.text = mainActivity.getString(R.string.add_currency)
-            b1.btnSave.text = mainActivity.getString(R.string.add)
-
-            b1.btnSave.setOnClickListener {
-                val name = b1.editName.text.toString().trim()
-                if (name == "") {
-                    Toast.makeText(context, R.string.message_name_is_empty, Toast.LENGTH_SHORT).show()
-                } else {
-                    CurrencyDB.get.dao().insert(Currency(name))
-                    dialog.cancel()
-                }
-            }
-            dialog.show()
+            dialog.setTextEditName("")
+                .setTitle(mainActivity.getString(R.string.add_currency))
+                .setTextBtnSave(mainActivity.getString(R.string.add))
+                .setBtnSaveClick { text, dialog ->
+                    val name = text.trim()
+                    if (name == "") {
+                        Toast.makeText(context, R.string.message_name_is_empty, Toast.LENGTH_SHORT).show()
+                    } else {
+                        CurrencyDB.get.dao().insert(Currency(name))
+                        dialog.cancel()
+                    }
+                }.show()
         }
 
 
@@ -81,25 +153,23 @@ class SettingFragment: Fragment() {
 
         // edit
         currencyAdapter.onClickItem = { currency ->
-            b1.tvTitle.text = mainActivity.getString(R.string.edit)
-            b1.btnSave.text = mainActivity.getString(R.string.save)
-            b1.editName.setText(currency.name)
-            b1.editName.setSelection(currency.name.length)
+            dialog.setTitle(mainActivity.getString(R.string.edit))
+                .setTextBtnSave(mainActivity.getString(R.string.save))
+                .setTextEditName(currency.name)
+                .setSelectionEditName(0, currency.name.length)
+                .setBtnSaveClick { text, dialog ->
+                    val name = text.trim()
+                    if (name == "") {
+                        Toast.makeText(context, R.string.message_name_is_empty, Toast.LENGTH_SHORT).show()
+                    } else {
+                        currency.name = name
+                        CurrencyDB.get.dao().update(currency)
+                        dialog.cancel()
+                    }
 
-            b1.btnSave.setOnClickListener {
-                val name = b1.editName.text.toString().trim()
-                if (name == "") {
-                    Toast.makeText(context, R.string.message_name_is_empty, Toast.LENGTH_SHORT).show()
-                } else {
-                    currency.name = name
-                    CurrencyDB.get.dao().update(currency)
-                    dialog.cancel()
-                }
-            }
-            dialog.show()
+                }.show()
+
         }
-
-
 
     }
 

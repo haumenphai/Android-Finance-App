@@ -26,7 +26,11 @@
 
             <TextView
                 android:id="@+id/tv_total_money_value"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_toRightOf="@id/tv_total_money_label"
+                android:paddingLeft="10dp"
+                android:maxLines="1"
+                android:gravity="end"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
@@ -47,7 +51,11 @@
 
             <TextView
                 android:id="@+id/tv_total_money_in_banks_value"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="end"
+                android:paddingLeft="10dp"
+                android:layout_toRightOf="@id/tv_total_money_in_banks_lable"
+                android:maxLines="1"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_total_money_label"
                 android:layout_alignParentRight="true"
@@ -69,7 +77,11 @@
 
             <TextView
                 android:id="@+id/tv_total_cash_value"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_toRightOf="@id/tv_total_cash_lable"
+                android:paddingLeft="10dp"
+                android:gravity="end"
+                android:maxLines="1"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_total_money_in_banks_value"
                 android:layout_alignParentRight="true"
@@ -91,6 +103,7 @@
             <TextView
                 android:id="@+id/tv_money_unit_value"
                 android:layout_width="50dp"
+                android:maxWidth="200dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_total_cash_value"
                 android:layout_alignParentRight="true"
@@ -115,6 +128,7 @@
             <TextView
                 android:id="@+id/tv_money_format_value"
                 android:layout_width="wrap_content"
+                android:maxWidth="200dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_money_unit_value"
                 android:layout_alignParentRight="true"

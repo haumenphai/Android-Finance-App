@@ -105,6 +105,7 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
 
     var onClickItem: (currency: Currency) -> Unit = {}
     var onLongClickItem: (currency: Currency) -> Unit = {}
+    var hideImgDelete = false
 
     fun setList(list: List<Currency>) {
         this.list = list
@@ -113,9 +114,14 @@ class CurrencyAdapter : RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
 
     fun getList() = list
 
+
     inner class CurrencyHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val b = ItemCurrecyBinding.bind(itemView)
         init {
+            if (hideImgDelete) {
+                b.imgDelete.visibility = View.GONE
+            }
+
             b.bgItem.setOnClickListener {
                 onClickItem(list[layoutPosition])
             }
