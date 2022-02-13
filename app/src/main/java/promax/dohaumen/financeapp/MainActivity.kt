@@ -10,21 +10,19 @@ import promax.dohaumen.financeapp.fragments.SettingFragment
 
 class MainActivity : AppCompatActivity() {
     lateinit var b: ActivityMainBinding
+    lateinit var homeFragment: HomeFragment
+    lateinit var settingFragment: SettingFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
         controlFragmentWithSaveState()
-
-        // todo: remove test
-        MoneyInOutDB.get.dao().deleteAll()
-        MoneyInOutDB.insertDemoData()
     }
 
     private fun controlFragmentWithSaveState() {
-        val homeFragment = HomeFragment()
-        val settingFragment = SettingFragment()
+        homeFragment = HomeFragment()
+        settingFragment = SettingFragment()
 
         var activeFragment: Fragment = homeFragment
         supportFragmentManager.beginTransaction().apply {

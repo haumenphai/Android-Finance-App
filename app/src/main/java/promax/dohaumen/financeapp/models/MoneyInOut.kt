@@ -10,7 +10,7 @@ import com.google.gson.Gson
 class MoneyInOut: BaseModel {
 
     var type: MoneyInOutType = MoneyInOutType.IN
-    var amount: Double = 0.0
+    var amount: Long = 0
     var currency: String = "cash" // cash, bank
     var desc: String = ""
 
@@ -23,17 +23,13 @@ class MoneyInOut: BaseModel {
     var isChecked: Boolean = false
     var isDeleted: Boolean = false
 
-    constructor() {
-        if (typeOfSpendingJson != "") {
-            this.listTypeOfSpending = Gson().fromJson(this.typeOfSpendingJson, Array<MoneyType>::class.java).asList()
-        }
-    }
+    constructor()
 
     @Ignore
     constructor(
         name: String,
         type: MoneyInOutType,
-        amount: Double,
+        amount: Long,
         currency: String,
         desc: String = "",
         typeOfSpendingJson: String = "",
@@ -46,19 +42,26 @@ class MoneyInOut: BaseModel {
         this.desc = desc
         this.typeOfSpendingJson = typeOfSpendingJson
         this.datetime = datetime
+        if (typeOfSpendingJson != "") {
+            this.listTypeOfSpending = Gson().fromJson(this.typeOfSpendingJson, Array<MoneyType>::class.java).asList()
+        }
     }
 
-    @JvmName("setListTypeOfSpending1")
-    fun setListTypeOfSpending(list: List<MoneyType>) {
-        val gson = Gson()
-        this.typeOfSpendingJson = gson.toJson(list)
-        this.listTypeOfSpending = list
+    fun getListMoneyType(): List<MoneyType> {
+        var list = listOf<MoneyType>()
+        if (this.listTypeOfSpending.isNotEmpty()) {
+            return this.listTypeOfSpending
+        }
+        if (this.typeOfSpendingJson != "") {
+           list = Gson().fromJson(this.typeOfSpendingJson, Array<MoneyType>::class.java).asList()
+        }
+        return list
     }
 
     companion object {
         fun getDemoMoneyInOut() = listOf(
-            MoneyInOut("Buy car", MoneyInOutType.OUT, 10000.0, "Bank", datetime = "2022-12-12 20:20"),
-            MoneyInOut("Sell car", MoneyInOutType.IN, 50000.0, "Cash", datetime = "2022-01-12 17:01")
+            MoneyInOut("Buy car", MoneyInOutType.OUT, 10000, "Bank", datetime = "2022-12-12 20:20"),
+            MoneyInOut("Sell car", MoneyInOutType.IN, 50000, "Cash", datetime = "2022-01-12 17:01")
         )
     }
 

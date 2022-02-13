@@ -53,4 +53,7 @@
     <string name="total_carsh1">Total carsh:</string>
     <string name="pick_currency">Pick Currency</string>
     <string name="pick_type">Pick Type</string>
+    <string name="total_money_out">Total money out:</string>
+    <string name="total_money_in">Total money in:</string>
+    <string name="please_enter_name_and_amonut">Please enter the name and amount!</string>
 </resources>

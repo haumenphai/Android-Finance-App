@@ -21,6 +21,7 @@ class DialogShowMoneyHistory {
         b.layoutContent.startAnimation(anim)
         b.imgBg.startAnimation(animBg)
         b.imgBg.setOnClickListener { rootLayout.removeView(view) }
+        b.layoutContent.setOnClickListener {  }
 
         val adapter1 = TotalMoneyInBanksHistoryAdpater()
         adapter1.setList(TotalMoneyInBanksHistoryDB.get.dao().getList())

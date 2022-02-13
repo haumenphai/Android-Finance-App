@@ -38,6 +38,9 @@ android {
 }
 
 dependencies {
+    //Time picker with second
+    implementation 'com.kovachcode:timePickerWithSeconds:1.0.1'
+
     implementation 'com.google.code.gson:gson:2.8.9'
     // coroutines android
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1")

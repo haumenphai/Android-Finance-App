@@ -39,11 +39,23 @@ class SettingFragment: Fragment() {
     }
 
     private fun loadDataMoneyToTextView() {
-        b.tvTotalMoneyValue.text = AppData.getTotalMoneyFormated()
-        b.tvTotalMoneyInBanksValue.text = AppData.getTotalMoneyInBanksFormated()
-        b.tvTotalCashValue.text = AppData.getTotalCashFormated()
-        b.tvMoneyUnitValue.text = AppData.getMoneyUnit()
-        b.tvMoneyFormatValue.text = AppData.getMoneyFormat()
+        // tính case money thay đổi ở homefragment nhưng ở đây ko cập nhật
+
+        AppData.getTotalMoneyFormatedLiveData().observeForever {
+            b.tvTotalMoneyValue.text = it
+        }
+        AppData.getTotalMoneyInBanksFormatedLiveData().observeForever {
+            b.tvTotalMoneyInBanksValue.text = it
+        }
+        AppData.getTotalMoneyFormatedLiveData().observeForever {
+            b.tvTotalCashValue.text = it
+        }
+        AppData.getMoneyUnitLiveData().observeForever {
+            b.tvMoneyUnitValue.text = it
+        }
+        AppData.getMoneyFormatLiveData().observeForever {
+            b.tvMoneyFormatValue.text = it
+        }
     }
 
     private fun setupViewTotalMoney() {
@@ -56,16 +68,16 @@ class SettingFragment: Fragment() {
                 .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER)
                 .setMaxLengthEditName(18)
                 .onchangeEditName { text, dialog ->
-                    dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat()!!)}  ${AppData.getMoneyUnit()}")
+                    dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}")
                 }
                 .setBtnSaveClick { text, dialog ->
                     if (text.trim() != "") {
                         AppData.setTotalMoneyInBanks(text.toLong())
-                        AppData.setTotalMoney(AppData.getTotalMoneyInBanks() + AppData.getTotalCash())
-                        TotalMoneyInBanksHistoryDB.get.dao().insert(TotalMoneyInBanksHistory(AppData.getTotalMoneyInBanksFormated()))
+                        TotalMoneyInBanksHistoryDB.get.dao()
+                            .insert(TotalMoneyInBanksHistory(AppData.getTotalMoneyInBanksFormated()))
                         dialog.dialog.cancel()
                     }
-                    loadDataMoneyToTextView()
+//                    loadDataMoneyToTextView()
                 }.show()
         }
         b.btnSetTotalCash.setOnClickListener {
@@ -75,16 +87,15 @@ class SettingFragment: Fragment() {
                 .setMaxLengthEditName(18)
                 .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER)
                 .onchangeEditName { text, dialog ->
-                    dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat()!!)}  ${AppData.getMoneyUnit()}")
+                    dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}")
                 }
                 .setBtnSaveClick { text, dialog ->
                     if (text.trim() != "") {
                         AppData.setTotalCash(text.toLong())
-                        AppData.setTotalMoney(AppData.getTotalMoneyInBanks() + AppData.getTotalCash())
                         TotalCashHistoryDB.get.dao().insert(TotalCashHistory(AppData.getTotalCashFormated()))
                         dialog.dialog.cancel()
                     }
-                    loadDataMoneyToTextView()
+//                    loadDataMoneyToTextView()
                 }.show()
         }
         b.btnSetMoneyUnit.setOnClickListener {
@@ -93,14 +104,14 @@ class SettingFragment: Fragment() {
                 .setTextBtnSave(getStr(R.string.save))
                 .setMaxLengthEditName(10)
                 .setInputTypeEditName(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
-                .setTextEditName(AppData.getMoneyUnit()!!)
-                .setSelectionEditName(0, AppData.getMoneyUnit()!!.length)
+                .setTextEditName(AppData.getMoneyUnit())
+                .setSelectionEditName(0, AppData.getMoneyUnit().length)
                 .setBtnSaveClick { text, dialog ->
                     if (text.trim() != "") {
                         AppData.setMoneyUnit(text)
                         dialog.dialog.cancel()
                     }
-                    loadDataMoneyToTextView()
+//                    loadDataMoneyToTextView()
                 }
                 .show()
         }
@@ -110,14 +121,14 @@ class SettingFragment: Fragment() {
                 .setTextBtnSave(getStr(R.string.save))
                 .setMaxLengthEditName(10)
                 .setInputTypeEditName(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
-                .setTextEditName(AppData.getMoneyFormat()!!)
-                .setSelectionEditName(0, AppData.getMoneyFormat()!!.length)
+                .setTextEditName(AppData.getMoneyFormat())
+                .setSelectionEditName(0, AppData.getMoneyFormat().length)
                 .setBtnSaveClick { text, dialog ->
                     if (text != "") {
                         AppData.setMoneyFormat(text)
                         dialog.dialog.cancel()
                     }
-                    loadDataMoneyToTextView()
+//                    loadDataMoneyToTextView()
                 }
                 .show()
         }

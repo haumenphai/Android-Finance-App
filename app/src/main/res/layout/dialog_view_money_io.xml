@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_currecy_value"
                     android:layout_toRightOf="@id/tv_currency_lable"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="5dp"
                     android:text="Cash"
                     android:maxLines="1"
                     android:ellipsize="end"

@@ -17,25 +17,74 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/amount_available"
+            android:text="@string/total_money"
             android:textColor="@color/color_black_2"
             android:textSize="18sp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_total_money_in_banks_lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_amount_available_lable"
+            android:text="@string/total_money_in_banks1"
+            android:textColor="@color/color_black_2"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_total_money_in_banks_value"
+            android:layout_width="match_parent"
+            android:gravity="end"
+            android:paddingLeft="10dp"
+            android:layout_toRightOf="@id/tv_total_money_in_banks_lable"
+            android:maxLines="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_amount_available_value"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:text="50.000.000  vnd"
+            android:textColor="@color/color_black_2"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/tv_total_cash_lable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_total_money_in_banks_lable"
+            android:text="@string/total_cash1"
+            android:textColor="@color/color_black_2"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_total_cash_value"
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@id/tv_total_cash_lable"
+            android:paddingLeft="10dp"
+            android:gravity="end"
+            android:maxLines="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_total_money_in_banks_value"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:text="50.000.000  vnd"
+            android:textColor="@color/color_black_2"
+            android:textSize="14sp" />
 
         <View
             android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
-            android:layout_below="@id/tv_amount_available_value"
+            android:layout_below="@id/tv_total_cash_value"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:background="@color/color_black_2" />
 
         <TextView
             android:id="@+id/tv_amount_available_value"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@id/tv_amount_available_lable"
+            android:gravity="end"
             android:textColor="@color/color_black_2"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -56,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_filter"
-            android:text="Total money out: "
+            android:text="@string/total_money_out"
             android:textColor="@color/color_black_2"
             android:textSize="14sp" />
 
@@ -66,26 +115,28 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_total_money_out_lable"
             android:gravity="center"
-            android:text="Total money in: "
+            android:text="@string/total_money_in"
             android:textColor="@color/color_black_2"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_total_money_out_value"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_filter"
-            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/tv_total_money_out_lable"
             android:textColor="@color/color_black_2"
+            android:gravity="end"
             android:textSize="14sp"
             tools:text="50.000.000 đ" />
 
         <TextView
             android:id="@+id/tv_total_money_in_value"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_total_money_out_value"
-            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/tv_total_money_out_lable"
+            android:gravity="end"
             android:textColor="@color/color_black_2"
             android:textSize="14sp"
             tools:text="70.000.000 đ" />
@@ -116,10 +167,10 @@
         android:src="@drawable/ic_add"
         android:layout_margin="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         app:fabCustomSize="45dp"
         app:maxImageSize="25dp"
-        />
+        android:contentDescription="@string/add_money_in_out" />
 
     <include
         android:id="@+id/layout_action_money_io"

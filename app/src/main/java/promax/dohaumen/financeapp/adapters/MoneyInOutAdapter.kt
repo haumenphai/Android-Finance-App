@@ -9,6 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import promax.dohaumen.financeapp.R
 import promax.dohaumen.financeapp.databinding.ItemMoneyInOutBinding
+import promax.dohaumen.financeapp.datas.AppData
+import promax.dohaumen.financeapp.helper.formatNumber
 import promax.dohaumen.financeapp.models.MoneyInOut
 import promax.dohaumen.financeapp.models.MoneyInOut.MoneyInOutType
 import kotlin.math.roundToInt
@@ -85,9 +87,13 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
         holder.b.tvSequence.text = "${position+1}"
         holder.b.tvName.text = currentMoneyIO.name
         if (currentMoneyIO.type == MoneyInOutType.IN) {
-            holder.b.tvAmount.text = "${context.getString(R.string.amount)}: +${currentMoneyIO.amount.roundToInt()}"
+            holder.b.tvAmount.text =
+                "${context.getString(R.string.amount)}: " +
+                "+${currentMoneyIO.amount.toString().formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}"
         } else {
-            holder.b.tvAmount.text = "${context.getString(R.string.amount)}: -${currentMoneyIO.amount.roundToInt()}"
+            holder.b.tvAmount.text =
+                "${context.getString(R.string.amount)}: " +
+                "-${currentMoneyIO.amount.toString().formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}"
         }
         holder.b.tvTime.text = currentMoneyIO.datetime
     }

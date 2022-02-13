@@ -38,7 +38,7 @@ object DialogViewMoneyIO {
         val moneyTypeAdapter = MoneyTypeAdapter()
         moneyTypeAdapter.modeInDialog = true
         moneyTypeAdapter.hideIconDelete = true
-        moneyTypeAdapter.setList(moneyIO.listTypeOfSpending.toMutableList())
+        moneyTypeAdapter.setList(moneyIO.getListMoneyType().toMutableList())
 
         b.recyclerView.layoutManager = LinearLayoutManager(rootLayout.context)
         b.recyclerView.adapter = moneyTypeAdapter

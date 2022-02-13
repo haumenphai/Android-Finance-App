@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,6 +47,8 @@ class MoneyType: BaseModel {
     }
 
 }
+
+fun List<MoneyType>.toJson() = Gson().toJson(this)
 
 @Database(entities = [MoneyType::class], version = 1)
 abstract class MoneyTypeDB : RoomDatabase() {
@@ -176,7 +179,10 @@ class MoneyTypeAdapter: RecyclerView.Adapter<MoneyTypeAdapter.MoneyTypeHolder>()
                 val b1 = (b as ItemMoneyTypeInDialogCreateMoneyIoBinding)
                 b1.imgDelete.setOnClickListener {
                     list.removeAt(layoutPosition)
-                    notifyItemChanged(layoutPosition)
+                    notifyDataSetChanged()
+                }
+                if (hideIconDelete) {
+                    b1.imgDelete.visibility = View.GONE
                 }
             } else {
                 b = ItemMoneyTypeBinding.bind(itemView)

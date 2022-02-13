@@ -13,7 +13,10 @@ class HelperTest {
         println(5.hashCode())
 
         assertEquals("100.000", "100000".formatNumber())
+        assertEquals("100.000.000", "100000000".formatNumber())
         assertEquals("1.234.567", "1234567".formatNumber())
+        assertEquals("-1.234.567", "-1234567".formatNumber())
+        assertEquals("-100.234.567", "-100234567".formatNumber())
 
         assertEquals("1.234", "1234".formatNumber())
         assertEquals("123", "123".formatNumber())
