@@ -1,26 +1,41 @@
 package promax.dohaumen.financeapp.helper
 
 import android.annotation.SuppressLint
+import java.math.BigDecimal
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun String.formatNumber(charFormat: String = "."): String {
-    var result = ""
+fun String.formatNumber(charFormat: Char = '.'): String {
+    val number = this
+    if (!number.isNumeric()) return this
 
-    var i = 0
-    for (c in this.reversed().toCharArray()) {
-        i += 1
-        result += c
-        if (i % 3 == 0 && i != this.length) {
-            result += charFormat
-        }
+    var result: String
+    if (this.contains(".")) {
+        result = DecimalFormat("#,###.00").format(BigDecimal(number))
+    } else {
+        result = DecimalFormat("#,###").format(BigDecimal(number))
     }
-    result = result.reversed()
-    if (result[0] == '-' && result.replace("-", "").startsWith(charFormat)) {
-        result = result.replaceFirst(charFormat, "")
+
+    result = result.replace(",", "*")
+    if (charFormat == '.') {
+        result = result.replace(".", ",")
     }
+    result = result.replace("*", charFormat.toString())
     return result
 }
+
+fun String.to2Decimal(): String {
+    if (this.endsWith(".00")) {
+        return this.substring(0, this.indexOf(".00"))
+    }
+    return this
+}
+
+fun String.isNumeric(): Boolean {
+    return this.matches(Regex("-?\\d+(\\.\\d+)?")) //match a number with optional '-' and decimal.
+}
+
 
 @SuppressLint("SimpleDateFormat")
 fun getCurrentTimeStr(format: String = "yyyy-MM-dd HH:mm"): String {

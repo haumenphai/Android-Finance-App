@@ -62,7 +62,7 @@ object DialogAddMoneyIO {
             }
         }
         b.editAmonut.addTextChangedListener {
-            b.tvAmonutValue.text = "${it.toString().formatNumber(AppData.getMoneyFormatLiveData().value!!)}  ${AppData.getMoneyUnitLiveData().value}"
+            b.tvAmonutValue.text = AppData.formatMoneyWithAppConfig(it.toString())
         }
         b.tvCurrecyValue.setOnClickListener {
             val b1 = DialogPickItemInListViewBinding.bind(
@@ -125,6 +125,10 @@ object DialogAddMoneyIO {
                 Toast.makeText(context, R.string.please_enter_name_and_amonut, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            if (!amount.isNumeric()) {
+                Toast.makeText(context, R.string.please_enter_a_number, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             val type = if (b.radioTypeMoneyIn.isChecked) {
                 MoneyInOut.MoneyInOutType.IN
@@ -138,7 +142,7 @@ object DialogAddMoneyIO {
             val moneyIO = MoneyInOut(
                 name = name,
                 type = type,
-                amount = amount.toLong(),
+                amount = amount,
                 currency = currency,
                 desc = desc,
                 datetime = datetimeStr,
@@ -151,19 +155,19 @@ object DialogAddMoneyIO {
                 if (type == MoneyInOut.MoneyInOutType.IN) {
                     when (currency) {
                         getStr(R.string.bank) -> {
-                            AppData.setTotalMoneyInBanks(AppData.getTotalMoneyInBanks() + moneyIO.amount)
+                            AppData.increaseMoneyBank(moneyIO.amount)
                         }
                         getStr(R.string.cash) -> {
-                            AppData.setTotalCash(AppData.getTotalCash() + moneyIO.amount)
+                            AppData.increaseTotalCash(moneyIO.amount)
                         }
                     }
                 } else {
                     when (currency) {
                         getStr(R.string.bank) -> {
-                            AppData.setTotalMoneyInBanks(AppData.getTotalMoneyInBanks() - moneyIO.amount)
+                            AppData.minusMoneyBank(moneyIO.amount)
                         }
                         getStr(R.string.cash) -> {
-                            AppData.setTotalCash(AppData.getTotalCash() - moneyIO.amount)
+                            AppData.minusTotalCash(moneyIO.amount)
                         }
                     }
                 }

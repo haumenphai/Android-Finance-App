@@ -6,3 +6,4 @@ import promax.dohaumen.financeapp.MyApp
 fun getStr(id: Int) = MyApp.context.getString(id)
 
 fun getColor(id: Int) = ContextCompat.getColor(MyApp.context, id)
+

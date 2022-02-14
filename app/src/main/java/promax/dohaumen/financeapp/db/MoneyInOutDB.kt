@@ -11,7 +11,7 @@ import promax.dohaumen.financeapp.MyApp.Companion.context
 import promax.dohaumen.financeapp.models.MoneyInOut
 
 
-@Database(entities = [MoneyInOut::class], version = 1)
+@Database(entities = [MoneyInOut::class], version = 2)
 abstract class MoneyInOutDB : RoomDatabase() {
     abstract fun dao(): MoneyInOutDao
 

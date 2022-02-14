@@ -20,6 +20,7 @@ import promax.dohaumen.financeapp.dialogs.DialogAddMoneyIO
 import promax.dohaumen.financeapp.dialogs.DialogViewMoneyIO
 import promax.dohaumen.financeapp.helper.formatNumber
 import promax.dohaumen.financeapp.models.MoneyInOut
+import java.math.BigDecimal
 
 @SuppressLint("SetTextI18n")
 class HomeFragment: Fragment() {
@@ -34,7 +35,10 @@ class HomeFragment: Fragment() {
         b = FragmentHomeBinding.inflate(inflater, container, false)
         b.recyclerView.layoutManager = LinearLayoutManager(mainActivity)
         b.recyclerView.adapter = moneyInOutAdapter
-        moneyInOutAdapter.setList(listMoneyInOut)
+        MoneyInOutDB.get.dao().getLiveData().observeForever {
+            listMoneyInOut = it.toMutableList()
+            moneyInOutAdapter.setList(listMoneyInOut)
+        }
         loadDataTotalMoneyIOToText()
 
         loadDataMoneyToTextView()
@@ -56,18 +60,23 @@ class HomeFragment: Fragment() {
         AppData.getTotalMoneyInBanksFormatedLiveData().observeForever {
             b.tvTotalMoneyInBanksValue.text = it.toString()
         }
-        AppData.getTotalMoneyFormatedLiveData().observeForever {
+        AppData.getTotalCashFormatedLiveData().observeForever {
             b.tvTotalCashValue.text = it
         }
     }
 
     private fun loadDataTotalMoneyIOToText() {
-        val totalMoneyIn = listMoneyInOut.filter { it.type == MoneyInOut.MoneyInOutType.IN }.sumOf { it.amount }
-        val totalMoneyOut = listMoneyInOut.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.sumOf { it.amount }
-        b.tvTotalMoneyInValue.text =
-            "${totalMoneyIn.toString().formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}"
-        b.tvTotalMoneyOutValue.text =
-            "${totalMoneyOut.toString().formatNumber(AppData.getMoneyFormat())}   ${AppData.getMoneyUnit()}"
+        var totalMoneyIn = BigDecimal("0")
+        var totalMOneyOut = BigDecimal("0")
+
+        listMoneyInOut.filter { it.type == MoneyInOut.MoneyInOutType.IN }.forEach {
+            totalMoneyIn += BigDecimal(it.amount)
+        }
+        listMoneyInOut.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.forEach {
+            totalMOneyOut += BigDecimal(it.amount)
+        }
+        b.tvTotalMoneyInValue.text = AppData.formatMoneyWithAppConfig(totalMoneyIn.toPlainString())
+        b.tvTotalMoneyOutValue.text = AppData.formatMoneyWithAppConfig(totalMOneyOut.toPlainString())
     }
 
     private fun setClickItemMoneyIO() {
@@ -114,13 +123,11 @@ class HomeFragment: Fragment() {
                             it.isDeleted = true
                             MoneyInOutDB.get.dao().update(it)
                         }
-                        moneyInOutAdapter.setList(MoneyInOutDB.get.dao().getList())
                         Snackbar.make(b.recyclerView, getString(R.string.deleted),2000)
                             .setAction(R.string.undo) {
                                 itemsToDelete.forEach {
                                     it.isDeleted = false
                                     MoneyInOutDB.get.dao().update(it)
-                                    moneyInOutAdapter.setList(MoneyInOutDB.get.dao().getList())
                                 }
                             }.show()
                         cancelAction()
@@ -134,7 +141,7 @@ class HomeFragment: Fragment() {
         b.btnAddMoneyIo.setOnClickListener {
             DialogAddMoneyIO.setBgAlpha(0.6f).show(mainActivity.b.bgMainActivity) {
                 listMoneyInOut.add(0, it)
-                moneyInOutAdapter.notifyItemChanged(0)
+                moneyInOutAdapter.notifyDataSetChanged()
             }
         }
     }

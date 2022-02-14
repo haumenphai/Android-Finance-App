@@ -20,7 +20,6 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
 
     lateinit var onClickItem: (moneyInOut: MoneyInOut) -> Unit
     lateinit var onLongClickItem: (moneyInOut: MoneyInOut) -> Unit
-    var currentPosition = 0
 
     fun setList(list: List<MoneyInOut>) {
         this.list = list
@@ -43,7 +42,7 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
 
     fun setSwapCheckItem(moneyIO: MoneyInOut) {
         moneyIO.isChecked = !moneyIO.isChecked
-        notifyItemChanged(list.indexOf(moneyIO))
+        notifyDataSetChanged()
     }
 
     inner class MoneyInoutHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -67,7 +66,6 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MoneyInoutHolder, position: Int) {
-        currentPosition = position
         val currentMoneyIO = list[position]
 
         when {

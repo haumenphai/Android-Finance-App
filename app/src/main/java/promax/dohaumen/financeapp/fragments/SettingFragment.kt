@@ -18,7 +18,8 @@ import promax.dohaumen.financeapp.datas.AppData
 import promax.dohaumen.financeapp.dialogs.DialogInputOneValue
 import promax.dohaumen.financeapp.dialogs.DialogShowMoneyHistory
 import promax.dohaumen.financeapp.helper.formatNumber
-import promax.dohaumen.financeapp.helper.*
+import promax.dohaumen.financeapp.helper.getStr
+import promax.dohaumen.financeapp.helper.isNumeric
 import promax.dohaumen.financeapp.models.*
 
 @SuppressLint("SetTextI18n")
@@ -30,7 +31,11 @@ class SettingFragment: Fragment() {
     private var moneyTypeAdapter = MoneyTypeAdapter()
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         b = FragmentSettingBinding.inflate(inflater, container, false)
         setupViewTotalMoney()
         setupViewCurrency()
@@ -65,14 +70,18 @@ class SettingFragment: Fragment() {
             DialogInputOneValue(mainActivity)
                 .setTitle(getStr(R.string.set_total_money_in_banks_title))
                 .setTextBtnSave(getStr(R.string.save))
-                .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER)
+                .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL)
                 .setMaxLengthEditName(18)
                 .onchangeEditName { text, dialog ->
                     dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}")
                 }
                 .setBtnSaveClick { text, dialog ->
+                    if (!text.trim().isNumeric()) {
+                        Toast.makeText(context, R.string.please_enter_a_number, Toast.LENGTH_SHORT).show()
+                        return@setBtnSaveClick
+                    }
                     if (text.trim() != "") {
-                        AppData.setTotalMoneyInBanks(text.toLong())
+                        AppData.setTotalMoneyInBanks(text)
                         TotalMoneyInBanksHistoryDB.get.dao()
                             .insert(TotalMoneyInBanksHistory(AppData.getTotalMoneyInBanksFormated()))
                         dialog.dialog.cancel()
@@ -84,13 +93,17 @@ class SettingFragment: Fragment() {
                 .setTitle(getStr(R.string.set_total_cash_title))
                 .setTextBtnSave(getStr(R.string.save))
                 .setMaxLengthEditName(18)
-                .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER)
+                .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL)
                 .onchangeEditName { text, dialog ->
                     dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}")
                 }
                 .setBtnSaveClick { text, dialog ->
+                    if (!text.trim().isNumeric()) {
+                        Toast.makeText(context, R.string.please_enter_a_number, Toast.LENGTH_SHORT).show()
+                        return@setBtnSaveClick
+                    }
                     if (text.trim() != "") {
-                        AppData.setTotalCash(text.toLong())
+                        AppData.setTotalCash(text)
                         TotalCashHistoryDB.get.dao().insert(TotalCashHistory(AppData.getTotalCashFormated()))
                         dialog.dialog.cancel()
                     }
@@ -117,13 +130,13 @@ class SettingFragment: Fragment() {
             DialogInputOneValue(mainActivity)
                 .setTitle(getStr(R.string.set_money_format))
                 .setTextBtnSave(getStr(R.string.save))
-                .setMaxLengthEditName(10)
+                .setMaxLengthEditName(1)
                 .setInputTypeEditName(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
-                .setTextEditName(AppData.getMoneyFormat())
-                .setSelectionEditName(0, AppData.getMoneyFormat().length)
+                .setTextEditName(AppData.getMoneyFormat().toString())
+                .setSelectionEditName(0, AppData.getMoneyFormat().toString().length)
                 .setBtnSaveClick { text, dialog ->
                     if (text != "") {
-                        AppData.setMoneyFormat(text)
+                        AppData.setMoneyFormat(text[0])
                         dialog.dialog.cancel()
                         mainActivity.homeFragment.notifyMoneyUnitOrMoneyFormatChanged()
                     }
