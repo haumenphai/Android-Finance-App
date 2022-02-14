@@ -7,6 +7,8 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import promax.dohaumen.financeapp.R
 import promax.dohaumen.financeapp.databinding.DialogViewMoneyIoBinding
+import promax.dohaumen.financeapp.datas.AppData
+import promax.dohaumen.financeapp.helper.formatNumber
 import promax.dohaumen.financeapp.models.MoneyInOut
 import promax.dohaumen.financeapp.models.MoneyTypeAdapter
 
@@ -27,9 +29,9 @@ object DialogViewMoneyIO {
 
         b.tvName.text = moneyIO.name
         if (moneyIO.type == MoneyInOut.MoneyInOutType.IN) {
-            b.tvAmonut.text = "+${moneyIO.amount}"
+            b.tvAmonut.text = "+${AppData.formatMoneyWithAppConfig(moneyIO.amount)}"
         } else {
-            b.tvAmonut.text = "-${moneyIO.amount}"
+            b.tvAmonut.text = "-${AppData.formatMoneyWithAppConfig(moneyIO.amount)}"
         }
         b.tvCurrecyValue.text = moneyIO.currency
         b.tvDatetimeValue.text = moneyIO.datetime

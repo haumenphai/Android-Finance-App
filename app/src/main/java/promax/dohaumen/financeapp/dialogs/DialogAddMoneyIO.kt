@@ -26,7 +26,7 @@ object DialogAddMoneyIO {
         return this
     }
 
-    fun show(rootLayout: ViewGroup, onSaved: () -> Unit = {}) {
+    fun show(rootLayout: ViewGroup, onSaved: (moneyIO: MoneyInOut) -> Unit = {}) {
         val context = rootLayout.context
         val view = LayoutInflater.from(context)
             .inflate(R.layout.layout_add_money_io, rootLayout, false)
@@ -145,6 +145,7 @@ object DialogAddMoneyIO {
                 typeOfSpendingJson = moneyTypeAdpater.getList().toJson()
             )
             MoneyInOutDB.get.dao().insert(moneyIO)
+            onSaved(moneyIO)
 
             if (b.checkboxComputeIntoTheTotalMoney.isChecked) {
                 if (type == MoneyInOut.MoneyInOutType.IN) {
@@ -168,7 +169,6 @@ object DialogAddMoneyIO {
                 }
             }
 
-            onSaved()
             rootLayout.removeView(view)
         }
 

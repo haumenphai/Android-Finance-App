@@ -13,7 +13,6 @@ import promax.dohaumen.financeapp.datas.AppData
 import promax.dohaumen.financeapp.helper.formatNumber
 import promax.dohaumen.financeapp.models.MoneyInOut
 import promax.dohaumen.financeapp.models.MoneyInOut.MoneyInOutType
-import kotlin.math.roundToInt
 
 class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolder>() {
     private var list: List<MoneyInOut> = mutableListOf()
@@ -21,6 +20,7 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
 
     lateinit var onClickItem: (moneyInOut: MoneyInOut) -> Unit
     lateinit var onLongClickItem: (moneyInOut: MoneyInOut) -> Unit
+    var currentPosition = 0
 
     fun setList(list: List<MoneyInOut>) {
         this.list = list
@@ -67,6 +67,7 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MoneyInoutHolder, position: Int) {
+        currentPosition = position
         val currentMoneyIO = list[position]
 
         when {
@@ -87,13 +88,9 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
         holder.b.tvSequence.text = "${position+1}"
         holder.b.tvName.text = currentMoneyIO.name
         if (currentMoneyIO.type == MoneyInOutType.IN) {
-            holder.b.tvAmount.text =
-                "${context.getString(R.string.amount)}: " +
-                "+${currentMoneyIO.amount.toString().formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}"
+            holder.b.tvAmount.text = "+${AppData.formatMoneyWithAppConfig(currentMoneyIO.amount)}"
         } else {
-            holder.b.tvAmount.text =
-                "${context.getString(R.string.amount)}: " +
-                "-${currentMoneyIO.amount.toString().formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}"
+            holder.b.tvAmount.text = "-${AppData.formatMoneyWithAppConfig(currentMoneyIO.amount)}"
         }
         holder.b.tvTime.text = currentMoneyIO.datetime
     }

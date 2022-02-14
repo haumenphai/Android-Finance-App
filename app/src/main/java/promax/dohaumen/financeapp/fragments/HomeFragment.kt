@@ -27,21 +27,26 @@ class HomeFragment: Fragment() {
     private val mainActivity: MainActivity by lazy { activity as MainActivity }
     private val moneyInOutAdapter = MoneyInOutAdapter()
 
+    // current list in screen
+    private var listMoneyInOut = MoneyInOutDB.get.dao().getList().toMutableList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         b = FragmentHomeBinding.inflate(inflater, container, false)
         b.recyclerView.layoutManager = LinearLayoutManager(mainActivity)
         b.recyclerView.adapter = moneyInOutAdapter
-        MoneyInOutDB.get.dao().getLiveData().observeForever {
-            moneyInOutAdapter.setList(it)
-            loadDataTotalMoneyIOToText(it)
-        }
+        moneyInOutAdapter.setList(listMoneyInOut)
+        loadDataTotalMoneyIOToText()
 
         loadDataMoneyToTextView()
         setClickItemMoneyIO()
         setClickActionMoneyIO()
         setClickBtnAddMoneyIO()
         return b.root
+    }
+
+    fun notifyMoneyUnitOrMoneyFormatChanged() {
+        loadDataTotalMoneyIOToText()
+        moneyInOutAdapter.notifyDataSetChanged()
     }
 
     private fun loadDataMoneyToTextView() {
@@ -56,9 +61,9 @@ class HomeFragment: Fragment() {
         }
     }
 
-    private fun loadDataTotalMoneyIOToText(list: List<MoneyInOut>) {
-        val totalMoneyIn = list.filter { it.type == MoneyInOut.MoneyInOutType.IN }.sumOf { it.amount }
-        val totalMoneyOut = list.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.sumOf { it.amount }
+    private fun loadDataTotalMoneyIOToText() {
+        val totalMoneyIn = listMoneyInOut.filter { it.type == MoneyInOut.MoneyInOutType.IN }.sumOf { it.amount }
+        val totalMoneyOut = listMoneyInOut.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.sumOf { it.amount }
         b.tvTotalMoneyInValue.text =
             "${totalMoneyIn.toString().formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}"
         b.tvTotalMoneyOutValue.text =
@@ -109,11 +114,13 @@ class HomeFragment: Fragment() {
                             it.isDeleted = true
                             MoneyInOutDB.get.dao().update(it)
                         }
+                        moneyInOutAdapter.setList(MoneyInOutDB.get.dao().getList())
                         Snackbar.make(b.recyclerView, getString(R.string.deleted),2000)
                             .setAction(R.string.undo) {
                                 itemsToDelete.forEach {
                                     it.isDeleted = false
                                     MoneyInOutDB.get.dao().update(it)
+                                    moneyInOutAdapter.setList(MoneyInOutDB.get.dao().getList())
                                 }
                             }.show()
                         cancelAction()
@@ -125,7 +132,11 @@ class HomeFragment: Fragment() {
 
     private fun setClickBtnAddMoneyIO() {
         b.btnAddMoneyIo.setOnClickListener {
-            DialogAddMoneyIO.setBgAlpha(0.6f).show(mainActivity.b.bgMainActivity)
+            DialogAddMoneyIO.setBgAlpha(0.6f).show(mainActivity.b.bgMainActivity) {
+                listMoneyInOut.add(0, it)
+                moneyInOutAdapter.notifyItemChanged(0)
+            }
         }
     }
+
 }

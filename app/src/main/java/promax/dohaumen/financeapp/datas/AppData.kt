@@ -63,6 +63,22 @@ object AppData {
             totalMoneyFormatedLiveData.value =
                 "${getTotalMoney().toString().formatNumber(getMoneyFormat())}  ${getMoneyUnit()}"
         }
+
+        fun reLoadMoneyFormat() {
+            totalMoneyInBanksFormatedLiveData.value =
+                "${getTotalMoneyInBanks().toString().formatNumber(getMoneyFormat())}  ${getMoneyUnit()}"
+            totalCashFormatedLiveData.value =
+                "${getTotalCash().toString().formatNumber(getMoneyFormat())}  ${getMoneyUnit()}"
+            totalMoneyFormatedLiveData.value =
+                "${getTotalMoney().toString().formatNumber(getMoneyFormat())}  ${getMoneyUnit()}"
+        }
+
+        moneyUnitLiveData.observeForever {
+           reLoadMoneyFormat()
+        }
+        moneyFormatLiveData.observeForever {
+            reLoadMoneyFormat()
+        }
     }
 
     fun setTotalMoneyInBanks(money: Long) {
@@ -83,5 +99,7 @@ object AppData {
         sharefs.edit().putString("money_format", moneyFormat).apply()
         moneyFormatLiveData.value = moneyFormat
     }
+
+    fun formatMoneyWithAppConfig(money: Long) = "${money.toString().formatNumber(getMoneyFormat())}  ${getMoneyUnit()}"
 
 }

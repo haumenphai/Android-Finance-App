@@ -4,12 +4,15 @@ import org.junit.Test
 import org.junit.Assert.*
 import promax.dohaumen.financeapp.helper.formatNumber
 import promax.dohaumen.financeapp.helper.getCurrentTimeStr
+import java.math.BigDecimal
 
 class HelperTest {
 
     @Test
     fun testStringFormat() {
-        println(Long.MAX_VALUE.toString().length)
+//        println(Long.MAX_VALUE.toString().length)
+        println(Double.MAX_VALUE.toString().length)
+        println(BigDecimal("123456789123456789.99") + BigDecimal("1.01"))
         println(5.hashCode())
 
         assertEquals("100.000", "100000".formatNumber())

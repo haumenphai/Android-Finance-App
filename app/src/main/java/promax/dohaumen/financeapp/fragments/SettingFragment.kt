@@ -47,7 +47,7 @@ class SettingFragment: Fragment() {
         AppData.getTotalMoneyInBanksFormatedLiveData().observeForever {
             b.tvTotalMoneyInBanksValue.text = it
         }
-        AppData.getTotalMoneyFormatedLiveData().observeForever {
+        AppData.getTotalCashFormatedLiveData().observeForever {
             b.tvTotalCashValue.text = it
         }
         AppData.getMoneyUnitLiveData().observeForever {
@@ -77,7 +77,6 @@ class SettingFragment: Fragment() {
                             .insert(TotalMoneyInBanksHistory(AppData.getTotalMoneyInBanksFormated()))
                         dialog.dialog.cancel()
                     }
-//                    loadDataMoneyToTextView()
                 }.show()
         }
         b.btnSetTotalCash.setOnClickListener {
@@ -95,7 +94,6 @@ class SettingFragment: Fragment() {
                         TotalCashHistoryDB.get.dao().insert(TotalCashHistory(AppData.getTotalCashFormated()))
                         dialog.dialog.cancel()
                     }
-//                    loadDataMoneyToTextView()
                 }.show()
         }
         b.btnSetMoneyUnit.setOnClickListener {
@@ -110,8 +108,8 @@ class SettingFragment: Fragment() {
                     if (text.trim() != "") {
                         AppData.setMoneyUnit(text)
                         dialog.dialog.cancel()
+                        mainActivity.homeFragment.notifyMoneyUnitOrMoneyFormatChanged()
                     }
-//                    loadDataMoneyToTextView()
                 }
                 .show()
         }
@@ -127,8 +125,8 @@ class SettingFragment: Fragment() {
                     if (text != "") {
                         AppData.setMoneyFormat(text)
                         dialog.dialog.cancel()
+                        mainActivity.homeFragment.notifyMoneyUnitOrMoneyFormatChanged()
                     }
-//                    loadDataMoneyToTextView()
                 }
                 .show()
         }
