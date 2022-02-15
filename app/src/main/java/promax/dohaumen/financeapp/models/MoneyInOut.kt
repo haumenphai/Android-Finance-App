@@ -22,6 +22,7 @@ class MoneyInOut: BaseModel {
     @Ignore
     var isChecked: Boolean = false
     var isDeleted: Boolean = false
+    var computeIntoTheTotalMoney = true
 
     constructor()
 
@@ -33,7 +34,8 @@ class MoneyInOut: BaseModel {
         currency: String,
         desc: String = "",
         typeOfSpendingJson: String = "",
-        datetime: String = ""
+        datetime: String = "",
+        computeIntoTheTotalMoney: Boolean = true
     ) {
         this.name = name
         this.type = type
@@ -42,9 +44,23 @@ class MoneyInOut: BaseModel {
         this.desc = desc
         this.typeOfSpendingJson = typeOfSpendingJson
         this.datetime = datetime
+        this.computeIntoTheTotalMoney = computeIntoTheTotalMoney
         if (typeOfSpendingJson != "") {
             this.listTypeOfSpending = Gson().fromJson(this.typeOfSpendingJson, Array<MoneyType>::class.java).asList()
         }
+    }
+
+    fun copy(): MoneyInOut {
+        return MoneyInOut(
+            this.name,
+            this.type,
+            this.amount,
+            this.currency,
+            this.desc,
+            this.typeOfSpendingJson,
+            this.datetime,
+            this.computeIntoTheTotalMoney
+        )
     }
 
     fun getListMoneyType(): List<MoneyType> {

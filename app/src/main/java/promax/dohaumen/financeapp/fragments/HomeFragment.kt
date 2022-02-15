@@ -38,6 +38,7 @@ class HomeFragment: Fragment() {
         MoneyInOutDB.get.dao().getLiveData().observeForever {
             listMoneyInOut = it.toMutableList()
             moneyInOutAdapter.setList(listMoneyInOut)
+            notifyMoneyUnitOrMoneyFormatChanged()
         }
         loadDataTotalMoneyIOToText()
 
@@ -140,8 +141,7 @@ class HomeFragment: Fragment() {
     private fun setClickBtnAddMoneyIO() {
         b.btnAddMoneyIo.setOnClickListener {
             DialogAddMoneyIO.setBgAlpha(0.6f).show(mainActivity.b.bgMainActivity) {
-                listMoneyInOut.add(0, it)
-                moneyInOutAdapter.notifyDataSetChanged()
+
             }
         }
     }

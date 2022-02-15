@@ -50,7 +50,10 @@ object DialogViewMoneyIO {
             rootLayout.removeView(b.root)
         }
         b.imgEdit.setOnClickListener {
-            // todo: show layout edit
+            DialogAddMoneyIO.showDialogEdit(moneyIO, rootLayout) {
+                rootLayout.removeView(b.root)
+                show(rootLayout, it)
+            }
         }
     }
 }
