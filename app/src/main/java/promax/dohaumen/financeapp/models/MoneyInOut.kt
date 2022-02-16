@@ -50,6 +50,11 @@ class MoneyInOut: BaseModel {
         }
     }
 
+    fun setlistTypeOfSpending(list: List<MoneyType>) {
+        this.listTypeOfSpending = list
+        this.typeOfSpendingJson = list.toJson()
+    }
+
     fun copy(): MoneyInOut {
         return MoneyInOut(
             this.name,
@@ -76,9 +81,32 @@ class MoneyInOut: BaseModel {
 
     companion object {
         fun getDemoMoneyInOut() = listOf(
-            MoneyInOut("Buy car", MoneyInOutType.OUT, "10000", "Bank", datetime = "2022-12-12 20:20"),
-            MoneyInOut("Sell car", MoneyInOutType.IN, "50000", "Cash", datetime = "2022-01-12 17:01")
+            MoneyInOut("Buy car", MoneyInOutType.OUT, "10000", Currency.BANK, datetime = "2022-12-12 20:20"),
+            MoneyInOut("Sell car", MoneyInOutType.IN, "50000", Currency.CASH, datetime = "2022-01-12 17:01")
         )
+
+        fun getBigListDemo(count: Int=10000): MutableList<MoneyInOut> {
+            val list = mutableListOf<MoneyInOut>()
+            for (i in 0..count) {
+                val moneyIO = MoneyInOut(
+                    "${i+1}",
+                    MoneyInOutType.IN,
+                    "10000",
+                    Currency.BANK,
+                    datetime = "2022-12-12 20:20",
+                    desc = "gg",
+                    typeOfSpendingJson = listOf(MoneyType("Test1", MoneyInOutType.IN)).toJson()
+                )
+                if (i % 2 == 0) {
+                    moneyIO.type = MoneyInOutType.IN
+                } else {
+                    moneyIO.type = MoneyInOutType.OUT
+                }
+                list.add(moneyIO)
+            }
+            return list
+        }
+
     }
 
     enum class MoneyInOutType { IN, OUT }

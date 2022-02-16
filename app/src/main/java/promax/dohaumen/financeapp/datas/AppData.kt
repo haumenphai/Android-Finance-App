@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import org.jetbrains.annotations.NotNull
 import promax.dohaumen.financeapp.MyApp
 import promax.dohaumen.financeapp.helper.formatNumber
+import promax.dohaumen.financeapp.models.Currency
+import promax.dohaumen.financeapp.models.MoneyInOut
 import java.math.BigDecimal
 
 object AppData {
@@ -121,4 +123,38 @@ object AppData {
         setTotalCash((BigDecimal(getTotalCash()) - BigDecimal(money)).toPlainString())
     }
 
+
+    fun refundTheAmount(moneyInOut: MoneyInOut) {
+        if (!moneyInOut.computeIntoTheTotalMoney) return
+        if (moneyInOut.type == MoneyInOut.MoneyInOutType.IN) {
+            if (moneyInOut.currency == Currency.BANK) {
+                minusMoneyBank(moneyInOut.amount)
+            } else if (moneyInOut.currency == Currency.CASH) {
+                minusTotalCash(moneyInOut.amount)
+            }
+        } else {
+            if (moneyInOut.currency == Currency.BANK) {
+                increaseMoneyBank(moneyInOut.amount)
+            } else if (moneyInOut.currency == Currency.CASH) {
+                increaseTotalCash(moneyInOut.amount)
+            }
+        }
+    }
+
+    fun calculateIntoTheAmount(moneyInOut: MoneyInOut) {
+        if (!moneyInOut.computeIntoTheTotalMoney) return
+        if (moneyInOut.type == MoneyInOut.MoneyInOutType.IN) {
+            if (moneyInOut.currency == Currency.BANK) {
+                increaseMoneyBank(moneyInOut.amount)
+            } else if (moneyInOut.currency == Currency.CASH) {
+                increaseTotalCash(moneyInOut.amount)
+            }
+        } else {
+            if (moneyInOut.currency == Currency.BANK) {
+                minusMoneyBank(moneyInOut.amount)
+            } else if (moneyInOut.currency == Currency.CASH) {
+                minusTotalCash(moneyInOut.amount)
+            }
+        }
+    }
 }

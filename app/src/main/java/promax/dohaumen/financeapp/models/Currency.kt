@@ -38,9 +38,11 @@ class Currency {
     }
 
     companion object {
+        val BANK = MyApp.context.getString(R.string.bank)
+        val CASH = MyApp.context.getString(R.string.cash)
         fun getDataDefault() = listOf(
-            Currency(MyApp.context.getString(R.string.bank)),
-            Currency(MyApp.context.getString(R.string.cash))
+            Currency(BANK),
+            Currency(CASH)
         )
     }
 }

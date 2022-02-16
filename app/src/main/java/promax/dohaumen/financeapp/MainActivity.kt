@@ -7,6 +7,7 @@ import promax.dohaumen.financeapp.databinding.ActivityMainBinding
 import promax.dohaumen.financeapp.db.MoneyInOutDB
 import promax.dohaumen.financeapp.fragments.HomeFragment
 import promax.dohaumen.financeapp.fragments.SettingFragment
+import promax.dohaumen.financeapp.models.MoneyInOut
 
 class MainActivity : AppCompatActivity() {
     lateinit var b: ActivityMainBinding
@@ -18,6 +19,11 @@ class MainActivity : AppCompatActivity() {
         b = ActivityMainBinding.inflate(layoutInflater)
         setContentView(b.root)
         controlFragmentWithSaveState()
+
+//        MoneyInOutDB.get.dao().deleteAll()
+//        for (m in MoneyInOut.getBigListDemo(10000)) {
+//            MoneyInOutDB.get.dao().insert(m)
+//        }
     }
 
     private fun controlFragmentWithSaveState() {

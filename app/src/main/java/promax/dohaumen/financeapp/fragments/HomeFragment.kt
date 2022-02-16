@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import promax.dohaumen.financeapp.MainActivity
@@ -18,7 +19,6 @@ import promax.dohaumen.financeapp.datas.AppData
 import promax.dohaumen.financeapp.db.MoneyInOutDB
 import promax.dohaumen.financeapp.dialogs.DialogAddMoneyIO
 import promax.dohaumen.financeapp.dialogs.DialogViewMoneyIO
-import promax.dohaumen.financeapp.helper.formatNumber
 import promax.dohaumen.financeapp.models.MoneyInOut
 import java.math.BigDecimal
 
@@ -29,16 +29,15 @@ class HomeFragment: Fragment() {
     private val moneyInOutAdapter = MoneyInOutAdapter()
 
     // current list in screen
-    private var listMoneyInOut = MoneyInOutDB.get.dao().getList().toMutableList()
+    private var listMoneyInOutLiveData = MutableLiveData(MoneyInOutDB.get.dao().getList().toMutableList())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         b = FragmentHomeBinding.inflate(inflater, container, false)
         b.recyclerView.layoutManager = LinearLayoutManager(mainActivity)
         b.recyclerView.adapter = moneyInOutAdapter
-        MoneyInOutDB.get.dao().getLiveData().observeForever {
-            listMoneyInOut = it.toMutableList()
-            moneyInOutAdapter.setList(listMoneyInOut)
-            notifyMoneyUnitOrMoneyFormatChanged()
+        listMoneyInOutLiveData.observeForever {
+            moneyInOutAdapter.setList(it)
+            loadDataTotalMoneyIOToText()
         }
         loadDataTotalMoneyIOToText()
 
@@ -70,10 +69,10 @@ class HomeFragment: Fragment() {
         var totalMoneyIn = BigDecimal("0")
         var totalMOneyOut = BigDecimal("0")
 
-        listMoneyInOut.filter { it.type == MoneyInOut.MoneyInOutType.IN }.forEach {
+        listMoneyInOutLiveData.value!!.filter { it.type == MoneyInOut.MoneyInOutType.IN }.forEach {
             totalMoneyIn += BigDecimal(it.amount)
         }
-        listMoneyInOut.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.forEach {
+        listMoneyInOutLiveData.value!!.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.forEach {
             totalMOneyOut += BigDecimal(it.amount)
         }
         b.tvTotalMoneyInValue.text = AppData.formatMoneyWithAppConfig(totalMoneyIn.toPlainString())
@@ -82,7 +81,9 @@ class HomeFragment: Fragment() {
 
     private fun setClickItemMoneyIO() {
         moneyInOutAdapter.onClickItem = { moneyIO ->
-            DialogViewMoneyIO.show(b.root, moneyIO)
+            DialogViewMoneyIO.show(b.root, moneyIO) {
+                listMoneyInOutLiveData.value = MoneyInOutDB.get.dao().getList().toMutableList()
+            }
         }
         moneyInOutAdapter.onLongClickItem = { moneyIO1 ->
             // show layout action, hide navbottom, hide floating button add money io
@@ -123,12 +124,16 @@ class HomeFragment: Fragment() {
                         itemsToDelete.forEach {
                             it.isDeleted = true
                             MoneyInOutDB.get.dao().update(it)
+                            listMoneyInOutLiveData.value = MoneyInOutDB.get.dao().getList().toMutableList()
+                            AppData.refundTheAmount(it)
                         }
                         Snackbar.make(b.recyclerView, getString(R.string.deleted),2000)
                             .setAction(R.string.undo) {
                                 itemsToDelete.forEach {
                                     it.isDeleted = false
                                     MoneyInOutDB.get.dao().update(it)
+                                    listMoneyInOutLiveData.value = MoneyInOutDB.get.dao().getList().toMutableList()
+                                    AppData.calculateIntoTheAmount(it)
                                 }
                             }.show()
                         cancelAction()
@@ -138,10 +143,11 @@ class HomeFragment: Fragment() {
         }
     }
 
+
     private fun setClickBtnAddMoneyIO() {
         b.btnAddMoneyIo.setOnClickListener {
             DialogAddMoneyIO.setBgAlpha(0.6f).show(mainActivity.b.bgMainActivity) {
-
+                listMoneyInOutLiveData.value = MoneyInOutDB.get.dao().getList().toMutableList()
             }
         }
     }

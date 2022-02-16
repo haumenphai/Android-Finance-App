@@ -323,50 +323,8 @@ object DialogAddMoneyIO {
 
 
             if (moneyIO.computeIntoTheTotalMoney) {
-
-                // refund the calculation to total money
-                if (oldMoneyIO.computeIntoTheTotalMoney) {
-                    if (oldMoneyIO.type == MoneyInOut.MoneyInOutType.IN) {
-                        when (oldMoneyIO.currency) {
-                            getStr(R.string.bank) -> {
-                                AppData.minusMoneyBank(oldMoneyIO.amount)
-                            }
-                            getStr(R.string.cash) -> {
-                                AppData.minusTotalCash(oldMoneyIO.amount)
-                            }
-                        }
-                    } else {
-                        when (oldMoneyIO.currency) {
-                            getStr(R.string.bank) -> {
-                                AppData.increaseMoneyBank(oldMoneyIO.amount)
-                            }
-                            getStr(R.string.cash) -> {
-                                AppData.increaseTotalCash(oldMoneyIO.amount)
-                            }
-                        }
-                    }
-                }
-
-                // new calculation to total money
-                if (type == MoneyInOut.MoneyInOutType.IN) {
-                    when (moneyIO.currency) {
-                        getStr(R.string.bank) -> {
-                            AppData.increaseMoneyBank(moneyIO.amount)
-                        }
-                        getStr(R.string.cash) -> {
-                            AppData.increaseTotalCash(moneyIO.amount)
-                        }
-                    }
-                } else {
-                    when (moneyIO.currency) {
-                        getStr(R.string.bank) -> {
-                            AppData.minusMoneyBank(moneyIO.amount)
-                        }
-                        getStr(R.string.cash) -> {
-                            AppData.minusTotalCash(moneyIO.amount)
-                        }
-                    }
-                }
+                AppData.refundTheAmount(oldMoneyIO)
+                AppData.calculateIntoTheAmount(moneyIO)
             }
 
             rootLayout.removeView(view)
