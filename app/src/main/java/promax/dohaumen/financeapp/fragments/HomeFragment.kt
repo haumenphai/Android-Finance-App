@@ -37,9 +37,9 @@ class HomeFragment: Fragment() {
         b.recyclerView.adapter = moneyInOutAdapter
         listMoneyInOutLiveData.observeForever {
             moneyInOutAdapter.setList(it)
-            loadDataTotalMoneyIOToText()
+//            loadDataTotalMoneyIOToText()
         }
-        loadDataTotalMoneyIOToText()
+//        loadDataTotalMoneyIOToText()
 
         loadDataMoneyToTextView()
         setClickItemMoneyIO()
@@ -49,7 +49,7 @@ class HomeFragment: Fragment() {
     }
 
     fun notifyMoneyUnitOrMoneyFormatChanged() {
-        loadDataTotalMoneyIOToText()
+//        loadDataTotalMoneyIOToText()
         moneyInOutAdapter.notifyDataSetChanged()
     }
 
@@ -65,19 +65,19 @@ class HomeFragment: Fragment() {
         }
     }
 
-    private fun loadDataTotalMoneyIOToText() {
-        var totalMoneyIn = BigDecimal("0")
-        var totalMOneyOut = BigDecimal("0")
-
-        listMoneyInOutLiveData.value!!.filter { it.type == MoneyInOut.MoneyInOutType.IN }.forEach {
-            totalMoneyIn += BigDecimal(it.amount)
-        }
-        listMoneyInOutLiveData.value!!.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.forEach {
-            totalMOneyOut += BigDecimal(it.amount)
-        }
-        b.tvTotalMoneyInValue.text = AppData.formatMoneyWithAppConfig(totalMoneyIn.toPlainString())
-        b.tvTotalMoneyOutValue.text = AppData.formatMoneyWithAppConfig(totalMOneyOut.toPlainString())
-    }
+//    private fun loadDataTotalMoneyIOToText() {
+//        var totalMoneyIn = BigDecimal("0")
+//        var totalMOneyOut = BigDecimal("0")
+//
+//        listMoneyInOutLiveData.value!!.filter { it.type == MoneyInOut.MoneyInOutType.IN }.forEach {
+//            totalMoneyIn += BigDecimal(it.amount)
+//        }
+//        listMoneyInOutLiveData.value!!.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.forEach {
+//            totalMOneyOut += BigDecimal(it.amount)
+//        }
+//        b.tvTotalMoneyInValue.text = AppData.formatMoneyWithAppConfig(totalMoneyIn.toPlainString())
+//        b.tvTotalMoneyOutValue.text = AppData.formatMoneyWithAppConfig(totalMOneyOut.toPlainString())
+//    }
 
     private fun setClickItemMoneyIO() {
         moneyInOutAdapter.onClickItem = { moneyIO ->

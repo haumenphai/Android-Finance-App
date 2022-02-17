@@ -11,7 +11,7 @@ class MoneyInOut: BaseModel {
 
     var type: MoneyInOutType = MoneyInOutType.IN
     var amount: String = "0"         // support BigDecimal
-    var currency: String = "cash"    // cash, bank
+    var currency: String = Currency.CASH    // cash, bank
     var desc: String = ""
 
     @Ignore
@@ -107,6 +107,11 @@ class MoneyInOut: BaseModel {
             return list
         }
 
+    }
+
+    fun getSearchableFields(): List<String> {
+        return listOf("name", "amount", "currency", "type", "desc", "listTypeOfSpending",
+            "datetime", "computeIntoTheTotalMoney")
     }
 
     enum class MoneyInOutType { IN, OUT }

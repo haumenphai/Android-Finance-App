@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bg_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -235,7 +236,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@id/layout_1"
                     android:layout_marginTop="5dp"
-                    android:padding="10dp">
+                    >
 
                     <TextView
                         android:id="@+id/tv_time_lable"
@@ -244,6 +245,8 @@
                         android:gravity="center"
                         android:text="@string/time1"
                         android:textColor="@color/color_black_2"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -255,6 +258,7 @@
                         android:layout_toRightOf="@id/tv_time_lable"
                         android:gravity="center"
                         android:text="2022-12-20 20:20"
+                        android:layout_marginTop="5dp"
                         android:textSize="16sp" />
 
                     <Button
@@ -262,10 +266,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/tv_time_value"
+                        android:layout_toLeftOf="@id/img_delete_time"
                         android:background="@drawable/bg_button_1"
-                        android:text="Choose"
+                        android:text="@string/choose"
+                        android:layout_marginTop="5dp"
                         android:textAllCaps="false" />
+
+                    <ImageView
+                        android:id="@+id/img_delete_time"
+                        android:layout_width="45dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_delete"
+                        android:layout_alignParentRight="true"
+                        app:tint="#8A8A8A"
+                        android:background="@drawable/rippler_white_blue"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_marginTop="2dp"
+                        />
 
                     <EditText
                         android:id="@+id/edit_desc"

@@ -20,10 +20,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(b.root)
         controlFragmentWithSaveState()
 
-//        MoneyInOutDB.get.dao().deleteAll()
-//        for (m in MoneyInOut.getBigListDemo(10000)) {
-//            MoneyInOutDB.get.dao().insert(m)
-//        }
+        MoneyInOutDB.get.dao().deleteAll()
+        for (m in MoneyInOut.getBigListDemo(240)) {
+            MoneyInOutDB.get.dao().insert(m)
+        }
     }
 
     private fun controlFragmentWithSaveState() {

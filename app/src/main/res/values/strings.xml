@@ -57,4 +57,10 @@
     <string name="total_money_in">Total money in:</string>
     <string name="please_enter_name_and_amonut">Please enter the name and amount!</string>
     <string name="please_enter_a_number">Please enter a number!</string>
+    <string name="filter">Filter:</string>
+    <string name="not_equal">not equal</string>
+    <string name="contains">contains</string>
+    <string name="not_contains">not contains</string>
+    <string name="choose">Choose</string>
+    <string name="search111">Search...</string>
 </resources>

@@ -45,6 +45,9 @@ object DialogAddMoneyIO {
         b.btnCancel.setOnClickListener {
             rootLayout.removeView(view)
         }
+        b.imgDeleteTime.setOnClickListener {
+            b.tvTimeValue.text = ""
+        }
         b.tvTimeValue.text = getCurrentTimeStr()
 
         val moneyTypeAdapter = MoneyTypeAdapter()
@@ -200,6 +203,9 @@ object DialogAddMoneyIO {
         b.layoutContent.setOnClickListener {}
         b.btnCancel.setOnClickListener {
             rootLayout.removeView(view)
+        }
+        b.imgDeleteTime.setOnClickListener {
+            b.tvTimeValue.text = ""
         }
 
         b.apply {

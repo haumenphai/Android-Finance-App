@@ -24,6 +24,7 @@ class DialogPickDatetime {
                 dateTime.month = monthOfYear
                 dateTime.day = dayOfMonth
 
+                callBack(dateTime, dateTime.format("yyyy-MM-dd"))
                 MyTimePickerDialog(context, { v, hourOfDay, minute, seconds ->
                     dateTime.hour = hourOfDay
                     dateTime.minute = minute
