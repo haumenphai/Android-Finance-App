@@ -20,10 +20,14 @@
 
 
     <color name="color_black_2">#292929</color>
-    <color name="test">#515151</color>
+<!--    <color name="test">#515151</color>-->
 
     <!--    Color item rippler solid-->
     <color name="color_item">#E3E6CFAD</color>
     <color name="color_item2">#E3FFEBCD</color>
+    <color name="test">#E3F1F1F1</color>
+
+    <color name="color_bg_item_sort_uncheck">#F4F4F4</color>
+    <color name="color_bg_item_sort_checked">#D1D1D1</color>
 
 </resources>

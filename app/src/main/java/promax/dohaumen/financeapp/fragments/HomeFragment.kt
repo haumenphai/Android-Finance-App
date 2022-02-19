@@ -18,7 +18,12 @@ import promax.dohaumen.financeapp.databinding.FragmentHomeBinding
 import promax.dohaumen.financeapp.datas.AppData
 import promax.dohaumen.financeapp.db.MoneyInOutDB
 import promax.dohaumen.financeapp.dialogs.DialogAddMoneyIO
+import promax.dohaumen.financeapp.dialogs.DialogFilterMoneyIO
+import promax.dohaumen.financeapp.dialogs.DialogSortMoneyIO
 import promax.dohaumen.financeapp.dialogs.DialogViewMoneyIO
+import promax.dohaumen.financeapp.helper.getStr
+import promax.dohaumen.financeapp.models.FilterMoneyIO
+import promax.dohaumen.financeapp.models.FilterMoneyIOAdapter
 import promax.dohaumen.financeapp.models.MoneyInOut
 import java.math.BigDecimal
 
@@ -27,25 +32,130 @@ class HomeFragment: Fragment() {
     private lateinit var b: FragmentHomeBinding
     private val mainActivity: MainActivity by lazy { activity as MainActivity }
     private val moneyInOutAdapter = MoneyInOutAdapter()
+    private val filterMoneyIOAdapter = FilterMoneyIOAdapter()
 
-    // current list in screen
     private var listMoneyInOutLiveData = MutableLiveData(MoneyInOutDB.get.dao().getList().toMutableList())
+    // current list in screen
+    private var currentListMoneyIo = mutableListOf<MoneyInOut>()
+    private var currentSort: FilterMoneyIO? = null
+    private var currentSetFilter: Set<FilterMoneyIO> = mutableSetOf()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         b = FragmentHomeBinding.inflate(inflater, container, false)
+        loadDataMoneyToTextView()
+        setUpRecycleView()
+        setUpLayoutFilterGroup()
+        return b.root
+    }
+
+    private fun setUpRecycleView() {
         b.recyclerView.layoutManager = LinearLayoutManager(mainActivity)
         b.recyclerView.adapter = moneyInOutAdapter
         listMoneyInOutLiveData.observeForever {
-            moneyInOutAdapter.setList(it)
+            pagingForMoneyIO(it)
+            loadDataTotalMoneyIOToText(it)
 //            loadDataTotalMoneyIOToText()
         }
-//        loadDataTotalMoneyIOToText()
-
-        loadDataMoneyToTextView()
         setClickItemMoneyIO()
         setClickActionMoneyIO()
         setClickBtnAddMoneyIO()
-        return b.root
+    }
+
+    private fun setUpLayoutFilterGroup() {
+        // for search, filter
+        b.recyclerViewFilterMoneyIo.layoutManager = LinearLayoutManager(mainActivity)
+        b.recyclerViewFilterMoneyIo.adapter = filterMoneyIOAdapter
+        filterMoneyIOAdapter.mode = "small"
+        filterMoneyIOAdapter.onClickImgDelete = {
+            // todo:
+        }
+
+
+        val dialogFilterMoneyIO = DialogFilterMoneyIO(mainActivity)
+            .setOnclickItem {
+                // todo:
+            }
+        b.imgFilter.setOnClickListener {
+            dialogFilterMoneyIO.show()
+        }
+        b.imgSearch.setOnClickListener {
+
+        }
+        val dialogSortMoneyIO = DialogSortMoneyIO(mainActivity)
+            .setOnclickItem { filterMoneyIO ->
+                currentSort = filterMoneyIO
+                pagingForMoneyIO()
+            }
+        b.imgSort.setOnClickListener {
+           dialogSortMoneyIO.show()
+        }
+        b.imgReport.setOnClickListener {
+
+        }
+    }
+
+    /**
+     * @param _list: list to show in screen
+     */
+    private fun pagingForMoneyIO(_list: List<MoneyInOut> = currentListMoneyIo) {
+        var list = _list
+        val maxRecordsShowed = 100
+        var start = 0
+        var end = if (maxRecordsShowed > list.size) list.size else maxRecordsShowed
+
+        currentSort?.let {
+            list = it.sortMoneyIO(list)
+        }
+
+        fun initValue(_list: List<MoneyInOut>) {
+            b.tvRecordsCount.text = _list.size.toString()
+            b.tvRecordsCurrent.text = "${start+1}-$end / "
+            if (_list.size < maxRecordsShowed) {
+                end = _list.size
+            }
+            currentListMoneyIo = _list.subList(start, end).toMutableList()
+            moneyInOutAdapter.setList(currentListMoneyIo)
+        }
+        initValue(list)
+
+
+        b.imgRight.setOnClickListener {
+            start += maxRecordsShowed
+            end += maxRecordsShowed
+            if (start >= list.size) {
+                start = 0
+                end = maxRecordsShowed
+            }
+            if (end >= list.size) {
+                end = list.size
+            }
+
+            currentListMoneyIo = list.subList(start, end).toMutableList()
+            moneyInOutAdapter.setList(currentListMoneyIo)
+//            adapter.setStartIndex(start)
+            b.tvRecordsCurrent.text = "${start+1}-$end / "
+//            b.tvRecordsCount.text = records.size.toString()
+
+        }
+        b.imgLeft.setOnClickListener {
+            start -= maxRecordsShowed
+            end -= maxRecordsShowed
+            if (start < 0) {
+                start = list.size - maxRecordsShowed
+                end = list.size
+                if (start < 0) {
+                    start = 0
+                }
+            }
+
+            currentListMoneyIo = list.subList(start, end).toMutableList()
+            moneyInOutAdapter.setList(currentListMoneyIo)
+//            adapter.setStartIndex(start)
+            b.tvRecordsCurrent.text = "${start+1}-$end / "
+//            b.tvRecordsCount.text = records.size.toString()
+        }
+
     }
 
     fun notifyMoneyUnitOrMoneyFormatChanged() {
@@ -65,19 +175,19 @@ class HomeFragment: Fragment() {
         }
     }
 
-//    private fun loadDataTotalMoneyIOToText() {
-//        var totalMoneyIn = BigDecimal("0")
-//        var totalMOneyOut = BigDecimal("0")
-//
-//        listMoneyInOutLiveData.value!!.filter { it.type == MoneyInOut.MoneyInOutType.IN }.forEach {
-//            totalMoneyIn += BigDecimal(it.amount)
-//        }
-//        listMoneyInOutLiveData.value!!.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.forEach {
-//            totalMOneyOut += BigDecimal(it.amount)
-//        }
-//        b.tvTotalMoneyInValue.text = AppData.formatMoneyWithAppConfig(totalMoneyIn.toPlainString())
-//        b.tvTotalMoneyOutValue.text = AppData.formatMoneyWithAppConfig(totalMOneyOut.toPlainString())
-//    }
+    private fun loadDataTotalMoneyIOToText(list: List<MoneyInOut>) {
+        var totalMoneyIn = BigDecimal("0")
+        var totalMoneyOut = BigDecimal("0")
+
+        list.filter { it.type == MoneyInOut.MoneyInOutType.IN }.forEach {
+            totalMoneyIn += BigDecimal(it.amount)
+        }
+        list.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.forEach {
+            totalMoneyOut += BigDecimal(it.amount)
+        }
+        b.tvTotalMoneyIn.text = "${getStr(R.string.total_money_in)} ${AppData.formatMoneyWithAppConfig(totalMoneyIn.toPlainString())}"
+        b.tvTotalMoneyOut.text = "${getStr(R.string.total_money_out)} ${AppData.formatMoneyWithAppConfig(totalMoneyOut.toPlainString())}"
+    }
 
     private fun setClickItemMoneyIO() {
         moneyInOutAdapter.onClickItem = { moneyIO ->

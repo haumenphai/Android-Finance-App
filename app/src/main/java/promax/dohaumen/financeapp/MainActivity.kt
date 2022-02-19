@@ -7,6 +7,8 @@ import promax.dohaumen.financeapp.databinding.ActivityMainBinding
 import promax.dohaumen.financeapp.db.MoneyInOutDB
 import promax.dohaumen.financeapp.fragments.HomeFragment
 import promax.dohaumen.financeapp.fragments.SettingFragment
+import promax.dohaumen.financeapp.models.FilterMoneyIO
+import promax.dohaumen.financeapp.models.FilterMoneyIODB
 import promax.dohaumen.financeapp.models.MoneyInOut
 
 class MainActivity : AppCompatActivity() {
@@ -20,10 +22,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(b.root)
         controlFragmentWithSaveState()
 
-        MoneyInOutDB.get.dao().deleteAll()
-        for (m in MoneyInOut.getBigListDemo(240)) {
-            MoneyInOutDB.get.dao().insert(m)
-        }
+//        MoneyInOutDB.get.dao().deleteAll()
+//        for (m in MoneyInOut.getBigListDemo(240)) {
+//            MoneyInOutDB.get.dao().insert(m)
+//        }
+//        FilterMoneyIODB.get.dao().deleteAll()
+//        FilterMoneyIO.getListItemFilter().forEach { FilterMoneyIODB.get.dao().insert(it) }
     }
 
     private fun controlFragmentWithSaveState() {

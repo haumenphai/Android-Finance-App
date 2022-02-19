@@ -43,6 +43,15 @@ fun getCurrentTimeStr(format: String = "yyyy-MM-dd HH:mm"): String {
     return sdf.format(Date())
 }
 
+fun <K, V> Map<K, V>.getKey(value: V): K? {
+    for ((key, value1) in this) {
+        if (Objects.equals(value, value1)) {
+            return key
+        }
+    }
+    return null
+}
+
 
 @SuppressLint("SimpleDateFormat")
 class DateTime {

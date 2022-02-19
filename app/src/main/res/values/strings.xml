@@ -63,4 +63,23 @@
     <string name="not_contains">not contains</string>
     <string name="choose">Choose</string>
     <string name="search111">Search...</string>
+    <string name="reverse">reverse</string>
+    <string name="sort_by">Sort by:</string>
+    <string name="create_time">create time</string>
+    <string name="filter_title">Filter</string>
+    <string name="name1">name</string>
+    <string name="amount2">amount</string>
+    <string name="date1">date</string>
+    <string name="money_type__money_in">Money Type: money in</string>
+    <string name="money_type__money_out">Money Type: money out</string>
+    <string name="currency__cash">Currency: Cash</string>
+    <string name="currency__bank">Currency: Bank</string>
+    <string name="record_has_time">Record has: Time</string>
+    <string name="record_without_time">Record without: Time</string>
+    <string name="record_has_description">Record has: Description</string>
+    <string name="record_without_description">Record without: Description</string>
+    <string name="amount_greater_than_or_equal_500000"><![CDATA[Amount >= 500 000]]></string>
+    <string name="operator1">"Operater: "</string>
+    <string name="value_1">"Value: "</string>
+    <string name="enter_value_">Enter value...</string>
 </resources>

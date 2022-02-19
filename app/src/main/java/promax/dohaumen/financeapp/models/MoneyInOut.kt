@@ -9,14 +9,14 @@ import com.google.gson.Gson
 @Entity
 class MoneyInOut: BaseModel {
 
-    var type: MoneyInOutType = MoneyInOutType.IN
+    var type: MoneyInOutType = MoneyInOutType.IN // money type
     var amount: String = "0"         // support BigDecimal
     var currency: String = Currency.CASH    // cash, bank
     var desc: String = ""
 
     @Ignore
     var listTypeOfSpending: List<MoneyType> = listOf()
-    var typeOfSpendingJson = ""
+    var typeOfSpendingJson = "" // type
     var datetime: String = ""
 
     @Ignore
