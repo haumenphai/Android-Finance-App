@@ -38,9 +38,31 @@ fun String.isNumeric(): Boolean {
 
 
 @SuppressLint("SimpleDateFormat")
-fun getCurrentTimeStr(format: String = "yyyy-MM-dd HH:mm"): String {
+fun getCurrentTimeStr(format: String = "yyyy-MM-dd HH:mm:ss"): String {
     val sdf = SimpleDateFormat(format)
     return sdf.format(Date())
+}
+
+fun getCurrentDatetime(): DateTime {
+    val dateStr = getCurrentTimeStr()
+
+    val s = dateStr.split(" ")
+    val year = s[0].split("-")[0].toInt()
+    val month = s[0].split("-")[1].toInt()
+    val day = s[0].split("-")[2].toInt()
+
+
+    val hour = s[1].split(":")[0].toInt()
+    val minute = s[1].split(":")[1].toInt()
+    val seconds = s[1].split(":")[2].toInt()
+    return DateTime(
+        year = year,
+        month = month,
+        day = day,
+        hour = hour,
+        minute = minute,
+        seconds = seconds
+    )
 }
 
 fun <K, V> Map<K, V>.getKey(value: V): K? {
@@ -63,6 +85,19 @@ class DateTime {
     var seconds = 0
     var milisecond = 0
 
+    constructor()
+
+    constructor(year: Int =0, month: Int =0,
+                day: Int =0, hour: Int =0, minute: Int=0, seconds: Int=0, milisecond: Int =0) {
+        this.year = year
+        this.month = month
+        this.day = day
+        this.hour = hour
+        this.minute = minute
+        this.seconds = seconds
+        this.milisecond = milisecond
+    }
+
     override fun toString(): String =
         "Datetime(year=$year, month=$month, day=$day, hour=$hour, minute=$minute, second=$seconds, milisecond=$milisecond)"
 
@@ -79,15 +114,75 @@ class DateTime {
         return simpleDateFormat.format(c.time)
     }
 
-    fun toMiliseconds(): Long {
+    fun getCalendar(): Calendar {
         val c = Calendar.getInstance()
         c.set(Calendar.YEAR, year)
-        c.set(Calendar.MONTH, month)
+        c.set(Calendar.MONTH, month -1)
         c.set(Calendar.DAY_OF_MONTH, day)
         c.set(Calendar.HOUR_OF_DAY, hour)
         c.set(Calendar.MINUTE, minute)
         c.set(Calendar.SECOND, seconds)
+        return c
+    }
 
-        return c.timeInMillis
+    fun getYesterday(): DateTime {
+        val c = getCalendar()
+        c.add(Calendar.DATE, -1)
+        return DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH))
+    }
+
+    fun getLastWeek(): DateTime {
+        val c = getCalendar()
+        c.add(Calendar.WEEK_OF_MONTH, -1)
+        return DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH))
+    }
+
+    fun getLasMonth(): DateTime {
+        val c = getCalendar()
+        c.add(Calendar.MONTH, -1)
+        return DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH) +1, c.get(Calendar.DAY_OF_MONTH))
+    }
+
+
+    fun toMiliseconds(): Long {
+        return getCalendar().timeInMillis
+    }
+
+    fun getWeekOfYear(): Int {
+        return getCalendar().get(Calendar.WEEK_OF_YEAR)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is DateTime) {
+            return year == other.year &&
+                    month == other.month &&
+                    day == other.day &&
+                    hour == other.hour &&
+                    minute == other.minute &&
+                    seconds == other.seconds &&
+                    milisecond == other.milisecond
+        }
+        return super.equals(other)
+    }
+
+    fun equalsYMD(other: DateTime): Boolean {
+        return year == other.year &&
+                month == other.month &&
+                day == other.day
+    }
+
+    fun equalsYM(other: DateTime): Boolean {
+        return year == other.year && month == other.month
+    }
+
+    override fun hashCode(): Int {
+        var result = year
+        result = 31 * result + month
+        result = 31 * result + day
+        result = 31 * result + hour
+        result = 31 * result + minute
+        result = 31 * result + seconds
+        result = 31 * result + milisecond
+        return result
     }
 }

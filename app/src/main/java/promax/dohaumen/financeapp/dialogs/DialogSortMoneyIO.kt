@@ -19,7 +19,7 @@ class DialogSortMoneyIO(context: Context) {
         b.recyclerView.adapter = adapter
         b.recyclerView.layoutManager = LinearLayoutManager(context)
         adapter.mode = "sort"
-        adapter.setList(FilterMoneyIO.getListItemSort().toMutableList())
+        adapter.setList(FilterMoneyIO.getListItemSortDefault().toMutableList())
     }
 
     fun setOnclickItem(onClick: (filterMoneyIO: FilterMoneyIO) -> Unit): DialogSortMoneyIO {

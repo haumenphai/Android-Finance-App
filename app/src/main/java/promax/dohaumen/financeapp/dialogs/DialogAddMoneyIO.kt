@@ -48,7 +48,7 @@ object DialogAddMoneyIO {
         b.imgDeleteTime.setOnClickListener {
             b.tvTimeValue.text = ""
         }
-        b.tvTimeValue.text = getCurrentTimeStr()
+        b.tvTimeValue.text = getCurrentTimeStr("yyyy-MM-dd")
 
         val moneyTypeAdapter = MoneyTypeAdapter()
         moneyTypeAdapter.modeInDialog = true

@@ -30,7 +30,6 @@ abstract class TotalCashHistoryDB : RoomDatabase() {
             synchronized(this) {
                 Room.databaseBuilder(MyApp.context, TotalCashHistoryDB::class.java, "total_cash_history")
                     .allowMainThreadQueries()
-                    .fallbackToDestructiveMigration()
                     .build()
             }
         }

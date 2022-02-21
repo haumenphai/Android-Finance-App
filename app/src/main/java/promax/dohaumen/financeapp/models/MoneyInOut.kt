@@ -4,6 +4,8 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.Gson
+import promax.dohaumen.financeapp.helper.DateTime
+import java.lang.Exception
 
 
 @Entity
@@ -68,6 +70,50 @@ class MoneyInOut: BaseModel {
         )
     }
 
+    fun getValueOfFieldString(field: String): String {
+        when (field) {
+            "name" -> return this.name
+            "type" -> return this.type.toString()
+            "amount" -> return this.amount
+            "currency" -> return this.currency
+            "desc" -> return this.desc
+            "datetime" -> return this.datetime
+        }
+        throw Exception("field invalid!")
+    }
+
+    fun getValueOfFieldNumber(field: String): Double {
+        when (field) {
+            "amount" -> return this.amount.toDouble()
+            "id" -> return this.id.toDouble()
+        }
+        throw Exception("field invalid!")
+    }
+
+    fun getDateTime(): DateTime {
+        val s = datetime.split(" ")
+        val year = s[0].split("-")[0].toInt()
+        val month = s[0].split("-")[1].toInt()
+        val day = s[0].split("-")[2].toInt()
+
+        var hour = 0
+        var minute = 0
+
+        if (s.size == 2) {
+            hour = s[1].split(":")[0].toInt()
+            minute = s[1].split(":")[1].toInt()
+        }
+        return DateTime(
+            year = year,
+            month = month,
+            day = day,
+            hour = hour,
+            minute = minute
+        )
+
+    }
+
+
     fun getListMoneyType(): List<MoneyType> {
         var list = listOf<MoneyType>()
         if (this.listTypeOfSpending.isNotEmpty()) {
@@ -107,11 +153,6 @@ class MoneyInOut: BaseModel {
             return list
         }
 
-    }
-
-    fun getSearchableFields(): List<String> {
-        return listOf("name", "amount", "currency", "type", "desc", "listTypeOfSpending",
-            "datetime", "computeIntoTheTotalMoney")
     }
 
     enum class MoneyInOutType { IN, OUT }

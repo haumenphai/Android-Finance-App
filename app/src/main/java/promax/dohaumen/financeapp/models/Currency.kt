@@ -58,7 +58,6 @@ abstract class CurrencyDB : RoomDatabase() {
                 Room.databaseBuilder(MyApp.context, CurrencyDB::class.java, "currency_db")
                     .allowMainThreadQueries()
                     .addCallback(roomCallback)
-                    .fallbackToDestructiveMigration()
                     .build()
             }
         }

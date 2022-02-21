@@ -3,7 +3,7 @@
     <string name="nav_home">Home</string>
     <string name="setting">Setting</string>
     <string name="amount_available">Amount Available:</string>
-    <string name="amount">Amonut</string>
+    <string name="amount">Amount</string>
     <string name="add_money_in_out">Add Money In Out</string>
     <string name="name">Name:</string>
     <string name="amount1">Amount:</string>
@@ -82,4 +82,26 @@
     <string name="operator1">"Operater: "</string>
     <string name="value_1">"Value: "</string>
     <string name="enter_value_">Enter value...</string>
+    <string name="today">Today</string>
+    <string name="this_week">This week</string>
+    <string name="this_month">This month</string>
+    <string name="this_year">this_year</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="last_week">Last week</string>
+    <string name="last_month">Last month</string>
+    <string name="last_year">Last year</string>
+    <string name="name2">Name</string>
+    <string name="currency">Currency</string>
+    <string name="money_type">Money Type</string>
+    <string name="description">Description</string>
+    <string name="date2">Date</string>
+    <string name="search_title_name">"Name: "</string>
+    <string name="search_title_amount">"Amount: "</string>
+    <string name="search_title_type">Type: </string>
+    <string name="search_title_time">"Time: "</string>
+    <string name="search_title_description">"Description: "</string>
+    <string name="filter_title_calculate_into_the_total_money_checked">Calculate into the total money: checked</string>
+    <string name="filter_title_calculate_into_the_total_money_not_check">Calculate into the total money: not check</string>
+    <string name="search">Search</string>
+    <string name="search____">Search...</string>
 </resources>

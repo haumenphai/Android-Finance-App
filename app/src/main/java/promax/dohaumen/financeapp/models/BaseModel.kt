@@ -8,7 +8,7 @@ import promax.dohaumen.financeapp.helper.getCurrentTimeStr
 abstract class BaseModel {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
-    var createTime = getCurrentTimeStr()
+    var createTime = getCurrentTimeStr("YY-MM-dd")
     var name = ""
 
     override fun equals(other: Any?): Boolean {

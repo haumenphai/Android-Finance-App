@@ -21,7 +21,6 @@ abstract class MoneyInOutDB : RoomDatabase() {
                 Room.databaseBuilder(context, MoneyInOutDB::class.java, "money_in_out_db")
                     .allowMainThreadQueries()
                     .addCallback(roomCallback)
-                    .fallbackToDestructiveMigration()
                     .build()
             }
         }

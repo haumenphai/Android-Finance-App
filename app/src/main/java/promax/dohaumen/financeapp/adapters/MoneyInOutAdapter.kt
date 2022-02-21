@@ -20,6 +20,12 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
 
     lateinit var onClickItem: (moneyInOut: MoneyInOut) -> Unit
     lateinit var onLongClickItem: (moneyInOut: MoneyInOut) -> Unit
+    private var startIndex = 0
+
+    fun setStartIndex(index: Int) {
+        this.startIndex = index
+        notifyDataSetChanged()
+    }
 
     fun setList(list: List<MoneyInOut>) {
         this.list = list
@@ -83,7 +89,7 @@ class MoneyInOutAdapter : RecyclerView.Adapter<MoneyInOutAdapter.MoneyInoutHolde
             }
         }
 
-        holder.b.tvSequence.text = "${position+1}"
+        holder.b.tvSequence.text = "${startIndex+position+1}"
         holder.b.tvName.text = currentMoneyIO.name
         if (currentMoneyIO.type == MoneyInOutType.IN) {
             holder.b.tvAmount.text = "+${AppData.formatMoneyWithAppConfig(currentMoneyIO.amount)}"

@@ -14,6 +14,8 @@
         android:padding="5dp"
         android:text="Money In"
         android:textColor="@color/color_black_2"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="13sp" />
 
     <ImageView

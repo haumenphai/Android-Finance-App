@@ -1,8 +1,10 @@
 package promax.dohaumen.financeapp
 
-import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Test
+import promax.dohaumen.financeapp.helper.DateTime
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -20,6 +22,34 @@ class ExampleUnitTest {
         println(s subtract s1)
 
         println('g')
+    }
+
+    @Test
+    fun test2() {
+//        val l1 = listOf("100", "2", "9", "30")
+//        println(l1.sortedWith(compareBy({it.toDouble()}, {it.toDouble()})))
+
+//        val yesterday = DateTime(2022, 2, 28)
+//        val today = DateTime(2022, 3, 1)
+//        println(yesterday.toMiliseconds() / 1000)
+//        println(today.toMiliseconds() / 1000 - 24 * 60 * 60)
+//
+//
+//        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+//        val cal = Calendar.getInstance()
+//        cal.set(Calendar.YEAR, 2022)
+//        cal.set(Calendar.MONTH, 2)
+//        cal.set(Calendar.DATE, 1)
+//
+//        cal.add(Calendar.DATE, -1)
+//        println(dateFormat.format(cal.getTime()))
+//
+
+
+        val d1 = DateTime(2022, 1, 2).getLasMonth()
+        val d2 = DateTime(2021, 11, 31)
+        println(d1.equalsYM(d2))
+//        println(d2.getWeekOfYear())
     }
 }
 

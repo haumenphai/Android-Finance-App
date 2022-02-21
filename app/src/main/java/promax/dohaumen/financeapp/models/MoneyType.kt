@@ -21,6 +21,7 @@ import promax.dohaumen.financeapp.databinding.ItemCurrecyBinding
 import promax.dohaumen.financeapp.databinding.ItemMoneyTypeBinding
 import promax.dohaumen.financeapp.databinding.ItemMoneyTypeInDialogCreateMoneyIoBinding
 import promax.dohaumen.financeapp.models.MoneyInOut.MoneyInOutType
+import java.util.*
 
 
 @Entity
@@ -49,6 +50,7 @@ class MoneyType: BaseModel {
 }
 
 fun List<MoneyType>.toJson() = Gson().toJson(this)
+fun List<MoneyType>.toListString() = this.map { it.name.toLowerCase(Locale.ROOT) }.toList()
 
 @Database(entities = [MoneyType::class], version = 1)
 abstract class MoneyTypeDB : RoomDatabase() {
@@ -60,7 +62,6 @@ abstract class MoneyTypeDB : RoomDatabase() {
                 Room.databaseBuilder(MyApp.context, MoneyTypeDB::class.java, "money_type_db")
                     .allowMainThreadQueries()
                     .addCallback(roomCallback)
-                    .fallbackToDestructiveMigration()
                     .build()
             }
         }

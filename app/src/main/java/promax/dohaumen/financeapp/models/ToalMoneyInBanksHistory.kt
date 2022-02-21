@@ -40,7 +40,6 @@ abstract class TotalMoneyInBanksHistoryDB : RoomDatabase() {
             synchronized(this) {
                 Room.databaseBuilder(MyApp.context, TotalMoneyInBanksHistoryDB::class.java, "total_money_in_banks_history")
                     .allowMainThreadQueries()
-                    .fallbackToDestructiveMigration()
                     .build()
             }
         }

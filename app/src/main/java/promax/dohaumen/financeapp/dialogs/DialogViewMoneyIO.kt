@@ -15,7 +15,7 @@ import promax.dohaumen.financeapp.models.MoneyTypeAdapter
 object DialogViewMoneyIO {
 
     @SuppressLint("SetTextI18n")
-    fun show(rootLayout: ViewGroup, moneyIO: MoneyInOut, onEditComplete: (moneyIO: MoneyInOut) -> Unit) {
+    fun show(rootLayout: ViewGroup, moneyIO: MoneyInOut, onEditComplete: (moneyIO: MoneyInOut) -> Unit = {}) {
         val view = LayoutInflater.from(rootLayout.context)
             .inflate(R.layout.dialog_view_money_io, rootLayout, false)
         val b = DialogViewMoneyIoBinding.bind(view)

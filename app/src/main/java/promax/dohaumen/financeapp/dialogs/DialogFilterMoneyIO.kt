@@ -2,6 +2,7 @@ package promax.dohaumen.financeapp.dialogs
 
 import android.app.Dialog
 import android.content.Context
+import android.icu.number.Precision.currency
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import promax.dohaumen.financeapp.R
 import promax.dohaumen.financeapp.databinding.DialogFilterMoneyIoBinding
 import promax.dohaumen.financeapp.helper.getKey
+import promax.dohaumen.financeapp.helper.getStr
 import promax.dohaumen.financeapp.models.FilterMoneyIO
 import promax.dohaumen.financeapp.models.FilterMoneyIOAdapter
 import promax.dohaumen.financeapp.models.FilterMoneyIODB
@@ -17,13 +19,19 @@ import promax.dohaumen.financeapp.models.FilterMoneyIODB
 @Suppress("TYPE_INFERENCE_ONLY_INPUT_TYPES_WARNING")
 class DialogFilterMoneyIO(context: Context) {
     val dialog = Dialog(context)
-    val b = DialogFilterMoneyIoBinding.bind(
-        LayoutInflater.from(context).inflate(
-            R.layout.dialog_filter_money_io,
-            null
-        )
-    )
+    val b = DialogFilterMoneyIoBinding.bind(LayoutInflater.from(context).inflate(R.layout.dialog_filter_money_io, null))
     val adapter = FilterMoneyIOAdapter()
+
+    fun getList() = adapter.getList()
+
+    fun unCheck(filterMoneyIO: FilterMoneyIO) {
+        adapter.getList().forEach {
+            if (it == filterMoneyIO) {
+                it.isChecked = false
+            }
+        }
+        adapter.notifyDataSetChanged()
+    }
 
     init {
         dialog.setContentView(b.root)
@@ -34,15 +42,14 @@ class DialogFilterMoneyIO(context: Context) {
             adapter.setList(it.toMutableList())
         }
 
-        // todo: export string
         val fieldMap = mapOf<String, String>(
-            "Name" to "name",
-            "Amount" to "amount",
-            "Currency" to "currency",
-            "Money Type" to "type",
+            getStr(R.string.name2) to "name",
+            getStr(R.string.amount) to "amount",
+            getStr(R.string.currency) to "currency",
+            getStr(R.string.money_type) to "type",
 //            "Type" to "listTypeOfSpending",
-            "Description" to "desc",
-            "Date" to "datetime",
+            getStr(R.string.description) to "desc",
+            getStr(R.string.date2) to "datetime",
 //            "Calculate into the total money" to "computeIntoTheTotalMoney",
         )
         val fieldList = fieldMap.keys.toList()
@@ -82,10 +89,8 @@ class DialogFilterMoneyIO(context: Context) {
             Toast.makeText(context, "Created", Toast.LENGTH_SHORT).show()
         }
         b.btnInsertDefault.setOnClickListener {
-            val itemToInsert = FilterMoneyIO.getListItemFilter().toMutableList() subtract adapter.getList()
-            itemToInsert.forEach {
-                FilterMoneyIODB.get.dao().insert(it)
-            }
+            FilterMoneyIODB.get.dao().deleteAllFilterDefault()
+            FilterMoneyIODB.insertListItemFilterDefault()
         }
     }
 
