@@ -62,7 +62,7 @@
     <string name="contains">contains</string>
     <string name="not_contains">not contains</string>
     <string name="choose">Choose</string>
-    <string name="search111">Search...</string>
+    <string name="search111">Search…</string>
     <string name="reverse">reverse</string>
     <string name="sort_by">Sort by:</string>
     <string name="create_time">create time</string>
@@ -82,7 +82,6 @@
     <string name="operator1">"Operater: "</string>
     <string name="value_1">"Value: "</string>
     <string name="enter_value_">Enter value...</string>
-    <string name="today">Today</string>
     <string name="this_week">This week</string>
     <string name="this_month">This month</string>
     <string name="this_year">this_year</string>
@@ -104,4 +103,10 @@
     <string name="filter_title_calculate_into_the_total_money_not_check">Calculate into the total money: not check</string>
     <string name="search">Search</string>
     <string name="search____">Search...</string>
+    <string name="cash1">Cash:</string>
+    <string name="money_in_bank1">Money in bank:</string>
+    <string name="money_in1">Money in:</string>
+    <string name="money_out1">Money out:</string>
+    <string name="today">Today</string>
+    <string name="all">All</string>
 </resources>

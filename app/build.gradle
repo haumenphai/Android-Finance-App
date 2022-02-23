@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    implementation 'info.androidhive:fontawesome:0.0.5'
+
     //Time picker with second
     implementation 'com.kovachcode:timePickerWithSeconds:1.0.1'
 

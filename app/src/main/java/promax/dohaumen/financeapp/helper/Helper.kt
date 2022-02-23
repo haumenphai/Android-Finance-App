@@ -75,6 +75,27 @@ fun <K, V> Map<K, V>.getKey(value: V): K? {
 }
 
 
+fun Calendar.toDatetime(): DateTime {
+    return DateTime(
+        year =  this.get(Calendar.YEAR),
+        month = this.get(Calendar.MONTH) + 1,
+        day = this.get(Calendar.DAY_OF_MONTH),
+        hour = this.get(Calendar.HOUR_OF_DAY),
+        minute = this.get(Calendar.MINUTE),
+        seconds = this.get(Calendar.SECOND),
+        milisecond = this.get(Calendar.MILLISECOND)
+    )
+}
+
+fun String.toYMD(): String {
+    // input: yyyy-MM-dd xxxx
+    val date = this.split(" ")[0]
+    val y = date.split("-")[0]
+    val m = date.split("-")[1]
+    val d = date.split("-")[2]
+    return "$y-$m-$d"
+}
+
 @SuppressLint("SimpleDateFormat")
 class DateTime {
     var year = 0
@@ -104,7 +125,7 @@ class DateTime {
     fun format(format: String = "yyyy-MM-dd HH:mm:ss [E]"): String {
         val c = Calendar.getInstance()
         c.set(Calendar.YEAR, year)
-        c.set(Calendar.MONTH, month)
+        c.set(Calendar.MONTH, month -1)
         c.set(Calendar.DAY_OF_MONTH, day)
         c.set(Calendar.HOUR_OF_DAY, hour)
         c.set(Calendar.MINUTE, minute)
@@ -114,6 +135,31 @@ class DateTime {
         return simpleDateFormat.format(c.time)
     }
 
+    fun addTime(year: Int=0, month: Int=0, day: Int=0, hour: Int=0, minute: Int=0, seconds: Int=0, milisecond: Int=0): DateTime {
+        val c = getCalendar()
+        c.add(Calendar.YEAR, year)
+        c.add(Calendar.MONTH, month)
+        c.add(Calendar.DAY_OF_MONTH, day)
+        c.add(Calendar.HOUR_OF_DAY, hour)
+        c.add(Calendar.MINUTE, minute)
+        c.add(Calendar.SECOND, seconds)
+        c.add(Calendar.MILLISECOND, milisecond)
+        return c.toDatetime()
+    }
+
+    fun minuteTime(year: Int=0, month: Int=0, day: Int=0, hour: Int=0, minute: Int=0, seconds: Int=0, milisecond: Int=0): DateTime {
+        val c = getCalendar()
+        c.add(Calendar.YEAR, -year)
+        c.add(Calendar.MONTH, -month)
+        c.add(Calendar.DAY_OF_MONTH, -day)
+        c.add(Calendar.HOUR_OF_DAY, -hour)
+        c.add(Calendar.MINUTE, -minute)
+        c.add(Calendar.SECOND, -seconds)
+        c.add(Calendar.MILLISECOND,  -milisecond)
+        return c.toDatetime()
+    }
+
+
     fun getCalendar(): Calendar {
         val c = Calendar.getInstance()
         c.set(Calendar.YEAR, year)
@@ -122,6 +168,7 @@ class DateTime {
         c.set(Calendar.HOUR_OF_DAY, hour)
         c.set(Calendar.MINUTE, minute)
         c.set(Calendar.SECOND, seconds)
+        c.set(Calendar.MILLISECOND, milisecond)
         return c
     }
 

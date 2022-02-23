@@ -79,6 +79,23 @@ class FilterMoneyIO: BaseModel {
 
     companion object {
 
+        fun getFilterToday() =
+            FilterMoneyIO(getStr(R.string.today), defaultFilter = "filter_today", isDefault = true, type = "filter")
+        fun getFilterThisWeek() =
+            FilterMoneyIO(getStr(R.string.this_week), defaultFilter = "filter_this_week", isDefault = true, type = "filter")
+        fun getFilterThisMonth() =
+            FilterMoneyIO(getStr(R.string.this_month), defaultFilter = "filter_this_month", isDefault = true, type = "filter")
+        fun getFilterThisYear() =
+            FilterMoneyIO(getStr(R.string.this_year), defaultFilter = "filter_this_year", isDefault = true, type = "filter")
+        fun getFilterYesterday() =
+            FilterMoneyIO(getStr(R.string.yesterday), defaultFilter = "filter_yesterday", isDefault = true, type = "filter")
+        fun getFilterLastWeek() =
+            FilterMoneyIO(getStr(R.string.last_week), defaultFilter = "filter_last_week", isDefault = true, type = "filter")
+        fun getFilterLastMonth() =
+            FilterMoneyIO(getStr(R.string.last_month), defaultFilter = "filter_last_month", isDefault = true, type = "filter")
+        fun getFilterLastYear() =
+            FilterMoneyIO(getStr(R.string.last_year), defaultFilter = "filter_last_year", isDefault = true, type = "filter")
+
         // not in db
         fun getListItemSearchDefault() = listOf(
             FilterMoneyIO(getStr(R.string.search_title_name), defaultFilter = "search_name", type = "search"),
@@ -88,25 +105,26 @@ class FilterMoneyIO: BaseModel {
             FilterMoneyIO(getStr(R.string.search_title_description), defaultFilter = "search_desc", type = "search"),
         )
 
+        fun getItemSortByDatetime() = FilterMoneyIO(getStr(R.string.date1),"datetime", "sort")
+
         // not in db
         fun getListItemSortDefault(): List<FilterMoneyIO> = listOf(
-            FilterMoneyIO(getStr(R.string.create_time),"id","sort", isChecked = true),
+            FilterMoneyIO(getStr(R.string.create_time),"id","sort"),
             FilterMoneyIO(getStr(R.string.name1),"name", "sort"),
             FilterMoneyIO(getStr(R.string.amount2),"amount", "sort"),
-            FilterMoneyIO(getStr(R.string.date1),"datetime", "sort"),
+            FilterMoneyIO(getStr(R.string.date1),"datetime", "sort", isChecked = true),
         )
 
         // in db
         fun getListItemFilterDefault(): List<FilterMoneyIO> = listOf(
-            FilterMoneyIO(getStr(R.string.today), defaultFilter = "filter_today", isDefault = true, type = "filter"),
-            FilterMoneyIO(getStr(R.string.this_week), defaultFilter = "filter_this_week", isDefault = true, type = "filter"),
-            FilterMoneyIO(getStr(R.string.this_month), defaultFilter = "filter_this_month", isDefault = true, type = "filter"),
-            FilterMoneyIO(getStr(R.string.this_year), defaultFilter = "filter_this_year", isDefault = true, type = "filter"),
-            FilterMoneyIO(getStr(R.string.yesterday), defaultFilter = "filter_yesterday", isDefault = true, type = "filter"),
-            FilterMoneyIO(getStr(R.string.last_week), defaultFilter = "filter_last_week", isDefault = true, type = "filter"),
-            FilterMoneyIO(getStr(R.string.last_month), defaultFilter = "filter_last_month", isDefault = true, type = "filter"),
-            FilterMoneyIO(getStr(R.string.last_year), defaultFilter = "filter_last_year", isDefault = true, type = "filter"),
-
+            getFilterToday(),
+            getFilterThisWeek(),
+            getFilterThisMonth(),
+            getFilterThisYear(),
+            getFilterYesterday(),
+            getFilterLastWeek(),
+            getFilterLastMonth(),
+            getFilterLastYear(),
             FilterMoneyIO(
                 getStr(R.string.money_type__money_in),
                 "type",

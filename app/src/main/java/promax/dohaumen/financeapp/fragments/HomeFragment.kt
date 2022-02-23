@@ -36,7 +36,7 @@ class HomeFragment: Fragment() {
 
     // current list after filter,sort,search by
     private var currentListMoneyIo = listOf<MoneyInOut>()
-    private var currentSort: FilterMoneyIO? = null
+    private var currentSort = FilterMoneyIO.getItemSortByDatetime().apply { this.reverse = true }
     private var currentSetFilter: MutableSet<FilterMoneyIO> = mutableSetOf()
 
 
@@ -95,6 +95,7 @@ class HomeFragment: Fragment() {
                 filterMoneyIOAdapter.setList(currentSetFilter.toMutableList())
                 pagingForMoneyIO(listMoneyIO)
             }
+        val dialogReportMoneyIO = DialogReportMoneyIO(mainActivity)
 
 
         // for search, filter
@@ -121,7 +122,8 @@ class HomeFragment: Fragment() {
            dialogSortMoneyIO.show()
         }
         b.imgReport.setOnClickListener {
-
+            dialogReportMoneyIO.setListMoneyIO(currentListMoneyIo)
+            dialogReportMoneyIO.show()
         }
     }
 
@@ -135,9 +137,7 @@ class HomeFragment: Fragment() {
             var start = 0
             var end = if (maxRecordsShowed > currentListMoneyIo.size) currentListMoneyIo.size else maxRecordsShowed
 
-            currentSort?.let {
-                currentListMoneyIo = it.sortMoneyIO(currentListMoneyIo)
-            }
+            currentListMoneyIo = currentSort.sortMoneyIO(currentListMoneyIo)
             currentSetFilter.forEach {
                 if (it.type == "search") {
                     currentListMoneyIo = it.searchMoneyIO(currentListMoneyIo)

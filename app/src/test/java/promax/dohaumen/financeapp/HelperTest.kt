@@ -4,10 +4,7 @@ import android.text.TextUtils
 import androidx.room.util.StringUtil
 import org.junit.Test
 import org.junit.Assert.*
-import promax.dohaumen.financeapp.helper.formatNumber
-import promax.dohaumen.financeapp.helper.getCurrentTimeStr
-import promax.dohaumen.financeapp.helper.isNumeric
-import promax.dohaumen.financeapp.helper.to2Decimal
+import promax.dohaumen.financeapp.helper.*
 import java.math.BigDecimal
 import java.text.DecimalFormat
 
@@ -40,4 +37,33 @@ class HelperTest {
         println(getCurrentTimeStr())
     }
 
+    @Test
+    fun testMinuteDateTime() {
+        val t1 = DateTime(2022, 2, 23)
+        assertEquals(t1.minuteTime(day = 1), DateTime(2022, 2, 22))
+        assertEquals(t1.minuteTime(day = 7), DateTime(2022, 2, 16))
+        assertEquals(t1.minuteTime(month = 1), DateTime(2022, 1, 23))
+        assertEquals(t1.minuteTime(year = 1), DateTime(2021, 2, 23))
+
+        val t2 = DateTime(2022, 2, 23, 20, 50, 30, 500)
+        assertEquals(
+            t2.minuteTime(1, 1, 1, 1, 1, 1, 1),
+            DateTime(2021, 1, 22, 19, 49, 29, 499)
+        )
+    }
+
+    @Test
+    fun testAddDateTime() {
+        val t1 = DateTime(2022, 2, 23)
+        assertEquals(DateTime(2022, 2, 24), t1.addTime(day = 1))
+        assertEquals(DateTime(2022, 3, 2), t1.addTime(day = 7))
+        assertEquals(DateTime(2022, 3, 23), t1.addTime(month = 1))
+        assertEquals(DateTime(2023, 2, 23), t1.addTime(year = 1))
+
+        val t2 = DateTime(2022, 2, 23, 20, 50, 50, 500)
+        assertEquals(
+            DateTime(2023, 3, 24, 21, 51, 51, 501),
+            t2.addTime(1,1,1,1,1,1,1)
+        )
+    }
 }

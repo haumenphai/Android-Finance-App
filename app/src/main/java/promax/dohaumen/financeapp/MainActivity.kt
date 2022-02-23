@@ -23,11 +23,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(b.root)
         controlFragmentWithSaveState()
 
-        MoneyInOutDB.get.dao().deleteAll()
-        for (i in 1..206) {
-            val m = MoneyInOut(i.toString(), MoneyInOut.MoneyInOutType.IN, "1", Currency.BANK)
-            MoneyInOutDB.get.dao().insert(m)
-        }
+//        MoneyInOutDB.get.dao().deleteAll()
+//        MoneyInOut.getListDemoTest().forEach {
+//            MoneyInOutDB.get.dao().insert(it)
+//        }
+//        for (i in 1..206) {
+//            val m = MoneyInOut(i.toString(), MoneyInOut.MoneyInOutType.IN, "1", Currency.BANK)
+//            MoneyInOutDB.get.dao().insert(m)
+//        }
 //        FilterMoneyIODB.get.dao().deleteAll()
 //        FilterMoneyIO.getListItemFilter().forEach { FilterMoneyIODB.get.dao().insert(it) }
     }
