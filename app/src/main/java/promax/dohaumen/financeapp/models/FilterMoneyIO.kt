@@ -21,6 +21,7 @@ import promax.dohaumen.financeapp.dialogs.DialogConfirm
 import promax.dohaumen.financeapp.helper.getColor
 import promax.dohaumen.financeapp.helper.getCurrentDatetime
 import promax.dohaumen.financeapp.helper.getStr
+import promax.dohaumen.financeapp.helper.removeAccents
 import promax.dohaumen.financeapp.models.MoneyInOut.MoneyInOutType
 import java.lang.Exception
 import java.util.*
@@ -228,7 +229,7 @@ class FilterMoneyIO: BaseModel {
         val value = this.value.toLowerCase(Locale.ROOT)
         when (this.defaultFilter) {
             "search_name" -> {
-                result = result.filter { it.name.toLowerCase(Locale.ROOT).contains(value) }
+                result = result.filter { it.name.toLowerCase(Locale.ROOT).removeAccents().contains(value.removeAccents()) }
             }
             "search_amount" -> {
                 result = result.filter { it.amount == this.value }
@@ -240,7 +241,7 @@ class FilterMoneyIO: BaseModel {
                 result = result.filter { it.datetime.toLowerCase(Locale.ROOT).contains(value) }
             }
             "search_desc" -> {
-                result = result.filter { it.desc.toLowerCase(Locale.ROOT).contains(value) }
+                result = result.filter { it.desc.toLowerCase(Locale.ROOT).removeAccents().contains(value.removeAccents()) }
             }
         }
         return result
@@ -294,7 +295,7 @@ class FilterMoneyIO: BaseModel {
                     }
                 }
                 "filter_last_month" -> {
-                    result = result.filter { it.datetime.isNotEmpty() && it.getDateTime().equalsYM(getCurrentDatetime().getLasMonth()) }
+                    result = result.filter { it.datetime.isNotEmpty() && it.getDateTime().equalsYM(getCurrentDatetime().getLastMonth()) }
                 }
                 "filter_last_year" -> {
                     result = result.filter { it.datetime.isNotEmpty() && it.getDateTime().year == getCurrentDatetime().year -1 }
@@ -325,7 +326,10 @@ class FilterMoneyIO: BaseModel {
             when (this.operator) {
                 ">" -> result = result.filter { it.getValueOfFieldString(this.filed) > value }
                 "<" -> result = result.filter { it.getValueOfFieldString(this.filed) < value }
-                "=" -> result = result.filter { it.getValueOfFieldString(this.filed) == value }
+                "=" -> result = result.filter {
+                    it.getValueOfFieldString(this.filed).toLowerCase(Locale.ROOT).removeAccents() ==
+                            value.toLowerCase(Locale.ROOT).removeAccents()
+                }
                 ">=" -> result = result.filter { it.getValueOfFieldString(this.filed) >= value}
                 "<=" -> result = result.filter { it.getValueOfFieldString(this.filed) <= value}
                 "!=" -> result = result.filter { it.getValueOfFieldString(this.filed) != value}

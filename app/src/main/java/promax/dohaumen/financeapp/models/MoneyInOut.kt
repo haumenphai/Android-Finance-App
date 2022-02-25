@@ -5,6 +5,7 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.Gson
 import org.jetbrains.annotations.TestOnly
+import promax.dohaumen.financeapp.datas.AppData
 import promax.dohaumen.financeapp.helper.DateTime
 import promax.dohaumen.financeapp.helper.getCurrentDatetime
 import promax.dohaumen.financeapp.helper.getCurrentTimeStr
@@ -242,4 +243,83 @@ fun List<MoneyInOut>.moneyInCount(): Int {
 fun List<MoneyInOut>.moneyOutCount(): Int {
     return this.filter { it.type == MoneyInOut.MoneyInOutType.OUT }.size
 }
+
+fun List<MoneyInOut>.cashInCount(): Int {
+    return this.filter { it.type == MoneyInOut.MoneyInOutType.IN && it.currency == Currency.CASH }.size
+}
+
+fun List<MoneyInOut>.cashOutCount(): Int =
+    this.filter { it.type == MoneyInOut.MoneyInOutType.OUT && it.currency == Currency.CASH }.size
+
+fun List<MoneyInOut>.bankInCount(): Int =
+    this.filter { it.type == MoneyInOut.MoneyInOutType.IN && it.currency == Currency.BANK }.size
+
+fun List<MoneyInOut>.bankOutCount(): Int =
+    this.filter { it.type == MoneyInOut.MoneyInOutType.OUT && it.currency == Currency.BANK }.size
+
+
+/**
+ * [
+ *  1: moneyIO
+ *       name: buy car
+ *       amount: 20
+ *       type: [buy xx]
+ *
+ *  2: moneyIO
+ *       name: buy xxx
+ *       amount: 20
+ *       type: [buy xx]
+ *
+ *  3: moneyIO
+ *       name: sell xxx
+ *       amount: 10
+ *       type: [sell xx]
+ * ]
+ */
+
+/**
+ * [
+ *  {name: 'buy xx', 'amount': '+40 d', 'count': 2},
+ *  {name: 'sell xx', 'amount': '-10 d', 'count': 1}
+ * ]
+ */
+fun List<MoneyInOut>.getMoneyByType(): List<Map<String, String>> {
+    val result = mutableListOf<Map<String, String>>()
+
+    val setType = mutableSetOf<MoneyType>()
+    this.forEach {
+        it.getListMoneyType().forEach {
+            setType.add(it)
+        }
+    }
+
+    setType.forEach { moneyType1 ->
+        val map = mutableMapOf<String,String>()
+
+        map["name"] = moneyType1.name
+
+        var money = BigDecimal("0")
+        var count = 0
+        this.forEach { moneyIO ->
+            moneyIO.getListMoneyType().forEach {  moneyType2 ->
+                if (moneyType1.name == moneyType2.name) {
+                    money += BigDecimal(moneyIO.amount)
+                    count += 1
+                }
+            }
+        }
+
+        if (moneyType1.type == MoneyInOut.MoneyInOutType.OUT) {
+            map["amount"] = "-${AppData.formatMoneyWithAppConfig(money.toPlainString())}"
+        } else {
+            map["amount"] = "+${AppData.formatMoneyWithAppConfig(money.toPlainString())}"
+        }
+
+        map["count"] = count.toString()
+        result.add(map)
+    }
+
+    return result
+}
+
 

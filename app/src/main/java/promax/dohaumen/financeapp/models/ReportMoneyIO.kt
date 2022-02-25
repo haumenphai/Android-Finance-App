@@ -15,14 +15,8 @@ class ReportMoneyIO {
     var totalMoneyIn = ""
     var totalMoneyOut = ""
 
-    var showMoreDetail = false
     var isEndList = false
-    var cashIn = ""
-    var cashOut = ""
-    var moneyBankIn = ""
-    var moneyBankOut = ""
-    var moneyInCount = 0
-    var moneyOutCount = 0
+    var listMoneyIOFiltered = listOf<MoneyInOut>()
 
     constructor()
     constructor(name: String, isEndList: Boolean = false) {
@@ -64,6 +58,7 @@ class ReportMoneyIOAdapter: RecyclerView.Adapter<ReportMoneyIOAdapter.ReportMone
         notifyDataSetChanged()
     }
 
+    var onClickButtonDetail: (report: ReportMoneyIO) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportMoneyIOHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_report_money_io, parent, false)
@@ -78,24 +73,16 @@ class ReportMoneyIOAdapter: RecyclerView.Adapter<ReportMoneyIOAdapter.ReportMone
         b.tvName.text = reportMoneyIO.name
         b.tvTotalMoneyInValue.text = "+${AppData.formatMoneyWithAppConfig(reportMoneyIO.totalMoneyIn)}"
         b.tvTotalMoneyOutValue.text = "-${AppData.formatMoneyWithAppConfig(reportMoneyIO.totalMoneyOut)}"
-
-        if (!reportMoneyIO.showMoreDetail) {
-            b.layoutMoreDetail.visibility = View.GONE
-        } else {
-            b.layoutMoreDetail.visibility = View.VISIBLE
-
-            b.tvCashInTotalValue.text = "+${AppData.formatMoneyWithAppConfig(reportMoneyIO.cashIn)}"
-            b.tvCashOutTotalValue.text = "-${AppData.formatMoneyWithAppConfig(reportMoneyIO.cashOut)}"
-            b.tvMoneyInBankTotalValueIn.text = "+${AppData.formatMoneyWithAppConfig(reportMoneyIO.moneyBankIn)}"
-            b.tvMoneyInBankTotalValueOut.text ="-${AppData.formatMoneyWithAppConfig(reportMoneyIO.moneyBankOut)}"
-            b.tvMoneyInTimesCountValue.text = reportMoneyIO.moneyInCount.toString()
-            b.tvMoneyOutTimesCountValue.text = reportMoneyIO.moneyOutCount.toString()
-        }
     }
 
     override fun getItemCount(): Int = list.size
 
-    class ReportMoneyIOHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ReportMoneyIOHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val b = ItemReportMoneyIoBinding.bind(itemView)
+        init {
+            b.btnDetail.setOnClickListener {
+                onClickButtonDetail(list[layoutPosition])
+            }
+        }
     }
 }

@@ -3,8 +3,10 @@ package promax.dohaumen.financeapp.helper
 import android.annotation.SuppressLint
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import java.text.Normalizer
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
 
 fun String.formatNumber(charFormat: Char = '.'): String {
     val number = this
@@ -23,6 +25,52 @@ fun String.formatNumber(charFormat: Char = '.'): String {
     }
     result = result.replace("*", charFormat.toString())
     return result
+}
+
+fun String.removeAccents(): String {
+    var s = this
+    s = Normalizer.normalize(s, Normalizer.Form.NFD)
+    s = s.replace("[\\p{InCombiningDiacriticalMarks}]".toRegex(), "")
+    s = s.replace("Đ", "D")
+    s = s.replace("đ", "d")
+    return s
+}
+
+fun String.removeRegex(): String {
+    var s = this
+    s = s.replace("\\", "\\\\")
+    s = s.replace(".", "\\.")
+
+    s = s.replace("[", "\\[")
+    s = s.replace("]", "\\]")
+
+    s = s.replace("(", "\\(")
+    s = s.replace(")", "\\)")
+
+    s = s.replace("*", "\\*")
+
+    s = s.replace("{", "\\{")
+    s = s.replace("}", "\\}")
+
+    s = s.replace("+", "\\+")
+
+
+    return s
+}
+
+fun String.getIndex(search: String, isRegex: Boolean = false): List<Int> {
+    var _search = search
+    val list: MutableList<Int> = ArrayList()
+    if (!isRegex) _search = search.removeRegex()
+    val pattern = Pattern.compile(_search)
+    val matcher = pattern.matcher(this)
+    while (matcher.find()) {
+        val startIndex = matcher.start()
+        val endIndex = matcher.end()
+        list.add(startIndex)
+        list.add(endIndex)
+    }
+    return list
 }
 
 fun String.to2Decimal(): String {
@@ -77,7 +125,7 @@ fun <K, V> Map<K, V>.getKey(value: V): K? {
 
 fun Calendar.toDatetime(): DateTime {
     return DateTime(
-        year =  this.get(Calendar.YEAR),
+        year = this.get(Calendar.YEAR),
         month = this.get(Calendar.MONTH) + 1,
         day = this.get(Calendar.DAY_OF_MONTH),
         hour = this.get(Calendar.HOUR_OF_DAY),
@@ -104,28 +152,30 @@ class DateTime {
     var hour = 0
     var minute = 0
     var seconds = 0
-    var milisecond = 0
+    var millisecond = 0
 
     constructor()
 
-    constructor(year: Int =0, month: Int =0,
-                day: Int =0, hour: Int =0, minute: Int=0, seconds: Int=0, milisecond: Int =0) {
+    constructor(
+        year: Int = 0, month: Int = 0,
+        day: Int = 0, hour: Int = 0, minute: Int = 0, seconds: Int = 0, milisecond: Int = 0
+    ) {
         this.year = year
         this.month = month
         this.day = day
         this.hour = hour
         this.minute = minute
         this.seconds = seconds
-        this.milisecond = milisecond
+        this.millisecond = milisecond
     }
 
     override fun toString(): String =
-        "Datetime(year=$year, month=$month, day=$day, hour=$hour, minute=$minute, second=$seconds, milisecond=$milisecond)"
+        "Datetime(year=$year, month=$month, day=$day, hour=$hour, minute=$minute, second=$seconds, milisecond=$millisecond)"
 
     fun format(format: String = "yyyy-MM-dd HH:mm:ss [E]"): String {
         val c = Calendar.getInstance()
         c.set(Calendar.YEAR, year)
-        c.set(Calendar.MONTH, month -1)
+        c.set(Calendar.MONTH, month - 1)
         c.set(Calendar.DAY_OF_MONTH, day)
         c.set(Calendar.HOUR_OF_DAY, hour)
         c.set(Calendar.MINUTE, minute)
@@ -135,7 +185,15 @@ class DateTime {
         return simpleDateFormat.format(c.time)
     }
 
-    fun addTime(year: Int=0, month: Int=0, day: Int=0, hour: Int=0, minute: Int=0, seconds: Int=0, milisecond: Int=0): DateTime {
+    fun addTime(
+        year: Int = 0,
+        month: Int = 0,
+        day: Int = 0,
+        hour: Int = 0,
+        minute: Int = 0,
+        seconds: Int = 0,
+        milisecond: Int = 0
+    ): DateTime {
         val c = getCalendar()
         c.add(Calendar.YEAR, year)
         c.add(Calendar.MONTH, month)
@@ -147,7 +205,15 @@ class DateTime {
         return c.toDatetime()
     }
 
-    fun minuteTime(year: Int=0, month: Int=0, day: Int=0, hour: Int=0, minute: Int=0, seconds: Int=0, milisecond: Int=0): DateTime {
+    fun minuteTime(
+        year: Int = 0,
+        month: Int = 0,
+        day: Int = 0,
+        hour: Int = 0,
+        minute: Int = 0,
+        seconds: Int = 0,
+        millisecond: Int = 0
+    ): DateTime {
         val c = getCalendar()
         c.add(Calendar.YEAR, -year)
         c.add(Calendar.MONTH, -month)
@@ -155,7 +221,7 @@ class DateTime {
         c.add(Calendar.HOUR_OF_DAY, -hour)
         c.add(Calendar.MINUTE, -minute)
         c.add(Calendar.SECOND, -seconds)
-        c.add(Calendar.MILLISECOND,  -milisecond)
+        c.add(Calendar.MILLISECOND, -millisecond)
         return c.toDatetime()
     }
 
@@ -163,31 +229,43 @@ class DateTime {
     fun getCalendar(): Calendar {
         val c = Calendar.getInstance()
         c.set(Calendar.YEAR, year)
-        c.set(Calendar.MONTH, month -1)
+        c.set(Calendar.MONTH, month - 1)
         c.set(Calendar.DAY_OF_MONTH, day)
         c.set(Calendar.HOUR_OF_DAY, hour)
         c.set(Calendar.MINUTE, minute)
         c.set(Calendar.SECOND, seconds)
-        c.set(Calendar.MILLISECOND, milisecond)
+        c.set(Calendar.MILLISECOND, millisecond)
         return c
     }
 
     fun getYesterday(): DateTime {
         val c = getCalendar()
         c.add(Calendar.DATE, -1)
-        return DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH))
+        return DateTime(
+            c.get(Calendar.YEAR),
+            c.get(Calendar.MONTH) + 1,
+            c.get(Calendar.DAY_OF_MONTH)
+        )
     }
 
     fun getLastWeek(): DateTime {
         val c = getCalendar()
         c.add(Calendar.WEEK_OF_MONTH, -1)
-        return DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH))
+        return DateTime(
+            c.get(Calendar.YEAR),
+            c.get(Calendar.MONTH) + 1,
+            c.get(Calendar.DAY_OF_MONTH)
+        )
     }
 
-    fun getLasMonth(): DateTime {
+    fun getLastMonth(): DateTime {
         val c = getCalendar()
         c.add(Calendar.MONTH, -1)
-        return DateTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH) +1, c.get(Calendar.DAY_OF_MONTH))
+        return DateTime(
+            c.get(Calendar.YEAR),
+            c.get(Calendar.MONTH) + 1,
+            c.get(Calendar.DAY_OF_MONTH)
+        )
     }
 
 
@@ -207,7 +285,7 @@ class DateTime {
                     hour == other.hour &&
                     minute == other.minute &&
                     seconds == other.seconds &&
-                    milisecond == other.milisecond
+                    millisecond == other.millisecond
         }
         return super.equals(other)
     }
@@ -229,7 +307,7 @@ class DateTime {
         result = 31 * result + hour
         result = 31 * result + minute
         result = 31 * result + seconds
-        result = 31 * result + milisecond
+        result = 31 * result + millisecond
         return result
     }
 }

@@ -1,10 +1,7 @@
 package promax.dohaumen.financeapp
 
-import org.junit.Assert.*
 import org.junit.Test
 import promax.dohaumen.financeapp.helper.DateTime
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -46,7 +43,7 @@ class ExampleUnitTest {
 //
 
 
-        val d1 = DateTime(2022, 1, 2).getLasMonth()
+        val d1 = DateTime(2022, 1, 2).getLastMonth()
         val d2 = DateTime(2021, 11, 31)
         println(d1.equalsYM(d2))
 //        println(d2.getWeekOfYear())

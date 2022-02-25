@@ -31,6 +31,11 @@ class DialogSortMoneyIO(context: Context) {
             dialog.cancel()
             onClick(it)
         }
+        b.checboxReverse.setOnClickListener {
+            val itemChecked = adapter.getList().filter { it.isChecked }[0]
+            itemChecked.reverse = b.checboxReverse.isChecked
+            onClick(itemChecked)
+        }
         return this
     }
 

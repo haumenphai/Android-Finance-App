@@ -21,7 +21,7 @@ class DialogPickDatetime {
 
             DatePickerDialog(context, { view, year, monthOfYear, dayOfMonth ->
                 dateTime.year = year
-                dateTime.month = monthOfYear
+                dateTime.month = monthOfYear + 1
                 dateTime.day = dayOfMonth
 
                 callBack(dateTime, dateTime.format("yyyy-MM-dd"))

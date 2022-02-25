@@ -50,7 +50,7 @@
     <string name="set_money_unit_title">Set money unit</string>
     <string name="set_money_format">Set money format</string>
     <string name="total_money_in_bank_history1">Total money in bank history:</string>
-    <string name="total_carsh1">Total carsh:</string>
+    <string name="total_carsh1">Total cash:</string>
     <string name="pick_currency">Pick Currency</string>
     <string name="pick_type">Pick Type</string>
     <string name="total_money_out">Total money out:</string>
@@ -84,7 +84,7 @@
     <string name="enter_value_">Enter value...</string>
     <string name="this_week">This week</string>
     <string name="this_month">This month</string>
-    <string name="this_year">this_year</string>
+    <string name="this_year">This year</string>
     <string name="yesterday">Yesterday</string>
     <string name="last_week">Last week</string>
     <string name="last_month">Last month</string>

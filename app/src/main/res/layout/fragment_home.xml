@@ -249,7 +249,8 @@
         android:layout_height="match_parent"
         android:layout_above="@id/layout_action_money_io"
         android:layout_below="@id/layout_filter_group"
-        tools:listitem="@layout/item_money_in_out" />
+        tools:listitem="@layout/item_money_in_out"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_money_io"
@@ -261,7 +262,9 @@
         android:contentDescription="@string/add_money_in_out"
         android:src="@drawable/ic_add"
         app:fabCustomSize="45dp"
-        app:maxImageSize="25dp" />
+        app:maxImageSize="25dp"
+        android:backgroundTint="#FFFDD2"
+        />
 
     <include
         android:id="@+id/layout_action_money_io"
