@@ -36,7 +36,7 @@
             android:id="@+id/tv_amount_available_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_amount_available_lable"
+            android:layout_toEndOf="@id/tv_amount_available_lable"
             android:gravity="end"
             android:textColor="@color/color_black_2"
             android:textSize="18sp"
@@ -48,13 +48,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_amount_available_value"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_toRightOf="@id/tv_total_money_in_banks_lable"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@id/tv_total_money_in_banks_lable"
             android:gravity="end"
             android:maxLines="1"
-            android:paddingLeft="10dp"
-            android:text="50.000.000  vnd"
+            android:paddingStart="10dp"
+            tools:text="50.000.000  vnd"
             android:textColor="@color/color_black_2"
             android:textSize="14sp" />
 
@@ -72,13 +72,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_total_money_in_banks_value"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_toRightOf="@id/tv_total_cash_lable"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:layout_toEndOf="@id/tv_total_cash_lable"
             android:gravity="end"
             android:maxLines="1"
-            android:paddingLeft="10dp"
-            android:text="50.000.000  vnd"
+            android:paddingStart="10dp"
+            tools:text="50.000.000  vnd"
             android:textColor="@color/color_black_2"
             android:textSize="14sp" />
 
@@ -131,9 +131,9 @@
             android:id="@+id/tv_records_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:textColor="@color/black"
             android:textSize="12sp"
             tools:text="1000" />
@@ -143,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:layout_toLeftOf="@id/tv_records_count"
+            android:layout_toStartOf="@id/tv_records_count"
             android:textColor="@color/black"
             android:textSize="12sp"
             tools:text="100-200 / " />
@@ -153,8 +153,8 @@
             android:id="@+id/tv_total_money_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Total money in: 100.000 d"
+            android:layout_marginStart="5dp"
+            tools:text="Total money in: 100.000 d"
             android:textSize="12sp" />
 
         <TextView
@@ -162,8 +162,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_total_money_in"
-            android:layout_marginLeft="5dp"
-            android:text="Total money out: 100.100.000.000.000 d"
+            android:layout_marginStart="5dp"
+            tools:text="Total money out: 100.100.000.000.000 d"
             android:textSize="12sp" />
 
 
@@ -172,7 +172,7 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_below="@id/tv_records_count"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:orientation="horizontal"
             android:weightSum="2">
 
@@ -199,14 +199,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_below="@id/tv_records_count"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/layout_button_arr">
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/layout_button_arr">
 
             <ImageView
                 android:id="@+id/img_filter"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:background="@drawable/rippler_white_blue"
                 android:src="@drawable/ic_filter" />
 
@@ -214,8 +214,8 @@
                 android:id="@+id/img_search"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/img_filter"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/img_filter"
                 android:background="@drawable/rippler_white_blue"
                 android:src="@drawable/ic_search" />
 
@@ -223,8 +223,8 @@
                 android:id="@+id/img_sort"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/img_search"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/img_search"
                 android:background="@drawable/rippler_white_blue"
                 android:src="@drawable/ic_sort" />
 
@@ -233,8 +233,8 @@
                 android:id="@+id/img_report"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/img_sort"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/img_sort"
                 android:background="@drawable/rippler_white_blue"
                 android:src="@drawable/ic_info2"
                 app:tint="#888888" />
@@ -276,3 +276,4 @@
 
 
 </RelativeLayout>
+

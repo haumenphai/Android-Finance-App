@@ -31,7 +31,6 @@
     <string name="add_money_type">Add money type</string>
     <string name="add_currency">Add currency</string>
     <string name="message_name_is_empty">Please enter a name!</string>
-    <string name="edit">Edit</string>
     <string name="money_in">Money In</string>
     <string name="money_out">Money Out</string>
     <string name="add_money_type_lable">Add Money Type</string>
@@ -109,4 +108,16 @@
     <string name="money_out1">Money out:</string>
     <string name="today">Today</string>
     <string name="all">All</string>
+    <string name="filter1">Filter:</string>
+    <string name="insert_default">Insert default</string>
+    <string name="create_new_filter">Create new filter</string>
+    <string name="report">Report</string>
+    <string name="based_on_current_filter">(based on current filter)</string>
+    <string name="input_history">Input History</string>
+    <string name="sort">Sort</string>
+    <string name="detail">Detail</string>
+    <string name="select_all">Select all</string>
+    <string name="edit">Edit</string>
+    <string name="total_cash_history">Total cash history</string>
+    <string name="null1">null</string>
 </resources>

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:text="Input History"
+            android:text="@string/input_history"
             android:textColor="@color/color_black_2"
             android:textSize="20sp" />
 
@@ -51,7 +51,7 @@
                     android:id="@+id/tv_total_money_in_banks_history"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/total_money_in_bank_history1"
                     android:textSize="14sp"
@@ -75,9 +75,9 @@
                     android:id="@+id/tv_total_cash_history"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/total_carsh1"
+                    android:text="@string/total_cash_history"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

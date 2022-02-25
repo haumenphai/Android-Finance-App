@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        tools:text="Pick Currency"
+        tools:text="Pick item"
         android:textColor="@color/color_black_2"
         android:textSize="18sp" />
 

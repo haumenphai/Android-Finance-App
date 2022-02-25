@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
         android:text="@string/yesterday"
         android:textSize="15sp" />
@@ -18,9 +19,9 @@
         android:layout_height="30dp"
         android:textAllCaps="false"
         android:background="@drawable/bg_button_1"
-        android:text="Detail"
+        android:text="@string/detail"
         android:layout_below="@id/tv_name"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
         />
 
@@ -30,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_detail"
 
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:text="@string/total_money_in"
         android:textColor="@color/color_black_2"
         android:textSize="14sp"
@@ -41,9 +42,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_detail"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/tv_total_money_in_label"
-        android:text="100.000 d"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/tv_total_money_in_label"
+        tools:text="100.000 d"
         android:textColor="@color/color_black_2"
         android:textSize="14sp" />
 
@@ -52,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_total_money_in_value"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:text="@string/total_money_out"
         android:textColor="@color/color_black_2"
         android:textSize="14sp"
@@ -63,9 +64,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_total_money_in_value"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@id/tv_total_money_out_label"
-        android:text="100.000 d"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/tv_total_money_out_label"
+        tools:text="100.000 d"
         android:textColor="@color/color_black_2"
         android:textSize="14sp" />
 

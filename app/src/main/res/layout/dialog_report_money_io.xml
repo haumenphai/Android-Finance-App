@@ -17,9 +17,9 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:gravity="center"
-            android:text="Report"
+            android:text="@string/report"
             android:textColor="@color/color_black_2"
             android:textSize="17sp"
             android:textStyle="bold" />
@@ -28,10 +28,10 @@
             android:id="@+id/tv_sub_title"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@id/tv_title"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/tv_title"
             android:gravity="left|center"
-            android:text="(based on current filter)" />
+            android:text="@string/based_on_current_filter" />
     </RelativeLayout>
 
 

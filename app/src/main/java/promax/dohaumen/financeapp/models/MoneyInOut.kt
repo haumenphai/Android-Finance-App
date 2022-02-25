@@ -5,10 +5,12 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.Gson
 import org.jetbrains.annotations.TestOnly
+import promax.dohaumen.financeapp.R
 import promax.dohaumen.financeapp.datas.AppData
 import promax.dohaumen.financeapp.helper.DateTime
 import promax.dohaumen.financeapp.helper.getCurrentDatetime
 import promax.dohaumen.financeapp.helper.getCurrentTimeStr
+import promax.dohaumen.financeapp.helper.getStr
 import java.lang.Exception
 import java.math.BigDecimal
 
@@ -291,6 +293,9 @@ fun List<MoneyInOut>.getMoneyByType(): List<Map<String, String>> {
         it.getListMoneyType().forEach {
             setType.add(it)
         }
+        if (it.getListMoneyType().isEmpty()) {
+            setType.add(MoneyType(getStr(R.string.null1), MoneyInOut.MoneyInOutType.OUT))
+        }
     }
 
     setType.forEach { moneyType1 ->
@@ -307,6 +312,10 @@ fun List<MoneyInOut>.getMoneyByType(): List<Map<String, String>> {
                     count += 1
                 }
             }
+            if (moneyIO.getListMoneyType().isEmpty()) {
+                money += BigDecimal(moneyIO.amount)
+                count += 1
+            }
         }
 
         if (moneyType1.type == MoneyInOut.MoneyInOutType.OUT) {
@@ -314,10 +323,21 @@ fun List<MoneyInOut>.getMoneyByType(): List<Map<String, String>> {
         } else {
             map["amount"] = "+${AppData.formatMoneyWithAppConfig(money.toPlainString())}"
         }
+        if (map["name"] == getStr(R.string.null1)) {
+            map["amount"] = map["amount"]!!.substring(1, map["amount"]!!.length)
+        }
+
 
         map["count"] = count.toString()
         result.add(map)
     }
+
+    val mapNull = result.filter { it["name"] == getStr(R.string.null1) }
+    if (mapNull.isNotEmpty()) {
+        result.remove(mapNull[0])
+        result.add(mapNull[0])
+    }
+
 
     return result
 }

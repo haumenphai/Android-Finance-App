@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_title"
         tools:text="100.100.000 d"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         />
 
@@ -43,9 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@id/edit_name"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/bg_button_1"
         tools:text="Save" />
 </RelativeLayout>

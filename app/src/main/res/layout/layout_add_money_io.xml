@@ -84,10 +84,10 @@
                         android:id="@+id/tv_amonut_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/tv_amount_lable"
+                        android:layout_toEndOf="@id/tv_amount_lable"
                         android:layout_below="@id/edit_name"
                         android:layout_marginTop="5dp"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:maxLines="1"
                         android:ellipsize="end"
                         tools:text="100.000.000 d"
@@ -122,9 +122,9 @@
                         android:layout_width="40dp"
                         android:layout_height="25dp"
                         android:layout_below="@id/edit_amonut"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/tv_money_type"
+                        android:layout_toEndOf="@id/tv_money_type"
                         android:background="@color/green_500" />
 
                     <TextView
@@ -132,9 +132,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_below="@id/edit_amonut"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/img_money_type"
+                        android:layout_toEndOf="@id/img_money_type"
                         android:gravity="center"
                         android:text="@string/currecy1"
                         android:textColor="@color/color_black_2"
@@ -146,15 +146,15 @@
                         android:layout_width="400dp"
                         android:layout_height="30dp"
                         android:layout_below="@id/edit_amonut"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/tv_currecy_lable"
+                        android:layout_toEndOf="@id/tv_currecy_lable"
                         android:background="@drawable/bg_border"
-                        android:gravity="center|left"
+                        android:gravity="center|start"
                         android:maxLines="1"
-                        android:paddingLeft="3dp"
-                        android:paddingRight="20dp"
-                        android:text="Cash"
+                        android:paddingStart="3dp"
+                        android:paddingEnd="20dp"
+                        tools:text="Cash"
                         android:textColor="@color/color_black_2"
                         />
 
@@ -163,9 +163,9 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_below="@id/edit_amonut"
-                        android:layout_marginLeft="-20dp"
+                        android:layout_marginStart="-20dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@id/tv_currecy_value"
+                        android:layout_toEndOf="@id/tv_currecy_value"
                         android:src="@drawable/ic_arrow_dow" />
 
 
@@ -180,13 +180,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:checked="true"
-                            android:text="Money In" />
+                            android:text="@string/money_in" />
 
                         <RadioButton
                             android:id="@+id/radio_type_money_out"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Money Out" />
+                            android:text="@string/money_out" />
                     </RadioGroup>
 
                     <TextView
@@ -210,7 +210,7 @@
 
                     <Button
                         android:id="@+id/btn_add_type"
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="30dp"
                         android:layout_below="@id/recycler_view"
                         android:background="@drawable/bg_button_1"
@@ -246,7 +246,7 @@
                         android:text="@string/time1"
                         android:textColor="@color/color_black_2"
                         android:layout_marginTop="5dp"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -254,10 +254,10 @@
                         android:id="@+id/tv_time_value"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@id/tv_time_lable"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/tv_time_lable"
                         android:gravity="center"
-                        android:text="2022-12-20 20:20"
+                        tools:text="2022-12-20 20:20"
                         android:layout_marginTop="5dp"
                         android:textSize="16sp" />
 
@@ -265,8 +265,8 @@
                         android:id="@+id/btn_choose_time"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toLeftOf="@id/img_delete_time"
+                        android:layout_marginStart="10dp"
+                        android:layout_toStartOf="@id/img_delete_time"
                         android:background="@drawable/bg_button_1"
                         android:text="@string/choose"
                         android:layout_marginTop="5dp"
@@ -277,7 +277,7 @@
                         android:layout_width="45dp"
                         android:layout_height="40dp"
                         android:src="@drawable/ic_delete"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         app:tint="#8A8A8A"
                         android:background="@drawable/rippler_white_blue"
                         android:paddingLeft="5dp"
@@ -292,7 +292,7 @@
                         android:layout_below="@id/tv_time_value"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/bg_edit1"
-                        android:gravity="left"
+                        android:gravity="start"
                         android:hint="@string/description1"
                         android:inputType="textNoSuggestions|textMultiLine"
                         android:maxHeight="100dp"
@@ -307,15 +307,15 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/edit_desc"
                         android:checked="true"
-                        android:layout_marginLeft="-2dp"
+                        android:layout_marginStart="-2dp"
                         android:text="@string/caclculate_into_the_total_amonut" />
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_below="@id/edit_desc"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@id/checkbox_compute_into_the_total_money"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/checkbox_compute_into_the_total_money"
                         android:padding="5dp"
                         android:src="@drawable/ic_info2" />
                 </RelativeLayout>
@@ -327,7 +327,7 @@
             android:id="@+id/btn_save"
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="5dp"
             android:background="@drawable/bg_button_1"
@@ -340,7 +340,7 @@
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
-            android:layout_toLeftOf="@id/btn_save"
+            android:layout_toStartOf="@id/btn_save"
             android:background="@drawable/bg_button_1"
             android:text="@string/cancel"
             android:textAllCaps="false" />

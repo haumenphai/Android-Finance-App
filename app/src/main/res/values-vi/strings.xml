@@ -110,4 +110,15 @@
     <string name="money_out1">Tiền ra</string>
     <string name="today">Hôm nay</string>
     <string name="all">Tất cả</string>
+    <string name="filter1">Bộ lọc:</string>
+    <string name="insert_default">Tải bộ lọc mặc định</string>
+    <string name="create_new_filter">Tạo bộ lọc</string>
+    <string name="report">Báo cáo</string>
+    <string name="based_on_current_filter">(dựa trên bộ lọc hiện tại)</string>
+    <string name="input_history">Lịch sử</string>
+    <string name="sort">Sắp xếp</string>
+    <string name="detail">Chi tiết</string>
+    <string name="select_all">Chọn tất cả</string>
+    <string name="total_cash_history">Lịch sử thiết lập tổng tiền mặt</string>
+    <string name="null1">không xác định</string>
 </resources>

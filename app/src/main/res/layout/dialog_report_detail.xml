@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Today"
+                tools:text="Today"
                 android:textStyle="bold"
                 android:textSize="17sp"
                 />
@@ -37,7 +37,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Total money in: 200\nTotal money out: 100"
+                tools:text="Total money in: 200\nTotal money out: 100"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_below="@id/tv_title"
                 android:textColor="@color/color_black_2"

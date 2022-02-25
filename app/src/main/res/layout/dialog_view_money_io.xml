@@ -26,7 +26,7 @@
             android:id="@+id/img_edit"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:padding="6dp"
             android:src="@drawable/ic_edit" />
 
@@ -46,8 +46,8 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="Buy car"
+                    android:layout_marginStart="10dp"
+                    tools:text="Buy car"
                     android:textColor="@color/color_black_2"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -57,8 +57,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_name"
-                    android:layout_marginLeft="5dp"
-                    android:text="-100.000 đ"
+                    android:layout_marginStart="5dp"
+                    tools:text="-100.000 đ"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -79,15 +79,15 @@
                     android:text="@string/currecy1"
                     android:textStyle="bold"
                     android:textColor="@color/color_black_2"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_currecy_value"
-                    android:layout_toRightOf="@id/tv_currency_lable"
-                    android:layout_marginLeft="5dp"
-                    android:text="Cash"
+                    android:layout_toEndOf="@id/tv_currency_lable"
+                    android:layout_marginStart="5dp"
+                    tools:text="Cash"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:layout_below="@id/line1"
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_currency_lable"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/type1"
                     android:textStyle="bold"
                     android:textColor="@color/color_black_2" />
@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/recycler_view"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/date"
                     android:textColor="@color/color_black_2"
                     android:textStyle="bold" />
@@ -131,9 +131,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/recycler_view"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@id/tv_datetime_lable"
-                    android:text="2022-12-2 20:21"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/tv_datetime_lable"
+                    tools:text="2022-12-2 20:21"
                     android:textColor="@color/color_black_2" />
 
                 <TextView
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_datetime_lable"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/description1"
                     android:textColor="@color/color_black_2"
                     android:textStyle="bold" />
@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_desc_lable"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginBottom="10dp"
                     android:maxHeight="200dp"
                     tools:text="Chi tieu nay la rat can thiet\nNhung toi se khong mua no nua" />
