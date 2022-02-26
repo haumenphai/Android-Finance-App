@@ -41,7 +41,7 @@
     <string name="total_cash1">Tổng tiền mặt:</string>
     <string name="set_total_money_in_banks">1. Thiết lập tổng tiền trong ngân hàng</string>
     <string name="set_total_cash">2. Thiết lập tổng tiền mặt</string>
-    <string name="history1">5. Lịch sử</string>
+    <string name="history1">4. Lịch sử</string>
     <string name="money_unit1">"Đơn vị tiền tệ: "</string>
     <string name="money_format1">"Định dạng: "</string>
     <string name="_3_set_money_unit">3. Thiết lập đơn vị tiền tệ</string>
@@ -95,11 +95,11 @@
     <string name="money_type">Kiểu tiền</string>
     <string name="description">Ghi chú</string>
     <string name="date2">Ngày</string>
-    <string name="search_title_name">Tên</string>
-    <string name="search_title_amount">Số tiền:</string>
-    <string name="search_title_type">Kiểu:</string>
-    <string name="search_title_time">Thời gian:</string>
-    <string name="search_title_description">Ghi chú</string>
+    <string name="search_title_name">"Tên: "</string>
+    <string name="search_title_amount">"Số tiền: "</string>
+    <string name="search_title_type">"Kiểu: "</string>
+    <string name="search_title_time">"Thời gian: "</string>
+    <string name="search_title_description">"Ghi chú: "</string>
     <string name="filter_title_calculate_into_the_total_money_checked">Tính toán vào tổng tiền: có</string>
     <string name="filter_title_calculate_into_the_total_money_not_check">Tính toán vào tổng tiền: không</string>
     <string name="search">Tìm kiếm</string>
@@ -120,5 +120,7 @@
     <string name="detail">Chi tiết</string>
     <string name="select_all">Chọn tất cả</string>
     <string name="total_cash_history">Lịch sử thiết lập tổng tiền mặt</string>
-    <string name="null1">không xác định</string>
+    <string name="null1">không xác định+</string>
+    <string name="null2">không xác định-</string>
+    <string name="loading">Đang xử lý...</string>
 </resources>

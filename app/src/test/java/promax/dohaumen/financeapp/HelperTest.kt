@@ -11,25 +11,13 @@ import java.text.DecimalFormat
 class HelperTest {
 
     @Test
-    fun testStringFormat() {
-
-
-        assertEquals("100.000", "100000".formatNumber())
-        assertEquals("100.000.000", "100000000".formatNumber())
-        assertEquals("1.234.567", "1234567".formatNumber())
-        assertEquals("-1.234.567", "-1234567".formatNumber())
-        assertEquals("-100.234.567", "-100234567".formatNumber())
-
-        assertEquals("1.234", "1234".formatNumber())
-        assertEquals("123", "123".formatNumber())
-        assertEquals("12", "12".formatNumber())
-        assertEquals("1", "1".formatNumber())
-
-        assertEquals("1 234 567", "1234567".formatNumber(' '))
-        assertEquals("1,234,567", "1234567".formatNumber(','))
-        assertEquals("123,456,000.91", "123456000.91".formatNumber(','))
-        assertEquals("123.456.777,91", "123456777.91".formatNumber('.'))
-        assertEquals("123 456 777.91", "123456777.91".formatNumber(' '))
+    fun testFormatNumber() {
+        assertEquals("100,000", "100000".formatNumber())
+        assertEquals("100,000,000", "100000000".formatNumber())
+        assertEquals("1,234,567", "1234567".formatNumber())
+        assertEquals("-1,234,567", "-1234567".formatNumber())
+        assertEquals("-100,234,567", "-100234567".formatNumber())
+        assertEquals("-100,234,567.98", "-100234567.98".formatNumber())
     }
 
     @Test

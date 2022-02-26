@@ -42,8 +42,6 @@ class SettingFragment: Fragment() {
     }
 
     private fun loadDataMoneyToTextView() {
-        // tính case money thay đổi ở homefragment nhưng ở đây ko cập nhật
-
         AppData.getTotalMoneyFormatedLiveData().observeForever {
             b.tvTotalMoneyValue.text = it
         }
@@ -55,9 +53,6 @@ class SettingFragment: Fragment() {
         }
         AppData.getMoneyUnitLiveData().observeForever {
             b.tvMoneyUnitValue.text = it
-        }
-        AppData.getMoneyFormatLiveData().observeForever {
-            b.tvMoneyFormatValue.text = it
         }
     }
 
@@ -71,7 +66,7 @@ class SettingFragment: Fragment() {
                 .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL)
                 .setMaxLengthEditName(18)
                 .onchangeEditName { text, dialog ->
-                    dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}")
+                    dialog.setSubTitle(AppData.formatMoneyWithAppConfig(text))
                 }
                 .setBtnSaveClick { text, dialog ->
                     if (!text.trim().isNumeric()) {
@@ -93,7 +88,7 @@ class SettingFragment: Fragment() {
                 .setMaxLengthEditName(18)
                 .setInputTypeEditName(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL)
                 .onchangeEditName { text, dialog ->
-                    dialog.setSubTitle("${text.formatNumber(AppData.getMoneyFormat())}  ${AppData.getMoneyUnit()}")
+                    dialog.setSubTitle(AppData.formatMoneyWithAppConfig(text))
                 }
                 .setBtnSaveClick { text, dialog ->
                     if (!text.trim().isNumeric()) {
@@ -118,23 +113,6 @@ class SettingFragment: Fragment() {
                 .setBtnSaveClick { text, dialog ->
                     if (text.trim() != "") {
                         AppData.setMoneyUnit(text)
-                        dialog.dialog.cancel()
-                        mainActivity.homeFragment.notifyMoneyUnitOrMoneyFormatChanged()
-                    }
-                }
-                .show()
-        }
-        b.btnSetMoneyFormat.setOnClickListener {
-            DialogInputOneValue(mainActivity)
-                .setTitle(getStr(R.string.set_money_format))
-                .setTextBtnSave(getStr(R.string.save))
-                .setMaxLengthEditName(1)
-                .setInputTypeEditName(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
-                .setTextEditName(AppData.getMoneyFormat().toString())
-                .setSelectionEditName(0, AppData.getMoneyFormat().toString().length)
-                .setBtnSaveClick { text, dialog ->
-                    if (text != "") {
-                        AppData.setMoneyFormat(text[0])
                         dialog.dialog.cancel()
                         mainActivity.homeFragment.notifyMoneyUnitOrMoneyFormatChanged()
                     }

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import promax.dohaumen.financeapp.R
 import promax.dohaumen.financeapp.databinding.ItemMoneyInOutBinding
 import promax.dohaumen.financeapp.datas.AppData
-import promax.dohaumen.financeapp.helper.formatNumber
 import promax.dohaumen.financeapp.models.MoneyInOut
 import promax.dohaumen.financeapp.models.MoneyInOut.MoneyInOutType
 

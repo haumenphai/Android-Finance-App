@@ -18,6 +18,7 @@ import promax.dohaumen.financeapp.MyApp
 import promax.dohaumen.financeapp.R
 import promax.dohaumen.financeapp.databinding.ItemMoneyTypeBinding
 import promax.dohaumen.financeapp.databinding.ItemMoneyTypeInDialogCreateMoneyIoBinding
+import promax.dohaumen.financeapp.helper.removeAccents
 import promax.dohaumen.financeapp.models.MoneyInOut.MoneyInOutType
 import java.util.*
 
@@ -33,9 +34,10 @@ class MoneyType: BaseModel {
     constructor()
 
     @Ignore
-    constructor(name: String, type: MoneyInOutType) {
+    constructor(name: String, type: MoneyInOutType, id: Long =0) {
         this.name = name
         this.type = type
+        this.id = id
     }
 
     companion object {
@@ -47,8 +49,9 @@ class MoneyType: BaseModel {
 
 }
 
-fun List<MoneyType>.toJson() = Gson().toJson(this)
-fun List<MoneyType>.toListString() = this.map { it.name.toLowerCase(Locale.ROOT) }.toList()
+fun List<MoneyType>.toJson(): String = Gson().toJson(this)
+fun List<MoneyType>.toListStringWithRemoveAccents() =
+    this.map { it.name.trim().toLowerCase(Locale.ROOT).removeAccents() }.toList()
 
 @Database(entities = [MoneyType::class], version = 1)
 abstract class MoneyTypeDB : RoomDatabase() {

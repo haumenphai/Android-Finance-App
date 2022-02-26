@@ -4,9 +4,12 @@ import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StyleSpan
+import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import promax.dohaumen.financeapp.MyApp
+import promax.dohaumen.financeapp.R
 
 fun getStr(id: Int): String = MyApp.context.getString(id)
 
@@ -26,4 +29,9 @@ fun TextView.setTextBold(listContent: List<String>) {
     listContent.forEach {
         this.setTextBold(it)
     }
+}
+
+fun View.startAnimShowDialog() {
+    val animBg = AnimationUtils.loadAnimation(context, R.anim.anim_show_bg_dialog)
+    this.startAnimation(animBg)
 }

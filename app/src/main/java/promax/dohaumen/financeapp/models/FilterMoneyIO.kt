@@ -226,7 +226,7 @@ class FilterMoneyIO: BaseModel {
 
     fun searchMoneyIO(list: List<MoneyInOut>): List<MoneyInOut> {
         var result = list
-        val value = this.value.toLowerCase(Locale.ROOT)
+        val value = this.value.trim().toLowerCase(Locale.ROOT).removeAccents()
         when (this.defaultFilter) {
             "search_name" -> {
                 result = result.filter { it.name.toLowerCase(Locale.ROOT).removeAccents().contains(value.removeAccents()) }
@@ -235,7 +235,7 @@ class FilterMoneyIO: BaseModel {
                 result = result.filter { it.amount == this.value }
             }
             "search_listType" -> {
-                result = result.filter { it.listTypeOfSpending.toListString().contains(value) }
+                result = result.filter { it.getListMoneyType().toListStringWithRemoveAccents().contains(value) }
             }
             "search_datetime" -> {
                 result = result.filter { it.datetime.toLowerCase(Locale.ROOT).contains(value) }

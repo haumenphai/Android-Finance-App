@@ -22,5 +22,3 @@ abstract class BaseModel {
         return id.hashCode()
     }
 }
-
-

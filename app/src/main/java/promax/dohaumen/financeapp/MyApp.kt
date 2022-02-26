@@ -8,6 +8,8 @@ class MyApp: Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+
+
     }
 
     companion object {

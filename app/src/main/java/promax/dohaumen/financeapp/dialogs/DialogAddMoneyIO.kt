@@ -49,7 +49,8 @@ object DialogAddMoneyIO {
         b.imgDeleteTime.setOnClickListener {
             b.tvTimeValue.text = ""
         }
-        b.tvCurrecyValue.text = Currency.CASH
+        b.tvCurrecyValue.text = Currency.CASH_I18N
+
         b.tvTimeValue.text = getCurrentTimeStr("yyyy-MM-dd")
 
         val moneyTypeAdapter = MoneyTypeAdapter()
@@ -72,14 +73,11 @@ object DialogAddMoneyIO {
         b.tvCurrecyValue.setOnClickListener {
             val popUp = PopupMenu(context, b.tvCurrecyValue)
             popUp.menu.apply {
-                add(Currency.CASH)
-                add(Currency.BANK)
+                add(Currency.CASH_I18N)
+                add(Currency.BANK_I18N)
             }
             popUp.setOnMenuItemClickListener {
-                when (it.title.toString()) {
-                    Currency.CASH ->  b.tvCurrecyValue.text = Currency.CASH
-                    Currency.BANK ->  b.tvCurrecyValue.text = Currency.BANK
-                }
+                b.tvCurrecyValue.text = it.title.toString()
                 true
             }
             popUp.show()
@@ -134,7 +132,13 @@ object DialogAddMoneyIO {
             } else {
                 MoneyInOut.MoneyInOutType.OUT
             }
-            val currency = b.tvCurrecyValue.text.toString()
+            var currency = b.tvCurrecyValue.text.toString()
+            if (currency == Currency.BANK_I18N) {
+                currency = Currency.BANK
+            } else if (currency == Currency.CASH_I18N) {
+                currency = Currency.CASH
+            }
+
             val desc = b.editDesc.text.toString()
             val datetimeStr = b.tvTimeValue.text.toString()
 
@@ -212,10 +216,14 @@ object DialogAddMoneyIO {
             } else {
                 radioTypeMoneyOut.isChecked = true
             }
-            this.tvCurrecyValue.text = moneyIO.currency
             this.tvTimeValue.text = moneyIO.datetime
             this.editDesc.setText(moneyIO.desc)
             this.checkboxComputeIntoTheTotalMoney.isChecked = moneyIO.computeIntoTheTotalMoney
+
+            when (moneyIO.currency) {
+                Currency.BANK ->  this.tvCurrecyValue.text = Currency.BANK_I18N
+                Currency.CASH ->  this.tvCurrecyValue.text = Currency.CASH_I18N
+            }
         }
 
         val moneyTypeAdapter = MoneyTypeAdapter()
@@ -238,14 +246,11 @@ object DialogAddMoneyIO {
         b.tvCurrecyValue.setOnClickListener {
             val popUp = PopupMenu(context, b.tvCurrecyValue)
             popUp.menu.apply {
-                add(Currency.CASH)
-                add(Currency.BANK)
+                add(Currency.CASH_I18N)
+                add(Currency.BANK_I18N)
             }
             popUp.setOnMenuItemClickListener {
-                when (it.title.toString()) {
-                    Currency.CASH ->  b.tvCurrecyValue.text = Currency.CASH
-                    Currency.BANK ->  b.tvCurrecyValue.text = Currency.BANK
-                }
+                b.tvCurrecyValue.text = it.title.toString()
                 true
             }
             popUp.show()
@@ -300,7 +305,12 @@ object DialogAddMoneyIO {
             } else {
                 MoneyInOut.MoneyInOutType.OUT
             }
-            val currency = b.tvCurrecyValue.text.toString()
+            var currency = b.tvCurrecyValue.text.toString()
+            when (currency) {
+                Currency.BANK_I18N -> currency = Currency.BANK
+                Currency.CASH_I18N -> currency = Currency.CASH
+            }
+
             val desc = b.editDesc.text.toString()
             val datetimeStr = b.tvTimeValue.text.toString()
 

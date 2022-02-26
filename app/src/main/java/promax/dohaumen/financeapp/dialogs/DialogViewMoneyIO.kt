@@ -9,6 +9,8 @@ import promax.dohaumen.financeapp.R
 import promax.dohaumen.financeapp.databinding.DialogViewMoneyIoBinding
 import promax.dohaumen.financeapp.datas.AppData
 import promax.dohaumen.financeapp.helper.formatNumber
+import promax.dohaumen.financeapp.helper.getStr
+import promax.dohaumen.financeapp.models.Currency
 import promax.dohaumen.financeapp.models.MoneyInOut
 import promax.dohaumen.financeapp.models.MoneyTypeAdapter
 
@@ -33,7 +35,13 @@ object DialogViewMoneyIO {
         } else {
             b.tvAmonut.text = "-${AppData.formatMoneyWithAppConfig(moneyIO.amount)}"
         }
-        b.tvCurrecyValue.text = moneyIO.currency
+
+        if (moneyIO.currency == Currency.BANK) {
+            b.tvCurrecyValue.text = Currency.BANK_I18N
+        } else if (moneyIO.currency == Currency.CASH) {
+            b.tvCurrecyValue.text = Currency.CASH_I18N
+        }
+
         b.tvDatetimeValue.text = moneyIO.datetime
         b.tvDescValue.text = moneyIO.desc
 

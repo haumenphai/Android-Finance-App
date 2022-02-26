@@ -6,11 +6,9 @@ import androidx.room.PrimaryKey
 import com.google.gson.Gson
 import org.jetbrains.annotations.TestOnly
 import promax.dohaumen.financeapp.R
+import promax.dohaumen.financeapp.app_test.type
 import promax.dohaumen.financeapp.datas.AppData
-import promax.dohaumen.financeapp.helper.DateTime
-import promax.dohaumen.financeapp.helper.getCurrentDatetime
-import promax.dohaumen.financeapp.helper.getCurrentTimeStr
-import promax.dohaumen.financeapp.helper.getStr
+import promax.dohaumen.financeapp.helper.*
 import java.lang.Exception
 import java.math.BigDecimal
 
@@ -287,6 +285,9 @@ fun List<MoneyInOut>.bankOutCount(): Int =
  */
 fun List<MoneyInOut>.getMoneyByType(): List<Map<String, String>> {
     val result = mutableListOf<Map<String, String>>()
+    val typeNull1 = MoneyType(getStr(R.string.null1), MoneyInOut.MoneyInOutType.IN, id=0)
+    val typeNull2 = MoneyType(getStr(R.string.null2), MoneyInOut.MoneyInOutType.OUT, id=1)
+
 
     val setType = mutableSetOf<MoneyType>()
     this.forEach {
@@ -294,7 +295,13 @@ fun List<MoneyInOut>.getMoneyByType(): List<Map<String, String>> {
             setType.add(it)
         }
         if (it.getListMoneyType().isEmpty()) {
-            setType.add(MoneyType(getStr(R.string.null1), MoneyInOut.MoneyInOutType.OUT))
+            if (it.type == MoneyInOut.MoneyInOutType.IN) {
+                setType.add(typeNull1)
+                it.listTypeOfSpending = listOf(typeNull1)
+            } else {
+                it.listTypeOfSpending = listOf(typeNull2)
+                setType.add(typeNull2)
+            }
         }
     }
 
@@ -312,10 +319,6 @@ fun List<MoneyInOut>.getMoneyByType(): List<Map<String, String>> {
                     count += 1
                 }
             }
-            if (moneyIO.getListMoneyType().isEmpty()) {
-                money += BigDecimal(moneyIO.amount)
-                count += 1
-            }
         }
 
         if (moneyType1.type == MoneyInOut.MoneyInOutType.OUT) {
@@ -323,23 +326,29 @@ fun List<MoneyInOut>.getMoneyByType(): List<Map<String, String>> {
         } else {
             map["amount"] = "+${AppData.formatMoneyWithAppConfig(money.toPlainString())}"
         }
-        if (map["name"] == getStr(R.string.null1)) {
-            map["amount"] = map["amount"]!!.substring(1, map["amount"]!!.length)
-        }
-
 
         map["count"] = count.toString()
         result.add(map)
     }
 
-    val mapNull = result.filter { it["name"] == getStr(R.string.null1) }
-    if (mapNull.isNotEmpty()) {
-        result.remove(mapNull[0])
-        result.add(mapNull[0])
+    val mapNull1 = result.filter { it["name"] == getStr(R.string.null1) }
+    val mapNull2 = result.filter { it["name"] == getStr(R.string.null2) }
+    if (mapNull1.isNotEmpty()) {
+        result.remove(mapNull1[0])
+        result.add(mapNull1[0])
+    }
+    if (mapNull2.isNotEmpty()) {
+        result.remove(mapNull2[0])
+        result.add(mapNull2[0])
+    }
+
+    this.forEach {
+        if (it.listTypeOfSpending.size == 1 &&
+            (it.listTypeOfSpending[0] == typeNull1 || it.listTypeOfSpending[0] == typeNull2)) {
+            it.listTypeOfSpending = listOf()
+        }
     }
 
 
     return result
 }
-
-

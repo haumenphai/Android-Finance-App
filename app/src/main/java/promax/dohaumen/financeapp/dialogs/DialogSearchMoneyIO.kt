@@ -10,8 +10,6 @@ import promax.dohaumen.financeapp.databinding.DialogSearchMoneyIoBinding
 import promax.dohaumen.financeapp.helper.getStr
 import promax.dohaumen.financeapp.models.FilterMoneyIO
 import promax.dohaumen.financeapp.models.FilterMoneyIOAdapter
-import promax.dohaumen.financeapp.models.toListString
-import java.util.*
 
 class DialogSearchMoneyIO(context: Context) {
     val dialog = Dialog(context)

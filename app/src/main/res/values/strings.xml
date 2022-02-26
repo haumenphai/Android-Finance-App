@@ -39,7 +39,7 @@
     <string name="total_cash1">Total cash:</string>
     <string name="set_total_money_in_banks">1. Set total money in banks</string>
     <string name="set_total_cash">2. Set total cash</string>
-    <string name="history1">5. History</string>
+    <string name="history1">4. History</string>
     <string name="money_unit1">Money unit:</string>
     <string name="money_format1">Money format:</string>
     <string name="_3_set_money_unit">3. Set money unit</string>
@@ -119,5 +119,7 @@
     <string name="select_all">Select all</string>
     <string name="edit">Edit</string>
     <string name="total_cash_history">Total cash history</string>
-    <string name="null1">null</string>
+    <string name="null1">null+</string>
+    <string name="null2">null-</string>
+    <string name="loading">Loading...</string>
 </resources>

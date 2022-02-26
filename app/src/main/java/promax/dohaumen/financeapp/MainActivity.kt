@@ -1,16 +1,12 @@
 package promax.dohaumen.financeapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import promax.dohaumen.financeapp.databinding.ActivityMainBinding
-import promax.dohaumen.financeapp.db.MoneyInOutDB
 import promax.dohaumen.financeapp.fragments.HomeFragment
 import promax.dohaumen.financeapp.fragments.SettingFragment
-import promax.dohaumen.financeapp.models.Currency
-import promax.dohaumen.financeapp.models.FilterMoneyIO
-import promax.dohaumen.financeapp.models.FilterMoneyIODB
-import promax.dohaumen.financeapp.models.MoneyInOut
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var b: ActivityMainBinding
@@ -33,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 //        FilterMoneyIODB.get.dao().deleteAll()
 //        FilterMoneyIO.getListItemFilter().forEach { FilterMoneyIODB.get.dao().insert(it) }
+//        TestFilterMoneyIO.testAll()
     }
 
     private fun controlFragmentWithSaveState() {
@@ -58,7 +55,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
 }

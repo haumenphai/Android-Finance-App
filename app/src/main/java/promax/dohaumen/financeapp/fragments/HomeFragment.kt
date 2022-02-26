@@ -24,7 +24,6 @@ import promax.dohaumen.financeapp.models.FilterMoneyIO
 import promax.dohaumen.financeapp.models.FilterMoneyIOAdapter
 import promax.dohaumen.financeapp.models.MoneyInOut
 import java.math.BigDecimal
-import java.util.*
 
 @SuppressLint("SetTextI18n")
 class HomeFragment: Fragment() {
@@ -95,8 +94,16 @@ class HomeFragment: Fragment() {
                 filterMoneyIOAdapter.setList(currentSetFilter.toMutableList())
                 pagingForMoneyIO(listMoneyIO)
             }
-        val dialogReportMoneyIO = DialogReportMoneyIO(mainActivity)
 
+        val dialogLoading = DialogLoading(mainActivity)
+        val dialogReportMoneyIO = DialogReportMoneyIO(mainActivity)
+            .setOnPreProcessShowDetail {
+                dialogLoading.show()
+            }
+            .setOnProcessShowDetailComplete {
+                dialogLoading.cancel()
+            }
+        dialogLoading.setOnClickBtnCancel { dialogReportMoneyIO.cancelJob() }
 
         // for search, filter
         b.recyclerViewFilterMoneyIo.layoutManager = GridLayoutManager(mainActivity, 2)
@@ -122,8 +129,11 @@ class HomeFragment: Fragment() {
            dialogSortMoneyIO.show()
         }
         b.imgReport.setOnClickListener {
-            dialogReportMoneyIO.setListMoneyIO(currentListMoneyIo)
-            dialogReportMoneyIO.show()
+            dialogLoading.show()
+            dialogReportMoneyIO.setListMoneyIO(currentListMoneyIo) {
+                dialogReportMoneyIO.show()
+                dialogLoading.cancel()
+            }
         }
     }
 
