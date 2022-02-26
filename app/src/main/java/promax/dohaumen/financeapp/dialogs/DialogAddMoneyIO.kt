@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,6 +49,7 @@ object DialogAddMoneyIO {
         b.imgDeleteTime.setOnClickListener {
             b.tvTimeValue.text = ""
         }
+        b.tvCurrecyValue.text = Currency.CASH
         b.tvTimeValue.text = getCurrentTimeStr("yyyy-MM-dd")
 
         val moneyTypeAdapter = MoneyTypeAdapter()
@@ -68,25 +70,19 @@ object DialogAddMoneyIO {
             b.tvAmonutValue.text = AppData.formatMoneyWithAppConfig(it.toString())
         }
         b.tvCurrecyValue.setOnClickListener {
-            val b1 = DialogPickItemInListViewBinding.bind(
-                LayoutInflater.from(context).inflate(R.layout.dialog_pick_item_in_list_view, null)
-            )
-            val dialog = Dialog(context)
-            dialog.setContentView(b1.root)
-            b1.tvTitle.text = getStr(R.string.pick_currency)
-
-            val adpater = CurrencyAdapter()
-            adpater.hideImgDelete = true
-            adpater.setList(CurrencyDB.get.dao().getList())
-            adpater.onClickItem = {
-                b.tvCurrecyValue.text = it.name
-                dialog.cancel()
+            val popUp = PopupMenu(context, b.tvCurrecyValue)
+            popUp.menu.apply {
+                add(Currency.CASH)
+                add(Currency.BANK)
             }
-
-            b1.recyclerView.layoutManager = LinearLayoutManager(context)
-            b1.recyclerView.adapter = adpater
-
-            dialog.show()
+            popUp.setOnMenuItemClickListener {
+                when (it.title.toString()) {
+                    Currency.CASH ->  b.tvCurrecyValue.text = Currency.CASH
+                    Currency.BANK ->  b.tvCurrecyValue.text = Currency.BANK
+                }
+                true
+            }
+            popUp.show()
         }
         b.btnAddType.setOnClickListener {
             val b1 = DialogPickItemInListViewBinding.bind(
@@ -240,25 +236,19 @@ object DialogAddMoneyIO {
             b.tvAmonutValue.text = AppData.formatMoneyWithAppConfig(it.toString())
         }
         b.tvCurrecyValue.setOnClickListener {
-            val b1 = DialogPickItemInListViewBinding.bind(
-                LayoutInflater.from(context).inflate(R.layout.dialog_pick_item_in_list_view, null)
-            )
-            val dialog = Dialog(context)
-            dialog.setContentView(b1.root)
-            b1.tvTitle.text = getStr(R.string.pick_currency)
-
-            val adapter = CurrencyAdapter()
-            adapter.hideImgDelete = true
-            adapter.setList(CurrencyDB.get.dao().getList())
-            adapter.onClickItem = {
-                b.tvCurrecyValue.text = it.name
-                dialog.cancel()
+            val popUp = PopupMenu(context, b.tvCurrecyValue)
+            popUp.menu.apply {
+                add(Currency.CASH)
+                add(Currency.BANK)
             }
-
-            b1.recyclerView.layoutManager = LinearLayoutManager(context)
-            b1.recyclerView.adapter = adapter
-
-            dialog.show()
+            popUp.setOnMenuItemClickListener {
+                when (it.title.toString()) {
+                    Currency.CASH ->  b.tvCurrecyValue.text = Currency.CASH
+                    Currency.BANK ->  b.tvCurrecyValue.text = Currency.BANK
+                }
+                true
+            }
+            popUp.show()
         }
         b.btnAddType.setOnClickListener {
             val b1 = DialogPickItemInListViewBinding.bind(

@@ -16,3 +16,9 @@ class MyApp: Application() {
             private set
     }
 }
+
+/**
+ Currency: Bank, Cash
+ Money Type: Type in, Type out
+ Type: sales money, invest
+ **/

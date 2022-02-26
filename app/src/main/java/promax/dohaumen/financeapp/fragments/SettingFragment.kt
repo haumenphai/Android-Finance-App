@@ -27,7 +27,6 @@ class SettingFragment: Fragment() {
     private lateinit var b: FragmentSettingBinding
     private val mainActivity: MainActivity by lazy { activity as MainActivity }
 
-    private var currencyAdapter = CurrencyAdapter()
     private var moneyTypeAdapter = MoneyTypeAdapter()
 
 
@@ -38,7 +37,6 @@ class SettingFragment: Fragment() {
     ): View {
         b = FragmentSettingBinding.inflate(inflater, container, false)
         setupViewTotalMoney()
-        setupViewCurrency()
         setUpViewMoneyType()
         return b.root
     }
@@ -146,53 +144,6 @@ class SettingFragment: Fragment() {
         b.btnViewHistory.setOnClickListener {
             DialogShowMoneyHistory().show(b.root)
         }
-    }
-
-    private fun setupViewCurrency() {
-        val dialog = DialogInputOneValue(mainActivity)
-
-        b.btnAddCurrecy.setOnClickListener {
-            dialog.setTextEditName("")
-                .setTitle(mainActivity.getString(R.string.add_currency))
-                .setTextBtnSave(mainActivity.getString(R.string.add))
-                .setBtnSaveClick { text, dialog ->
-                    val name = text.trim()
-                    if (name == "") {
-                        Toast.makeText(context, R.string.message_name_is_empty, Toast.LENGTH_SHORT).show()
-                    } else {
-                        CurrencyDB.get.dao().insert(Currency(name))
-                        dialog.cancel()
-                    }
-                }.show()
-        }
-
-
-        b.recyclerViewCurrecy.layoutManager = LinearLayoutManager(mainActivity)
-        b.recyclerViewCurrecy.adapter = currencyAdapter
-        CurrencyDB.get.dao().getLiveData().observeForever {
-            currencyAdapter.setList(it)
-        }
-
-        // edit
-        currencyAdapter.onClickItem = { currency ->
-            dialog.setTitle(mainActivity.getString(R.string.edit))
-                .setTextBtnSave(mainActivity.getString(R.string.save))
-                .setTextEditName(currency.name)
-                .setSelectionEditName(0, currency.name.length)
-                .setBtnSaveClick { text, dialog ->
-                    val name = text.trim()
-                    if (name == "") {
-                        Toast.makeText(context, R.string.message_name_is_empty, Toast.LENGTH_SHORT).show()
-                    } else {
-                        currency.name = name
-                        CurrencyDB.get.dao().update(currency)
-                        dialog.cancel()
-                    }
-
-                }.show()
-
-        }
-
     }
 
     private fun setUpViewMoneyType() {

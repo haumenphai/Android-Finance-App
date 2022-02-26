@@ -6,7 +6,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.*
@@ -17,7 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import promax.dohaumen.financeapp.MyApp
 import promax.dohaumen.financeapp.R
-import promax.dohaumen.financeapp.databinding.ItemCurrecyBinding
 import promax.dohaumen.financeapp.databinding.ItemMoneyTypeBinding
 import promax.dohaumen.financeapp.databinding.ItemMoneyTypeInDialogCreateMoneyIoBinding
 import promax.dohaumen.financeapp.models.MoneyInOut.MoneyInOutType
@@ -127,7 +125,7 @@ class MoneyTypeAdapter: RecyclerView.Adapter<MoneyTypeAdapter.MoneyTypeHolder>()
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_money_type_in_dialog_create_money_io, parent, false)
             return MoneyTypeHolder(view)
         } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_currecy, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_money_type, parent, false)
             return MoneyTypeHolder(view)
         }
     }
