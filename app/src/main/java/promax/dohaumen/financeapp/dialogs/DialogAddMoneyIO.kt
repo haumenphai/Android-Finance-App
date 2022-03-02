@@ -158,19 +158,19 @@ object DialogAddMoneyIO {
             if (b.checkboxComputeIntoTheTotalMoney.isChecked) {
                 if (type == MoneyInOut.MoneyInOutType.IN) {
                     when (currency) {
-                        getStr(R.string.bank) -> {
+                        Currency.BANK -> {
                             AppData.increaseMoneyBank(moneyIO.amount)
                         }
-                        getStr(R.string.cash) -> {
+                        Currency.CASH -> {
                             AppData.increaseTotalCash(moneyIO.amount)
                         }
                     }
                 } else {
                     when (currency) {
-                        getStr(R.string.bank) -> {
+                        Currency.BANK -> {
                             AppData.minusMoneyBank(moneyIO.amount)
                         }
-                        getStr(R.string.cash) -> {
+                        Currency.CASH -> {
                             AppData.minusTotalCash(moneyIO.amount)
                         }
                     }

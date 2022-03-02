@@ -132,8 +132,14 @@ class MoneyInOut: BaseModel {
 
     companion object {
         fun getDemoMoneyInOut() = listOf(
-            MoneyInOut("Buy car", MoneyInOutType.OUT, "10000", Currency.BANK, datetime = "2022-12-12 20:20"),
-            MoneyInOut("Sell car", MoneyInOutType.IN, "50000", Currency.CASH, datetime = "2022-01-12 17:01")
+            MoneyInOut("Buy car", MoneyInOutType.OUT, "10000", Currency.BANK,
+                datetime = "2022-12-12 20:20",
+                computeIntoTheTotalMoney = false
+            ),
+            MoneyInOut("Sell car", MoneyInOutType.IN, "50000", Currency.CASH,
+                datetime = "2022-01-12 17:01",
+                computeIntoTheTotalMoney = false
+            )
         )
 
         @TestOnly
