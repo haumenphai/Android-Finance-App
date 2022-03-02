@@ -250,16 +250,16 @@ class FilterMoneyIO: BaseModel {
     fun sortMoneyIO(list: List<MoneyInOut>): List<MoneyInOut> {
         var result = list
         when (this.filed) {
-            "name" -> result = result.sortedWith(compareBy({it.name}, {it.name}))
+            "name" -> result = result.sortedWith(compareBy { it.name })
             "amount" -> {
                 try {
-                    result = result.sortedWith(compareBy({it.amount.toDouble()}, {it.amount.toDouble()})).reversed()
+                    result = result.sortedWith(compareBy { it.amount.toDouble() }).reversed()
                 } catch (e: Exception) {
                     return result
                 }
             }
-            "datetime" -> result = result.sortedWith(compareBy({it.datetime}, {it.datetime}))
-            "id" -> result = result.sortedWith(compareBy({it.id}, {it.id})).reversed()
+            "datetime" -> result = result.sortedWith(compareBy({it.datetime}, {it.id}))
+            "id" -> result = result.sortedWith(compareBy { it.id }).reversed()
         }
         if (this.reverse) result = result.reversed()
         return result

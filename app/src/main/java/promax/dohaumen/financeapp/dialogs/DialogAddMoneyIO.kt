@@ -50,7 +50,6 @@ object DialogAddMoneyIO {
             b.tvTimeValue.text = ""
         }
         b.tvCurrecyValue.text = Currency.CASH_I18N
-
         b.tvTimeValue.text = getCurrentTimeStr("yyyy-MM-dd")
 
         val moneyTypeAdapter = MoneyTypeAdapter()
@@ -67,6 +66,8 @@ object DialogAddMoneyIO {
                 b.imgMoneyType.setBackgroundColor(getColor(R.color.red_500))
             }
         }
+        b.radioTypeMoneyOut.isChecked = true
+
         b.editAmonut.addTextChangedListener {
             b.tvAmonutValue.text = AppData.formatMoneyWithAppConfig(it.toString())
         }

@@ -179,7 +179,6 @@
                             android:id="@+id/radio_type_money_in"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:checked="true"
                             android:text="@string/money_in" />
 
                         <RadioButton
