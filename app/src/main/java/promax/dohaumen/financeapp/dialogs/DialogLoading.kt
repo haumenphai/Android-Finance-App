@@ -3,6 +3,7 @@ package promax.dohaumen.financeapp.dialogs
 import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import promax.dohaumen.financeapp.R
 import promax.dohaumen.financeapp.databinding.DialogLoadingBinding
 
@@ -26,6 +27,10 @@ class DialogLoading(context: Context) {
         }
     }
 
+    fun disableCancel(): DialogLoading {
+        b.tvCancel.visibility = View.GONE
+        return this
+    }
 
     fun show(): DialogLoading {
         dialog.show()

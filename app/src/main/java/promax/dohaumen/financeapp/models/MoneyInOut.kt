@@ -2,11 +2,9 @@ package promax.dohaumen.financeapp.models
 
 import androidx.room.Entity
 import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import com.google.gson.Gson
 import org.jetbrains.annotations.TestOnly
 import promax.dohaumen.financeapp.R
-import promax.dohaumen.financeapp.app_test.type
 import promax.dohaumen.financeapp.datas.AppData
 import promax.dohaumen.financeapp.helper.*
 import java.lang.Exception

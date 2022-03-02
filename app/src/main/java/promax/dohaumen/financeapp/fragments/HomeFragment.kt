@@ -29,6 +29,7 @@ import java.math.BigDecimal
 class HomeFragment: Fragment() {
     private lateinit var b: FragmentHomeBinding
     private val mainActivity: MainActivity by lazy { activity as MainActivity }
+    private val dialogLoading by lazy { DialogLoading(mainActivity).disableCancel() }
     private val moneyInOutAdapter = MoneyInOutAdapter()
     private val filterMoneyIOAdapter = FilterMoneyIOAdapter()
     private var listMoneyIO = listOf<MoneyInOut>() // list in db
@@ -95,15 +96,15 @@ class HomeFragment: Fragment() {
                 pagingForMoneyIO(listMoneyIO)
             }
 
-        val dialogLoading = DialogLoading(mainActivity)
+        val dialogLoading2 = DialogLoading(mainActivity)
         val dialogReportMoneyIO = DialogReportMoneyIO(mainActivity)
             .setOnPreProcessShowDetail {
-                dialogLoading.show()
+                dialogLoading2.show()
             }
             .setOnProcessShowDetailComplete {
-                dialogLoading.cancel()
+                dialogLoading2.cancel()
             }
-        dialogLoading.setOnClickBtnCancel { dialogReportMoneyIO.cancelJob() }
+        dialogLoading2.setOnClickBtnCancel { dialogReportMoneyIO.cancelJob() }
 
         // for search, filter
         b.recyclerViewFilterMoneyIo.layoutManager = GridLayoutManager(mainActivity, 2)
@@ -129,17 +130,21 @@ class HomeFragment: Fragment() {
            dialogSortMoneyIO.show()
         }
         b.imgReport.setOnClickListener {
-            dialogLoading.show()
+            dialogLoading2.show()
             dialogReportMoneyIO.setListMoneyIO(currentListMoneyIo) {
                 dialogReportMoneyIO.show()
-                dialogLoading.cancel()
+                dialogLoading2.cancel()
             }
         }
     }
 
     private var job1: Job? = null
-    private fun pagingForMoneyIO(_list: List<MoneyInOut> = currentListMoneyIo) {
+    private fun pagingForMoneyIO(
+        _list: List<MoneyInOut> = currentListMoneyIo,
+        onComplete: () -> Unit = {}
+    ) {
         job1?.cancel()
+        dialogLoading.show()
         job1 = GlobalScope.launch {
             // Step 1: Compute currentListMoneyIo by current sort, current filter and current search
             currentListMoneyIo = _list
@@ -160,15 +165,12 @@ class HomeFragment: Fragment() {
             withContext(Dispatchers.Main) {
                 loadDataTotalMoneyIOToText(currentListMoneyIo)
 
-                fun initValue(_list1: List<MoneyInOut>) {
-                    b.tvRecordsCount.text = _list1.size.toString()
-                    b.tvRecordsCurrent.text = "${start+1}-$end / "
-                    if (_list1.size < maxRecordsShowed) {
-                        end = _list1.size
-                    }
-                    moneyInOutAdapter.setList(_list1.subList(start, end).toMutableList())
+                b.tvRecordsCount.text = currentListMoneyIo.size.toString()
+                b.tvRecordsCurrent.text = "${start+1}-$end / "
+                if (currentListMoneyIo.size < maxRecordsShowed) {
+                    end = currentListMoneyIo.size
                 }
-                initValue(currentListMoneyIo)
+                moneyInOutAdapter.setList(currentListMoneyIo.subList(start, end).toMutableList())
 
 
                 b.imgRight.setOnClickListener {
@@ -208,6 +210,8 @@ class HomeFragment: Fragment() {
                     moneyInOutAdapter.setStartIndex(start)
                     b.tvRecordsCurrent.text = "${start+1}-$end / "
                 }
+                dialogLoading.cancel()
+                onComplete()
             }
         }
     }
