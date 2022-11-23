@@ -8,6 +8,8 @@ class MyApp: Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+
+
     }
 
     companion object {
@@ -16,3 +18,9 @@ class MyApp: Application() {
             private set
     }
 }
+
+/**
+ Currency: Bank, Cash
+ Money Type: Type in, Type out
+ Type: sales money, invest
+ **/

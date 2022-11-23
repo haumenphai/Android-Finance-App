@@ -1,3 +1,4 @@
+
 package promax.dohaumen.financeapp.db
 
 import androidx.lifecycle.LiveData
@@ -10,7 +11,7 @@ import promax.dohaumen.financeapp.MyApp.Companion.context
 import promax.dohaumen.financeapp.models.MoneyInOut
 
 
-@Database(entities = [MoneyInOut::class], version = 1)
+@Database(entities = [MoneyInOut::class], version = 3)
 abstract class MoneyInOutDB : RoomDatabase() {
     abstract fun dao(): MoneyInOutDao
 
@@ -20,7 +21,6 @@ abstract class MoneyInOutDB : RoomDatabase() {
                 Room.databaseBuilder(context, MoneyInOutDB::class.java, "money_in_out_db")
                     .allowMainThreadQueries()
                     .addCallback(roomCallback)
-                    .fallbackToDestructiveMigration()
                     .build()
             }
         }
@@ -33,7 +33,7 @@ abstract class MoneyInOutDB : RoomDatabase() {
             }
         }
 
-        val roomCallback = object : RoomDatabase.Callback() {
+        private val roomCallback = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 insertDemoData()

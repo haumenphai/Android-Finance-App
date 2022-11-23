@@ -9,10 +9,9 @@
     android:gravity="center">
 
     <RelativeLayout
-        android:layout_marginTop="-5dp"
         android:id="@+id/action_select_all"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_weight="1"
         android:background="@drawable/rippler_white_blue">
 
@@ -22,14 +21,13 @@
             android:layout_height="30dp"
             android:src="@drawable/ic_all_done"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_centerHorizontal="true"
             app:tint="?attr/colorControlNormal" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select all"
+            android:text="@string/select_all"
             android:textSize="13sp"
             android:layout_below="@id/img_select_all"
             android:gravity="center" />
@@ -49,14 +47,14 @@
             android:layout_height="30dp"
             android:src="@drawable/ic_delete"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_centerHorizontal="true"
             app:tint="?attr/colorControlNormal" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Delete"
+            android:text="@string/delete"
             android:textSize="13sp"
             android:layout_below="@id/img_delete"
             android:gravity="center" />
@@ -68,6 +66,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/action_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,14 +79,14 @@
             android:layout_height="30dp"
             android:src="@drawable/ic_edit"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_centerHorizontal="true"
             app:tint="?attr/colorControlNormal" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit"
+            android:text="@string/edit"
             android:textSize="13sp"
             android:layout_below="@id/img_edit"
             android:gravity="center" />
@@ -112,14 +111,14 @@
             android:layout_height="30dp"
             android:src="@drawable/ic_cancel_2"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_centerHorizontal="true"
             app:tint="?attr/colorControlNormal" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textSize="13sp"
             android:layout_below="@id/img_cancel"
             android:gravity="center" />
